@@ -1,0 +1,58 @@
+# requires a unix compatible editor like NotePad++ 
+###################################################
+#                                                 #
+#  AutoBouquets E2 - custom service swap manager  #
+#                                                 #
+#  service data can be found in autobouquets.csv  #
+#                                                 #
+###################################################
+
+#11 Mar 2016
+#Based on SD region numbers
+
+#swap local SD with HD.
+141=101
+142=102
+178=103
+227=104
+171=105
+
+#bbc three/four
+210=115
+211=116
+
+225=118
+263=119
+268=120
+269=123
+
+#AMC from BT HD
+276=192
+
+#BT Sports/ESPN
+427=413
+457=417
+433=414
+458=426
+
+#news
+570=503
+518=512
+
+#premier HD
+460=424
+462=428
+
+#KIDS
+633=613
+624=624
+
+#TV Record
+856=801
+
+#Daystar HD
+596=583
+
+#&TV
+853=795
+

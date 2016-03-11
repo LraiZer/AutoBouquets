@@ -1,0 +1,284 @@
+AutoBouquets E2 Changelog
+-------------------------
+
+10-08-2012
+first version released to public for testing, this
+is totally untested, so backup your files first! :)
+
+13-08-2012
+current bouquets are no longer overwritten. if not
+detected as already present in user bouquets, they
+are written to front to preserve official numbering.
+various other code fixes and improvements also done.
+
+19-08-2012
+new GUI with help button for onbox readme.txt viewing.
+error checks added to stop box lockup on none active.
+added special handling of the sbo channels namespace.
+other file and error checking and various code fixes.
+
+21-08-2012
+added checks to make sure we only process 28.2E sat.
+also .ipk installer for mipsel with dvbsnoop depend.
+
+24-09-2012
+LraiZer:-
+auto update lamedb services using script NIT scanning.
+option to parentally control and make child friendly.
+option to add official channel numbering with names.
+option to use channel placeholder on none PLi images.
+option to be able to create the default bouquet set.
+option to be able to create free to air only bouquets.
+option to create customized channel ordered bouquets, 
+use example custom.txt in plugin folder to customize.
+
+AndyBlac:- OE-Alliance: https://github.com/oe-alliance/
+           oe-alliance-plugins/tree/master/AutoBouquets
+new GUI, which will now remember and save your settings.
+option to keep official numbering with HD first bouquet.
+auto schedule for Daily, Weekly, Monthly at chosen time.
+perform a service scan before running script (optional).
+compatible with PLi based image placeholder skipping.
+compatible with iDreamX Bouquet Editor for Apple MAC.
+
+27-09-2012
+auto detect correct transponder modulation with NIT scan.
+adds full list of active channels to interactive bouquet.
+removed needsRestart parameter, feedback crashes on some.
+
+30-09-2012
+fix unassigned option crash in scheduled service scanning.
+remove duplicated channel epg numbering list in custom.txt
+
+9-10-2012
+now also detects and parses the hidden data channel names.
+add autobouquets selection menu to service searching menu.
+also adds the channel epg numbers to the official bouquet.
+
+13-10-2012
+now also auto initializes systems for first run of plugin.
+
+21-02-2013
+AutoBouquets E2 code has been 90% rewritten and optimized
+for speed. main coding has now been moved into binaries.
+script checking can be disabled for none comaptible boxes.
+run AutoBouquets Downloader in background via blue button.
+custom.txt channel swap file has be slightly simplified.
+now just enter channels to swap with each other. 105=171
+
+01-03-2013
+fixed missing channels bug. added bouquet style options. 
+added supplement.txt file for manual service additions.
+
+15-08-2013
+AutoBouquets E2 code has been totally rewritten yet again.
+main coding has now been moved into a single executable.
+
+dvbsnoop is no longer required, all data is now being read
+from the stream by the new faster autobouquetsreader file.
+bouquets generation is now very fast at about 50 seconds.
+
+new custom_swap.txt file has even more power. you can 
+now swap with channel numbers outside of range 101-999.
+this means you can also swap with testing/blank channels.
+
+supplement.txt file also has more power, you can also now
+change single data items only such as channel name or just
+change the encryption type. you can still add new channels.
+ 
+used oe-alliance dvbscanner library as the starting point
+reference for coding the new autobouquets stream reader.
+Sources:   dvbscanner library, part of AutoBouquetsMaker  
+AndyBlac - https://github.com/oe-alliance/
+skaman - oe-alliance-plugins/tree/master/AutoBouquetsMaker
+
+17-08-2013
+fixed bug writing to fta with create child friendly option.
+fixed writing hex service type in lamedb to decimal value.
+
+25-08-2013
+fixed reading intermittent missing channels in bat tables,
+added crc and more error checking to stop missing channels.
+
+20-10-2013
+added Custom Sort options, edit custom_sort_(N).txt files,
+channels will be generated in a user managed channel order.
+
+added AutoPicon support, creates symlinks to static picons.
+first run autobouqets without autopicon option turned on to
+create an updated autobouquets.csv database reference file.
+install normal picons, set picon location will auto convert.
+create autopicon links option on ext formatted location only!
+
+05-07-2014 Not by Lraizer
+Readme file edited to remove perform "scan first"
+Added error checking in script. See following thread
+http://www.ukcvs.net/forum/showthread.php?29323-AutoBouquet-E2-28-2E&p=52706&viewfull=1#post52706
+Re-ordered the regions
+Owing to HD channel changes, supplement file now renames them
+custom_sort_3.txt has had the affected channels commented out
+ITV regions also named via supplement file
+"Custom" relabelled to "custom swap"
+Hide PLI place holders defaulted to true
+Other/extra defaulted to true
+
+21-08-2014 Not by Lraizer
+CH 4 HD number changed
+Previous supplement renames updated owing to the reshuffle
+Skin widened slightly and some text changed to reflect menu.
+
+05-09-2014
+New reader to skip Non-FTA HD channels from bouquets. (02/09/2014)
+Supplement file adapted to take into account the encryption flag changes required for some HD channels
+Swap for London Live added automatically. London users please comment out.
+Changed name in Extension
+
+24-09-2014 Not by Lraizer
+Readme file amended. Installation at top. Removed reference to dvbsnoop installation
+Added Dundee region. Thanks to Jimbo.
+Temporarily commented out HD regions
+Orphaned news channels moved out of documentaries for sort files 1/2/3
+Swap/ordering defaulted to True in line 166.
+
+Sorting options:- to stop people saying "numbers don't match"
+"Default" renamed "Large 1st Bouquet"
+"Out of the box" option is now "HD first". Will lead to Entertainment bouquet starting at 101.
+People wanting the large first bouquet to use < and > buttons can still select it.
+
+13-11-2014
+User able to select between HD and SD regions, default is SD.
+Amended symlink process to cater for numbering in plugin and Service Reference Picons
+
+05-12-14
+removed Film4 HD
+
+15-04-2015
+Added code to deal with unlinked bouquets. Thanks Lraizer
+Changed default service details
+Renamed Scan FTA Only and options
+Added ITV Encore HD to suppplement file 
+
+27-04-2015
+Some GUI rework
+Renamed some options/values to make then easier to understand
+Re-ordered options too
+Ipk now using all architecture. SH4 users must replace autobouquetsreader
+
+28-04-2015
+bug fixes introduced in last version
+auto detect autobouquetsreader install based on box arch
+
+2015-05-16
+Remove Sky News HD from supplement and swap files
+Deal with images that use /bin/bash as the default shell instead of standard busybox ash
+
+2015-05-31
+Post Installation file changes reverted. Some images renaming wrong file, some not even renaming.
+SH4 reader will be included in folder. Please rename if you are using SH4 architecture
+
+2015-06-24
+Supplement and swap file changes owing to official reshuflle and some HD channels being viewable.  
+Default service changed again.
+Swap defaulted to off. Can then import PaphosAl's sort files without worrying about clashes.
+We have HD first as default anyway. Also avoids issues of swapping to chanenls that have moved owing to LCN changes
+Sort_3 file changed.
+
+2015-07-21
+Corrected Scoland East/West error
+Added Wales region.
+Added services and TP to "create lamedb" section.
+Supplement file updated for new viewable HD channels
+Swap file edited. Added BTSport/Euro HD swap. Target LCN now referenced first. Still works the same way.
+
+Renamed autobouquetsreader.sh4 to "autobouquetsreader(sh4_receivers) to avoid any confusion between ".sh" and ".sh4".
+If you have a receiver woth a SH4 CPU eg Amiko, you still have to rename the file. Refer to lines 16-19 above.
+
+2015-09-20
+Reader file updated to place Red Button Sports channels in a combined bouquet.
+Three reader files in plugin for the following CPU types: Mips, SH4 and ARM 
+User can now configue and select the architecture type of receiver.
+Fixed a long standing issue where starting with non-28.2 bouquets caused an issue.
+GUI rework.
+
+2015-09-21
+Fixed mode = TV after initial run.
+Area space in GUI increased 
+
+2015-10-07
+Correct SH4 reader now being used.
+Variables now one string
+Split changelog from helpfile
+
+2015-10-11
+GUI adjusted. "centre" did not work for all images.
+Supplement file adjusted for ROI channels to allow available HD channels.
+
+2015-10-14
+Numbering system defaulted to SD. GUI text also altered
+
+2015-10-27
+Cleanup of debug comments
+fixed a required missing sleep command from def_zap
+
+2015-11-01
+Add help text section
+Some text renames
+
+2015-12-01
+Fixed the long standing Irish issue
+Added translation file. Anybody wishing to translate to any other language can download the .po file from ukcvs
+Bouquet demarcation for shopping and entertainment altered
+Lifestyle and culture is vacant and can be populated using the sort options
+
+Sort Options:
+Channels outside the range 100-999 can now be used
+
+Five extra user bouquets added. The sample sort 3 file has made use of these.
+Sort 3 file has always been for the user to adapt to their liking.
+
+For channels that do not have a proper LCN, they are assigned 65535, you must use the "virtual number".
+The virtual number is 65535+EPG ID. So, if you wanted to add BT Sport Mosaic ( EPG ID =5030) into a bouquet, 
+the virtual number to use in the sort file would be 70565 (65535+5030). Entry in sort file would be u1=70565
+
+You can now rename the bouquets when using the sort files. The section markers in the large frst bouquet will not be affected.
+To do so, you must prefix the bouquet nyumber wih a "$". E.G "$02= Localised channels"
+
+You can also rename Bouquets in the supplement file. This is independent of the sort feature
+E.g $01=Entertainment and Lifestyle 
+
+2015-12-18
+Corrected ipk package contents
+Added time sync to post install process
+
+2015-12-27
+Reader files updated:
+Fix intermittent bug when using Custom sort feature
+Remove EPG ID from channel names in interactive bouquets for reader file. These have been added to the supplement file
+Renamed mips reader. Added "_mips" to end so as to be consistent with other reader files
+Reshuffle some channels in default sort 3 file.
+
+2016-01-11
+Reader files updated to deal with accents on some Irish channels
+
+2016-02-01
+Error whn compiling previous ipk. Sorry.
+Date changed to avoid confusion.
+(We are aware of issues with oireachtas and tv3 for out of region operations)
+
+2016-02-02
+added service reference to csv database.
+
+To avoid confusion over reader files being used,
+added reader Build timestamp into generated csv database
+reader build timestamps can be checked via command line:
+[code]
+cd /usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
+for arch in mips arm sh4;do strings autobouquetsreader_$arch|grep Build;done
+[/code]
+
+2016-03-11
+Add numeric shortcut keys to aid WeTek Play Classic RCU.
+ALL ARCH reverted back to STB arch only single autobouquetsreader.
+Sources now available for dedicated *.ipk arch building via GitHub:
+https://github.com/LraiZer/AutoBouquets
+
