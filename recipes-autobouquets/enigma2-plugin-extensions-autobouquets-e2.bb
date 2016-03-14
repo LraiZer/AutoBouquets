@@ -26,40 +26,74 @@ SRC_URI="git://github.com/LraiZer/AutoBouquets.git;branch=${AUTOBOUQUETS_BRANCH}
 S = "${WORKDIR}/git"
 
 FILES_${PN} = "/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets"
+D_FILES_PN = "${D}${FILES_${PN}}"
 
 EXTRA_OECONF = ""
 
 do_install() {
-    install -d ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -d ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets/locale
-    install -m 644 ${S}/autobouquets.png ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 755 ${S}/autobouquets_e2.sh ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 755 ${S}/autobouquetsreader ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 755 ${S}/autopicon_convert.sh ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/changelog.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/COPYING ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/custom_sort_1.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/custom_sort_2.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/custom_sort_3.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/custom_swap.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/helpfile.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/__init__.py ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/LICENSE ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/oea-logo.png ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/plugin.py ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/readme.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
-    install -m 644 ${S}/supplement.txt ${D}/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
+    install -d ${D_FILES_PN}
+    install -d ${D_FILES_PN}/locale
+    install -m 644 ${S}/autobouquets.png ${D_FILES_PN}
+    install -m 755 ${S}/autobouquets_e2.sh ${D_FILES_PN}
+    install -m 755 ${S}/autobouquetsreader ${D_FILES_PN}
+    install -m 755 ${S}/autopicon_convert.sh ${D_FILES_PN}
+    install -m 644 ${S}/changelog.txt ${D_FILES_PN}
+    install -m 644 ${S}/COPYING ${D_FILES_PN}
+    install -m 644 ${S}/custom_sort_1.txt ${D_FILES_PN}
+    install -m 644 ${S}/custom_sort_2.txt ${D_FILES_PN}
+    install -m 644 ${S}/custom_sort_3.txt ${D_FILES_PN}
+    install -m 644 ${S}/custom_swap.txt ${D_FILES_PN}
+    install -m 644 ${S}/helpfile.txt ${D_FILES_PN}
+    install -m 644 ${S}/__init__.py ${D_FILES_PN}
+    install -m 644 ${S}/LICENSE ${D_FILES_PN}
+    install -m 644 ${S}/oea-logo.png ${D_FILES_PN}
+    install -m 644 ${S}/plugin.py ${D_FILES_PN}
+    install -m 644 ${S}/readme.txt ${D_FILES_PN}
+    install -m 644 ${S}/supplement.txt ${D_FILES_PN}
 }
 
-do_package_prepend() {
-    PREINST_path = "${S}/CONTROL/preinst"
-    POSTINST_path = "${S}/CONTROL/postinst"
-    POSTRM_path = "${S}/CONTROL/postrm"
-    PREINST = open(PREINST_path, "r")
-    POSTINST = open(POSTINST_path, "r")
-    POSTRM = open(POSTRM_path, "r")
-    d.setVar("pkg_preinst", PREINST.read())
-    d.setVar("pkg_postinst", POSTINST.read())
-    d.setVar("pkg_postrm", POSTRM.read())
+
+pkg_preinst_${PN}() {
+#!/bin/sh
+
+echo "Checking for an older version of ${PN}"
+
+if [ -d ${FILES_${PN}} ]; then
+	rm -rf ${FILES_${PN}} > /dev/null 2>&1
+	echo "An older version of ${PN} was found and removed"
+else
+	echo "${PN} was not found"
+fi
+
+echo "Proceeding to installation..."
+
+exit 0
+
+}
+
+pkg_postinst_${PN}() {
+#!/bin/sh
+
+echo "updating time"
+rdate -s time.mit.edu
+sleep 2
+echo "*                               *"
+echo "* plugin installed successfully *"
+echo "*                               *"
+echo "* Enigma2 restart is required!  *"
+echo "*                               *"
+
+exit 0
+
+}
+
+pkg_postrm_${PN}() {
+#!/bin/sh
+
+echo "Removing ${PN}"
+rm -rf ${FILES_${PN}} > /dev/null 2>&1
+
+exit 0
+
 }
 
