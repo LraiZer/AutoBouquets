@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20160311
+# Date 20160317
 # log last edit
 
 ###################################################
@@ -42,15 +42,11 @@
 #Channel 5HD
 171:4058::::::FTA:
 
-#RTE TWO HD
-224:1270::::::FTA:
-115:1270::::::FTA:
-
-#ITV2 HD    
+#ITV2 HD
 225:6532::::::FTA:
 118:6532::::::FTA:
 
-#ITV3 HD    
+#ITV3 HD
 263:6533::::::FTA:
 119:6533::::::FTA:
 
@@ -58,7 +54,7 @@
 268:6534::::::FTA:
 120:6534::::::FTA:
 
-#ITV ENCORE HD    
+#ITV ENCORE HD
 269:6506::::::FTA:
 123:6506::::::FTA:
 
@@ -82,7 +78,7 @@
 
 #BT Spt ESPN HD
 458:4040::::::FTA:
-458:4041::::::FTA:    
+458:4041::::::FTA:
 1072:4041::::::FTA:
 
 #Premier/Setanta HD
@@ -93,7 +89,7 @@
 #Racing UK HD
 466:5272::::::FTA:
 
-#BoxNation HD            
+#BoxNation HD
 490:5039::::::FTA:
 
 752:4032::::::FTA:
@@ -104,6 +100,7 @@
 743:1690:::::::Sky Box Office Events
 
 #non-FTA corrections
+
 #Sony TV
 157:3358::::::NDS:
 #Sony TV +1
@@ -124,7 +121,7 @@
 630:5089::::::NDS:
 
 #ITV Regional Renames
-# (for users in the default London area) 
+# (for users in the default London area)
 103:6000:::::::ITV London
 
 # Rename ITV London (for users not in London)
@@ -165,7 +162,7 @@
 1024:6015:::::::ITV Central SW
 65535:6220:::::::STV Scotland West
 
-#ITV regional replacements
+#ITV regional renames
 103:6000:::::::ITV London
 103:6010:::::::ITV Central South
 103:6015:::::::ITV Central SW
@@ -187,7 +184,7 @@
 103:6220:::::::STV Scotland West
 103:6371:::::::STV Scotland East
 
-#ITV +1 regional replacements
+#ITV +1 regional renames
 131:6325:::::::STV +1
 131:6155:::::::ITV +1 London
 131:6012:::::::ITV +1 Wales
@@ -200,7 +197,7 @@
 131:6365:::::::ITV +1 Meridian
 131:6065:::::::ITV +1 Yorkshire
 
-#ITV HD renames  
+#ITV HD renames
 178:6501:::::::ITV Wales HD
 178:6502:::::::ITV Meridian South HD
 178:6503:::::::ITV Central West HD
@@ -240,4 +237,3 @@
 65535:1477:1::::::Sky Sports Active 7
 65535:1478:1::::::Sky Sports Active 8
 65535:1479:1::::::Sky Sports Active 9
-

@@ -7,8 +7,8 @@
 #                                                 #
 ###################################################
 
-#11 Mar 2016
-#Based on SD region numbers
+# Based on SD region numbers
+# RoI users must edit this file
 
 #swap local SD with HD.
 141=101
@@ -35,6 +35,9 @@
 433=414
 458=426
 
+#Racing UK
+466=432
+
 #news
 570=503
 518=512
@@ -55,4 +58,3 @@
 
 #&TV
 853=795
-
