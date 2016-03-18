@@ -1,0 +1,455 @@
+# AutoBouquets E2 28.2E stream bouquet downloader
+# Copyright (C) 2016 www.ukcvs.net
+# LraiZer <dev@ukcvs.net>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma2-plugin-extensions-autobouquets 20160318\n"
+"POT-Creation-Date: 2016-03-18 21:00+0000\n"
+"PO-Revision-Date: 2016-03-18 21:00+0000\n"
+"Last-Translator: LraiZer <dev@ukcvs.net>\n"
+"Language-Team: UkCvs <http://www.ukcvs.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: plugin.py:87
+msgid "SD"
+msgstr ""
+
+#: plugin.py:88
+msgid "HD"
+msgstr ""
+
+#: plugin.py:91
+msgid "default"
+msgstr ""
+
+#: plugin.py:92
+msgid "style 1"
+msgstr ""
+
+#: plugin.py:93
+msgid "style 2"
+msgstr ""
+
+#: plugin.py:94
+msgid "style 3"
+msgstr ""
+
+#: plugin.py:95
+msgid "style 4"
+msgstr ""
+
+#: plugin.py:96
+msgid "style 5"
+msgstr ""
+
+#: plugin.py:99
+msgid "Large 1st Bouquet"
+msgstr ""
+
+#: plugin.py:100
+msgid "HD First"
+msgstr ""
+
+#: plugin.py:101
+msgid "Sort 1"
+msgstr ""
+
+#: plugin.py:102
+msgid "Sort 2"
+msgstr ""
+
+#: plugin.py:103
+msgid "Sort 3"
+msgstr ""
+
+#: plugin.py:106 plugin.py:113
+msgid "/usr/share/enigma2/picon"
+msgstr ""
+
+#: plugin.py:107 plugin.py:114
+msgid "/picon"
+msgstr ""
+
+#: plugin.py:108 plugin.py:115
+msgid "/media/usb/picon"
+msgstr ""
+
+#: plugin.py:109 plugin.py:116
+msgid "/media/hdd/picon"
+msgstr ""
+
+#: plugin.py:110 plugin.py:117
+msgid "/media/cf/picon"
+msgstr ""
+
+#: plugin.py:120
+msgid "no"
+msgstr ""
+
+#: plugin.py:121
+msgid "Ordinary"
+msgstr ""
+
+#: plugin.py:122
+msgid "ServiceNamePicons"
+msgstr ""
+
+#: plugin.py:125
+msgid "All Channels"
+msgstr ""
+
+#: plugin.py:126
+msgid "FTA Only"
+msgstr ""
+
+#: plugin.py:127
+msgid "Available HD"
+msgstr ""
+
+#: plugin.py:149
+msgid "Daily"
+msgstr ""
+
+#: plugin.py:149
+msgid "Weekly"
+msgstr ""
+
+#: plugin.py:149
+msgid "30 Days"
+msgstr ""
+
+#: plugin.py:244
+msgid ""
+"You are about to update your bouquets,\n"
+"Do you want to allow this?"
+msgstr ""
+
+#: plugin.py:269
+msgid "Enough Retries, delaying till next schedule."
+msgstr ""
+
+#: plugin.py:341
+msgid "Area:"
+msgstr ""
+
+#: plugin.py:343
+msgid "Other Extra"
+msgstr ""
+
+#: plugin.py:345
+msgid "Auto Picon:"
+msgstr ""
+
+#: plugin.py:347
+msgid "Add No. to Name"
+msgstr ""
+
+#: plugin.py:349
+msgid "NIT Scan"
+msgstr ""
+
+#: plugin.py:351
+msgid "Hide Placeholder"
+msgstr ""
+
+#: plugin.py:353
+msgid "Hide Adult"
+msgstr ""
+
+#: plugin.py:355
+msgid "Default Bouquets"
+msgstr ""
+
+#: plugin.py:357 plugin.py:772
+msgid "Channel Swap"
+msgstr ""
+
+#: plugin.py:359
+msgid "Scan Mode:"
+msgstr ""
+
+#: plugin.py:361
+msgid "Script Check"
+msgstr ""
+
+#: plugin.py:363
+msgid "Next Update:"
+msgstr ""
+
+#: plugin.py:365
+msgid "Sort Option:"
+msgstr ""
+
+#: plugin.py:367 plugin.py:739
+msgid "Cancel"
+msgstr ""
+
+#: plugin.py:368
+msgid "Start"
+msgstr ""
+
+#: plugin.py:369
+msgid "Help"
+msgstr ""
+
+#: plugin.py:370 plugin.py:893
+msgid "About"
+msgstr ""
+
+#: plugin.py:455
+#, python-format
+msgid "%a %e %b  %-H:%M"
+msgstr ""
+
+#: plugin.py:475
+msgid "Please first setup, by pressing menu button"
+msgstr ""
+
+#: plugin.py:476 plugin.py:484 plugin.py:675
+msgid "AutoBouquets E2 for 28.2E"
+msgstr ""
+
+#: plugin.py:480
+msgid "Do you want to perform a NIT scan"
+msgstr ""
+
+#: plugin.py:482
+msgid "Do you want to perform a service scan"
+msgstr ""
+
+#: plugin.py:680
+msgid "Reloading Bouquets and Services..."
+msgstr ""
+
+#: plugin.py:681 plugin.py:893 plugin.py:1027
+msgid "AutoBouquets E2"
+msgstr ""
+
+#: plugin.py:700
+msgid "Showing AutoBouquets helpfile.txt"
+msgstr ""
+
+#: plugin.py:724
+msgid "AutoBouquets Setup"
+msgstr ""
+
+#: plugin.py:740
+msgid "OK"
+msgstr ""
+
+#: plugin.py:760
+msgid "Local Area Selection"
+msgstr ""
+
+#: plugin.py:761
+msgid "Select your region/area"
+msgstr ""
+
+#: plugin.py:762
+msgid "Numbering System"
+msgstr ""
+
+#: plugin.py:763
+msgid ""
+"SD: Channel numbers like a Sky SD box\n"
+"HD: Channel numbers like a Sky HD box"
+msgstr ""
+
+#: plugin.py:764
+msgid "Scan Mode"
+msgstr ""
+
+#: plugin.py:765
+msgid ""
+"Available HD = Skips unviewable HD channels\n"
+"FTA Only = Free channels only\n"
+"All Channels = All channels"
+msgstr ""
+
+#: plugin.py:766
+msgid "Bouquet Channel Sort"
+msgstr ""
+
+#: plugin.py:767
+msgid ""
+"HD First = First bouquet contains HD channels\n"
+"Large 1st bouquet = 1st one has all channels\n"
+"Sort 3 = For users to customise contents"
+msgstr ""
+
+#: plugin.py:768
+msgid "Add Ch. Number to Name"
+msgstr ""
+
+#: plugin.py:769
+msgid "Adds the official number to the channel name"
+msgstr ""
+
+#: plugin.py:770
+msgid "Hide Adult/Gaming"
+msgstr ""
+
+#: plugin.py:771
+msgid "This hides the Gaming and Adult bouquets"
+msgstr ""
+
+#: plugin.py:773
+msgid ""
+"This is primarily to swap SD channels for their HD equivalent\n"
+"Refer to custom_swap.txt for swaps\n"
+"There is no error checking"
+msgstr ""
+
+#: plugin.py:774
+msgid "Make All Default Bouquets"
+msgstr ""
+
+#: plugin.py:775
+msgid "You should disable this if you want to move or delete bouquets"
+msgstr ""
+
+#: plugin.py:776
+msgid "Other Extra Channels"
+msgstr ""
+
+#: plugin.py:777
+msgid ""
+"This allows for test/out of region channels. They will be created in the "
+"Other bouquet\n"
+"Some services are not written to lamedb"
+msgstr ""
+
+#: plugin.py:778
+msgid "Use Internal NIT Scan"
+msgstr ""
+
+#: plugin.py:779
+msgid ""
+"Disabling this offers option to perform a conventional scan\n"
+"Best to leave it as it is!"
+msgstr ""
+
+#: plugin.py:780
+msgid "Hide Blank Placeholders"
+msgstr ""
+
+#: plugin.py:781
+msgid ""
+"Hides the blanks used to make official numbers\n"
+"Not all images support this"
+msgstr ""
+
+#: plugin.py:782
+msgid "Enable Script Checks"
+msgstr ""
+
+#: plugin.py:783
+msgid ""
+"Some images do not allow the scripts being used\n"
+"Only disable this if you experience problems"
+msgstr ""
+
+#: plugin.py:784
+msgid "Bouquet Display Style"
+msgstr ""
+
+#: plugin.py:785
+msgid "Choose your Bouquet Display Style"
+msgstr ""
+
+#: plugin.py:786 plugin.py:809
+msgid "Create AutoPicon Links"
+msgstr ""
+
+#: plugin.py:787
+msgid ""
+"Do you want AB 28.2 to maintain the links to picons?\n"
+"Ordinary = conventional picons"
+msgstr ""
+
+#: plugin.py:789
+msgid "Picon Link Location"
+msgstr ""
+
+#: plugin.py:790
+msgid ""
+"Specify location for picon links\n"
+"Links must be on an ext file system"
+msgstr ""
+
+#: plugin.py:791
+msgid "Picon Folder Location"
+msgstr ""
+
+#: plugin.py:792
+msgid ""
+"Where are  picons located?\n"
+"If using SNPs, this must be same as Link location."
+msgstr ""
+
+#: plugin.py:793 plugin.py:809
+msgid "Automatic Updates"
+msgstr ""
+
+#: plugin.py:794
+msgid "Do you want AB 28.2 to run automatically?"
+msgstr ""
+
+#: plugin.py:796
+msgid "Time of Update to start"
+msgstr ""
+
+#: plugin.py:797
+msgid "Specify time you want for automated AB 28.2 updates"
+msgstr ""
+
+#: plugin.py:798
+msgid "Repeat how often"
+msgstr ""
+
+#: plugin.py:799
+msgid "How often do you want AB 28.2 to run?"
+msgstr ""
+
+#: plugin.py:840
+msgid "Really close without saving settings?"
+msgstr ""
+
+#: plugin.py:853
+msgid "AutoBouquets Database Log"
+msgstr ""
+
+#: plugin.py:857 plugin.py:862
+msgid "Last update"
+msgstr ""
+
+#: plugin.py:906
+msgid "Close"
+msgstr ""
+
+#: plugin.py:941
+msgid "AutoBouquets E2 28.2E"
+msgstr ""
+
+#: plugin.py:942
+msgid "downloading bouquets"
+msgstr ""
+
+#: plugin.py:1020
+msgid "AutoBouquets (28.2E)"
+msgstr ""
+
+#: plugin.py:1020 plugin.py:1027 plugin.py:1028
+msgid "28.2e stream bouquet downloader"
+msgstr ""
+
+#: plugin.py:1028
+msgid "AutoBouquets Downloader"
+msgstr ""
