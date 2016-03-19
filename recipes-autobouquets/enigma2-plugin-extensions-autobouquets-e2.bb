@@ -19,7 +19,7 @@ PV = "1.0+git${SRCPV}"
 PKGV = "1.0+git${GITPKGV}"
 PR = "r1"
 
-INHIBIT_PACKAGE_STRIP = "1"
+INSANE_SKIP_${PN} += "already-stripped"
 
 SRC_URI="git://github.com/LraiZer/AutoBouquets.git;branch=${AUTOBOUQUETS_BRANCH}"
 
