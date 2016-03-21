@@ -17,7 +17,7 @@ AUTOBOUQUETS_BRANCH ?= "release"
 SRCREV = "${AUTOREV}"
 PV = "1.0+git${SRCPV}"
 PKGV = "1.0+git${GITPKGV}"
-PR = "r1"
+PR = "r2"
 
 INSANE_SKIP_${PN} += "already-stripped"
 
@@ -41,7 +41,9 @@ do_install() {
     install -m 644 ${S}/LICENSE ${D_FILES_PN}
 
     install -d ${D_FILES_PN}/locale/en_GB/LC_MESSAGES
+    install -d ${D_FILES_PN}/locale/ru/LC_MESSAGES
     install -m 644 ${S}/locale/en_GB/LC_MESSAGES/*.* ${D_FILES_PN}/locale/en_GB/LC_MESSAGES
+    install -m 644 ${S}/locale/ru/LC_MESSAGES/*.* ${D_FILES_PN}/locale/ru/LC_MESSAGES
 }
 
 pkg_preinst_${PN}() {
