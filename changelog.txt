@@ -282,3 +282,5 @@ ALL ARCH reverted back to STB arch only single autobouquetsreader.
 Sources now available for dedicated *.ipk arch building via GitHub:
 https://github.com/LraiZer/AutoBouquets
 
+2016-03-31
+BBC One/Three changes in swap and custom files

@@ -89,7 +89,7 @@ to be done while not using the HD Bouquet settings option, or your offical numbe
 
 when using custom_swap.txt file for personal channel order, enter the two channels you wish to switch with each other.
 
-101=141
+101=115
 102=142
 103=178
 104=230

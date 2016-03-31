@@ -11,14 +11,13 @@
 # RoI users must edit this file
 
 #swap local SD with HD.
-141=101
+115=101
 142=102
 178=103
 227=104
 171=105
 
-#bbc three/four
-210=115
+#bbc four
 211=116
 
 225=118
