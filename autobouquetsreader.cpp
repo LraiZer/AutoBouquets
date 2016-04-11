@@ -1681,7 +1681,7 @@ int main (int argc, char *argv[]) {
 			if (custom_sort == 1)
 			{
 				hdcount++;
-				if (hdcount <= 100)
+				if (hdcount <= 95) // up to max 100 hd channels - first original 5 local region
  					write_bouquet_service((*i).second,bq_00,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			}
 		}
