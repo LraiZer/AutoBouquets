@@ -61,6 +61,7 @@ Menus
  - Channel Swap
  this allows you to change the generated channel ordering. Edit the example custom_swap.txt file in AutoBouquets folder
  by entering the channel numbers you wish to swap with each other ie. 101-117, you can swap with placeholder channels.
+ The numbers are based on England's numbers. As teh four nations ahve differnt numbers, you will have to edit them.
 
  - Scan Free To Air Only
  this will generate services with free to air flag detection.
