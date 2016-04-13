@@ -306,7 +306,7 @@ class AutoBouquets(Screen):
 			<widget name="status" position="0,115" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0"/>
 			<widget name="status2" position="310,115" size="205,30" font="Regular;22" zPosition="5"/>
 			<widget name="picons" position="0,150" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0" />
-			<widget name="piconstyle" position="310,150" size="205,30" font="Regular;22" zPosition="5"/>	
+			<widget name="piconstyle" position="310,150" size="205,30" font="Regular;22" zPosition="5"/>
 			<widget name="orderingcheck" position="15,250" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
 			<widget name="ordering" position="50,250" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<widget name="numcheck" position="315,250" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
