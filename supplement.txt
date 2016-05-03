@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20160317
+# Date 20160503
 # log last edit
 
 ###################################################
@@ -38,9 +38,6 @@
 
 #FTA conversion to allow available HD channels
 ###################################################
-
-#Channel 5HD
-171:4058::::::FTA:
 
 #ITV2 HD
 225:6532::::::FTA:
