@@ -9,7 +9,7 @@ DVB_ADAPTER="0"   #
 DVB_DEMUX="0"     #
 ###################
 
-versiondate="11 Mar 2016"
+versiondate="09 June 2016"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo

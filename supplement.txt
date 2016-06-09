@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20160601
+# Date 20160609
 # log last edit
 
 ###################################################
@@ -141,18 +141,14 @@
 178:6504:::::::ITV London HD
 178:6505:::::::ITV Granada HD
 
-# these have been added to compensate for poor data when ran on ITV transponder
-276:5037:::::::AMC from BTHD
-596:5541:::::::DAYSTAR HD
-856:3414:::::::TV Record HD
-
 #BBC Interactive
-980:2051:::::::BBC Red Button 1
-65535:2052:::::::BBC Red Button 2
-1224:2142:::::::BBC Red Button 3
-1212:2014:::::::BBC Red Button 4
-1214:2121:::::::BBC Red Button 5
-1215:2171:::::::BBC Red Button 6
+980:2051:1:18f6:7fd:11a0000:BSkyB:FTA:BBC Red Button 1
+981:8602:1:1a92:7f5:11a0000:BSkyB:FTA:BBC Red Button 2
+982:8603:1:1a93:7f5:11a0000:BSkyB:FTA:BBC Red Button 3
+983:8604:1:1a94:7f5:11a0000:BSkyB:FTA:BBC Red Button 4
+984:8605:1:1a95:7f5:11a0000:BSkyB:FTA:BBC Red Button 5
+985:8606:1:1a96:7f5:11a0000:BSkyB:FTA:BBC Red Button 6
+986:8611:19:1a9b:7f5:11a0000:BSkyB:FTA:BBC Red Button HD
 
 #BT Sport Interactive
 65535:5030:::::::BT Sport Mosaic
@@ -175,6 +171,8 @@
 65535:1478:1::::::Sky Sports Active 8
 65535:1479:1::::::Sky Sports Active 9
 
+#SBO
+743:1690:::::::Sky Box Office Events
 
 # Alter HD channel encryption so that they are not excluded
 ###########################################################
@@ -208,7 +206,14 @@
 
 752:4032::::::FTA:
 
-###################################################
+###########################################################
 
-#SBO
-743:1690:::::::Sky Box Office Events
+#exclude some channels deliberately. Duplicates and test channels
+898:1311:19:::::NDS:
+899:1819:19:::::NDS:
+950:1852:19:::::NDS:
+
+# these have been added to compensate for poor data when ran on ITV transponder
+276:5037:::::::AMC from BTHD
+596:5541:::::::DAYSTAR HD
+856:3414:::::::TV Record HD
