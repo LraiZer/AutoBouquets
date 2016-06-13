@@ -206,10 +206,10 @@
 752:4032::::::FTA:
 
 ###########################################################
-# cxclude some channels deliberately. Duplicates and test channels
+# exclude some channels deliberately. Duplicates and test channels
 # change type to 19 and also to NDS
-
 400:1329:19:::::NDS:
+898:1311:19:::::NDS:
 899:1819:19:::::NDS:
 950:1852:19:::::NDS:
 
