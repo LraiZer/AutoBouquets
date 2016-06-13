@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20160609
+# Date 20160613
 # log last edit
 
 ###################################################
@@ -91,7 +91,7 @@
 90:6142:::::::ITV Meridian East
 91:6143:::::::ITV Meridian North
 93:6161:::::::ITV Yorkshire East
-95:6502:::::::ITV Meridian South HD
+95:6502:::::::ITV Meridian SE HD
 96:6503:::::::ITV Central West HD
 97:6505:::::::ITV Granada HD
 973:6000:::::::ITV London
@@ -136,19 +136,10 @@
 
 #ITV HD renames
 178:6501:::::::ITV Wales HD
-178:6502:::::::ITV Meridian South HD
+178:6502:::::::ITV Meridian SE HD
 178:6503:::::::ITV Central West HD
 178:6504:::::::ITV London HD
 178:6505:::::::ITV Granada HD
-
-#BBC Interactive
-980:2051:1:18f6:7fd:11a0000:BSkyB:FTA:BBC Red Button 1
-981:8602:1:1a92:7f5:11a0000:BSkyB:FTA:BBC Red Button 2
-982:8603:1:1a93:7f5:11a0000:BSkyB:FTA:BBC Red Button 3
-983:8604:1:1a94:7f5:11a0000:BSkyB:FTA:BBC Red Button 4
-984:8605:1:1a95:7f5:11a0000:BSkyB:FTA:BBC Red Button 5
-985:8606:1:1a96:7f5:11a0000:BSkyB:FTA:BBC Red Button 6
-986:8611:19:1a9b:7f5:11a0000:BSkyB:FTA:BBC Red Button HD
 
 #BT Sport Interactive
 65535:5030:::::::BT Sport Mosaic
@@ -174,8 +165,15 @@
 #SBO
 743:1690:::::::Sky Box Office Events
 
-# Alter HD channel encryption so that they are not excluded
+# Alter encryption for viewable HD channels so that they 
+# are not excluded when using "Available HD" scan mode
 ###########################################################
+
+#BoxNation HD
+490:5039::::::FTA:
+
+#Insight HD
+279:1047::::::FTA:
 
 #ITV2 HD
 225:6532::::::FTA:
@@ -193,6 +191,10 @@
 269:6506::::::FTA:
 123:6506::::::FTA:
 
+#MUTV HD
+453:1003::::::FTA:
+418:1003::::::FTA:
+
 #Premier/Setanta HD
 460:5152::::::FTA:
 461:5154::::::FTA:
@@ -201,15 +203,13 @@
 #Racing UK HD
 466:5272::::::FTA:
 
-#BoxNation HD
-490:5039::::::FTA:
-
 752:4032::::::FTA:
 
 ###########################################################
+# cxclude some channels deliberately. Duplicates and test channels
+# change type to 19 and also to NDS
 
-#exclude some channels deliberately. Duplicates and test channels
-898:1311:19:::::NDS:
+400:1329:19:::::NDS:
 899:1819:19:::::NDS:
 950:1852:19:::::NDS:
 
