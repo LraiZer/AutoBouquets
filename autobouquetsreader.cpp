@@ -518,7 +518,7 @@ int si_parse_bat(unsigned char *data, int length) {
 						BAT2[epg_id].tsid = to_string<unsigned short>(transport_stream_id, hex);
 						BAT2[epg_id].sid = to_string<unsigned short>(service_id, hex);
 					}
-					else if ( header.variable_id == 0x100d )
+					else if ( header.variable_id == 0x100d && BAT3.find(epg_id) == BAT3.end() )
 					{
 						BAT3[epg_id].skyid = to_string<unsigned short>(sky_id, dec);
 						BAT3[epg_id].type = to_string<unsigned short>(service_type, hex);
@@ -1257,6 +1257,9 @@ int main (int argc, char *argv[]) {
 		string dat_line, epg_id;
 		bool is_skyid, is_epgid, is_type, is_sid, is_tsid, is_nspace, is_provider, is_ca, is_name, is_complete;
 
+		ofstream autobouquets_log;
+		autobouquets_log.open ("/tmp/autobouquets.log");
+
 		while (!supplement_file.eof() && getline(supplement_file, dat_line))
 		{
 			if (dat_line.length() > 0 && dat_line[0] != '#' && dat_line[0] != '$')
@@ -1305,103 +1308,94 @@ int main (int argc, char *argv[]) {
 				channel.name = dat_line.substr(pre);
 				is_name = (dat_line.length() == pre) ? false : true;
 
-				if (is_skyid && is_epgid)
-				{
-					is_complete = (is_type && is_sid && is_tsid && is_nspace && is_provider && is_ca && is_name) ? true : false;
+				is_complete = (is_skyid && is_epgid && is_type && is_sid && is_tsid && is_nspace && is_provider && is_ca && is_name) ? true : false;
 
+				if (is_complete)
+				{
 					if ((skyid > 100) && (skyid < 1000))
 					{
-						if (TV.find(channel.skyid) != TV.end())
-						{
-							if (is_complete)
-							{
-								TV[channel.skyid] = channel;
-								TV[channel.skyid].skyid = epg_id;
-							}
-							else
-							{
-								if (TV[channel.skyid].skyid == epg_id)
-								{
-									if (is_type) TV[channel.skyid].type = channel.type;
-									if (is_sid) TV[channel.skyid].sid = channel.sid;
-									if (is_tsid) TV[channel.skyid].tsid = channel.tsid;
-									if (is_nspace) TV[channel.skyid].nspace = channel.nspace;
-									if (is_provider) TV[channel.skyid].provider = channel.provider;
-									if (is_ca) TV[channel.skyid].ca = channel.ca;
-									if (is_name) TV[channel.skyid].name = channel.name;
-								}
-							}
-						}
-						else
-						{
-							if (is_complete)
-							{
-								TV[channel.skyid] = channel;
-								TV[channel.skyid].skyid = epg_id;
-							}
-						}
+						TV[channel.skyid] = channel;
+						TV[channel.skyid].skyid = epg_id;
+					}
+					else if ((skyid > 3100) && (skyid < 4000))
+					{
+						RADIO[channel.skyid] = channel;
+						RADIO[channel.skyid].skyid = epg_id;
 					}
 					else if (skyid == 0xffff)
-					{
-						if (DATA.find(epg_id) != TV.end())
-						{
-							if (is_complete)
-								DATA[epg_id] = channel;
-							else
-							{
-								if (DATA[epg_id].skyid == channel.skyid)
-								{
-									if (is_type) DATA[epg_id].type = channel.type;
-									if (is_sid) DATA[epg_id].sid = channel.sid;
-									if (is_tsid) DATA[epg_id].tsid = channel.tsid;
-									if (is_nspace) DATA[epg_id].nspace = channel.nspace;
-									if (is_provider) DATA[epg_id].provider = channel.provider;
-									if (is_ca) DATA[epg_id].ca = channel.ca;
-									if (is_name) DATA[epg_id].name = channel.name;
-								}
-							}
-						}
-						else
-						{
-							if (is_complete)
-								DATA[epg_id] = channel;
-						}
-					}
+						DATA[epg_id] = channel;
 					else
 					{
-						if (TEST.find(channel.skyid) != TEST.end())
+						TEST[channel.skyid] = channel;
+						TEST[channel.skyid].skyid = epg_id;
+					}
+				}
+				else if (is_epgid)
+				{
+					for( map<string, channel_t>::iterator i = TV.begin(); i != TV.end(); ++i )
+					{
+						if ((*i).second.skyid == epg_id)
 						{
-							if (is_complete)
-							{
-								TEST[channel.skyid] = channel;
-								TEST[channel.skyid].skyid = epg_id;
-							}
-							else
-							{
-								if (TEST[channel.skyid].skyid == epg_id)
-								{
-									if (is_type) TEST[channel.skyid].type = channel.type;
-									if (is_sid) TEST[channel.skyid].sid = channel.sid;
-									if (is_tsid) TEST[channel.skyid].tsid = channel.tsid;
-									if (is_nspace) TEST[channel.skyid].nspace = channel.nspace;
-									if (is_provider) TEST[channel.skyid].provider = channel.provider;
-									if (is_ca) TEST[channel.skyid].ca = channel.ca;
-									if (is_name) TEST[channel.skyid].name = channel.name;
-								}
-							}
+							autobouquets_log << (*i).first  << ":" << (*i).second.skyid << ":" << (*i).second.type << ":"
+							<< (*i).second.sid << ":" << (*i).second.tsid << ":" << (*i).second.nspace << ":" 
+							<< (*i).second.provider << ":" << (*i).second.ca << ":" << (*i).second.name << endl;
+
+							if (is_type)		(*i).second.type = channel.type;
+							if (is_sid)		(*i).second.sid = channel.sid;
+							if (is_tsid)		(*i).second.tsid = channel.tsid;
+							if (is_nspace)		(*i).second.nspace = channel.nspace;
+							if (is_provider)	(*i).second.provider = channel.provider;
+							if (is_ca)		(*i).second.ca = channel.ca;
+							if (is_name)		(*i).second.name = channel.name;
+
+							autobouquets_log << (*i).first  << ":" << (*i).second.skyid << ":" << (*i).second.type << ":"
+							<< (*i).second.sid << ":" << (*i).second.tsid << ":" << (*i).second.nspace << ":" 
+							<< (*i).second.provider << ":" << (*i).second.ca << ":" << (*i).second.name << endl << endl;
 						}
-						else
+					}
+					for( map<string, channel_t>::iterator i = TEST.begin(); i != TEST.end(); ++i )
+					{
+						if ((*i).second.skyid == epg_id)
 						{
-							if (is_complete)
-							{
-								TEST[channel.skyid] = channel;
-								TEST[channel.skyid].skyid = epg_id;
-							}
+							autobouquets_log << (*i).first  << ":" << (*i).second.skyid << ":" << (*i).second.type << ":"
+							<< (*i).second.sid << ":" << (*i).second.tsid << ":" << (*i).second.nspace << ":" 
+							<< (*i).second.provider << ":" << (*i).second.ca << ":" << (*i).second.name << endl;
+
+							if (is_type)		(*i).second.type = channel.type;
+							if (is_sid)		(*i).second.sid = channel.sid;
+							if (is_tsid)		(*i).second.tsid = channel.tsid;
+							if (is_nspace)		(*i).second.nspace = channel.nspace;
+							if (is_provider)	(*i).second.provider = channel.provider;
+							if (is_ca)		(*i).second.ca = channel.ca;
+							if (is_name)		(*i).second.name = channel.name;
+
+							autobouquets_log << (*i).first  << ":" << (*i).second.skyid << ":" << (*i).second.type << ":"
+							<< (*i).second.sid << ":" << (*i).second.tsid << ":" << (*i).second.nspace << ":" 
+							<< (*i).second.provider << ":" << (*i).second.ca << ":" << (*i).second.name << endl << endl;
 						}
+					}
+					if (DATA.find(epg_id) != DATA.end())
+					{
+						autobouquets_log << DATA[epg_id].skyid << ":" << epg_id << ":" << DATA[epg_id].type << ":"
+						<< DATA[epg_id].sid << ":" << DATA[epg_id].tsid << ":" << DATA[epg_id].nspace << ":"
+						<< DATA[epg_id].provider << ":" << DATA[epg_id].ca << ":" << DATA[epg_id].name << endl;
+
+						if (is_type)		DATA[epg_id].type = channel.type;
+						if (is_sid)		DATA[epg_id].sid = channel.sid;
+						if (is_tsid)		DATA[epg_id].tsid = channel.tsid;
+						if (is_nspace)		DATA[epg_id].nspace = channel.nspace;
+						if (is_provider)	DATA[epg_id].provider = channel.provider;
+						if (is_ca)		DATA[epg_id].ca = channel.ca;
+						if (is_name)		DATA[epg_id].name = channel.name;
+
+						autobouquets_log << DATA[epg_id].skyid << ":" << epg_id << ":" << DATA[epg_id].type << ":"
+						<< DATA[epg_id].sid << ":" << DATA[epg_id].tsid << ":" << DATA[epg_id].nspace << ":"
+						<< DATA[epg_id].provider << ":" << DATA[epg_id].ca << ":" << DATA[epg_id].name << endl << endl;
 					}
 				}
 			}
 		}
+		autobouquets_log.close();
 	}
 	supplement_file.close();
 

@@ -28,7 +28,7 @@ from Components.NimManager import nimmanager, getConfigSatlist
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
-ab_version = "09 June 2016"
+ab_version = "06 August 2016"
 defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"	# "Sky News"
 initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"	# "EPG Background Audio."
 
@@ -851,8 +851,8 @@ class AutoBouquetsLogView(Screen):
 		self.session = session
 		Screen.__init__(self, session)
 		Screen.setTitle(self, _("AutoBouquets Database Log"))
-		filename = ("%s/autobouquets.csv" % (path.dirname(modules[__name__].__file__)))
-		if path.exists("%s/autobouquets.csv" % (path.dirname(modules[__name__].__file__))):
+		filename = ("%s/autobouquets.log" % (path.dirname(modules[__name__].__file__)))
+		if path.exists("%s/autobouquets.log" % (path.dirname(modules[__name__].__file__))):
 			filedate = str(date.fromtimestamp(stat(filename).st_mtime))
 			log = _('Last update') + ': ' + filedate + '\n\n'
 			tmpfile = file(filename).read()

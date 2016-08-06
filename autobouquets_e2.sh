@@ -9,7 +9,7 @@ DVB_ADAPTER="0"   #
 DVB_DEMUX="0"     #
 ###################
 
-versiondate="09 June 2016"
+versiondate="06 August 2016"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -312,6 +312,7 @@ if [ ! "$PICON_STYLE" = "0" ]; then
 fi
 
 echo -e "Downloading 28.2E Bouquets, please wait...\n"
+date >/tmp/autobouquets.log
 
 # READER args: 17 paramaters
 cd $fpath
@@ -405,7 +406,6 @@ date
 stop_time=$(expr `date +%s` - $start_time)
 log_time="Process Time: "$(expr $stop_time / 60)" minutes "$(expr $stop_time % 60)" seconds"
 echo -e "$log_time\n"
-date >/tmp/autobouquets.log
 echo "$log_time" >>/tmp/autobouquets.log
 
 mv /tmp/autobouquets.* $fpath/

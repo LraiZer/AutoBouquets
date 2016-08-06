@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20160613
+# Date 20160806
 # log last edit
 
 ###################################################
@@ -14,7 +14,7 @@
 #  KEYCODE                                        #
 #  1:2:3:4:5:6:7:8:9                              #
 #                                                 #
-#  1=[decimal]       channel number   (required)  #
+#  1=[decimal]       channel number   (optional)  #
 #  2=[decimal]       channel epg id   (required)  #
 #  3=[hex]           service type     (optional)  #
 #  4=[hex]           service id       (optional)  #
@@ -28,192 +28,124 @@
 #  178:4055:19:f0f:808:11a0000:BSkyB:FTA:STV HD   #
 #                                                 #
 #  CHANGE CURRENT DATA - OVERRIDE CHANNEL NAME    #
-#  1114:4055:::::::STV HD                         #
+#  :4055:::::::STV HD                             #
 #                                                 #
 #  CHANGE CURRENT DATA - OVERRIDE ENCRYPTION      #
-#  157:3358::::::NDS:                             #
+#  :3358::::::NDS:                                #
 #                                                 #
 ###################################################
 
-#non-FTA corrections. Some chanenls have incorrect encryption flags.
-
-#Sony TV
-157:3358::::::NDS:
-#Sony TV +1
-181:3216::::::NDS:
-#TLC+2
-200:5245::::::NDS:
-#Sony Movies
-323:3709::::::NDS:
-#Sony Movies+1
-324:3771::::::NDS:
-#MTV Live
-358:3508::::::NDS:
-#BoxNation
-437:3417::::::NDS:
-#MOTORS TV UK
-447:3735::::::NDS:
-#Nick Jr+1
-630:5089::::::NDS:
-
-#ITV Regional Renames
-# (for users in the default London area)
-103:6000:::::::ITV London
-
-# Rename ITV London (for users not in London)
-60:6325:::::::STV +1
-61:6012:::::::ITV +1 Wales
-62:6125:::::::ITV +1 West Country
-63:6126:::::::ITV +1 Tyne Tees
-64:6127:::::::ITV +1 West
-65:6128:::::::ITV +1 Anglia
-66:6145:::::::ITV +1 Central
-67:6355:::::::ITV +1 Granada
-68:6365:::::::ITV +1 Meridian
-69:6155:::::::ITV +1 London
-70:6065:::::::ITV +1 Yorkshire
-71:6010:::::::ITV Central South
-73:6030:::::::ITV West
-74:6040:::::::ITV West Country
-75:6381:::::::ITV Anglia West
-77:1020:::::::ITV Border Scotland
-78:6130:::::::ITV Granada
-79:6140:::::::ITV Meridian South
-80:6390:::::::ITV Tyne Tees
-81:6160:::::::ITV Yorkshire West
-82:6200:::::::ITV Channel Isles
-83:6210:::::::STV Grampian
-84:6220:::::::STV Scotland West
-86:6300:::::::ITV Central
-87:6011:::::::ITV Central East
-88:6089:::::::ITV Anglia East
-89:6371:::::::STV Scotland East
-90:6142:::::::ITV Meridian East
-91:6143:::::::ITV Meridian North
-93:6161:::::::ITV Yorkshire East
-95:6502:::::::ITV Meridian SE HD
-96:6503:::::::ITV Central West HD
-97:6505:::::::ITV Granada HD
-973:6000:::::::ITV London
-1024:6015:::::::ITV Central SW
-65535:6220:::::::STV Scotland West
-65535:2296:::::::S4C HD
-
 #ITV regional renames
-103:6000:::::::ITV London
-103:6010:::::::ITV Central South
-103:6015:::::::ITV Central SW
-103:6030:::::::ITV West
-103:6040:::::::ITV West Country
-103:6381:::::::ITV Anglia West
-103:6130:::::::ITV Granada
-103:6140:::::::ITV Meridian South
-103:6390:::::::ITV Tyne Tees
-103:6160:::::::ITV Yorkshire West
-103:6200:::::::ITV Channel Isles
-103:6300:::::::ITV Central
-103:6011:::::::ITV Central East
-103:6089:::::::ITV Anglia East
-103:6142:::::::ITV Meridian East
-103:6143:::::::ITV Meridian North
-103:6161:::::::ITV Yorkshire East
-103:6210:::::::STV Grampian
-103:6220:::::::STV Scotland West
-103:6371:::::::STV Scotland East
+:1020:::::::ITV Border Scotland
+:6000:::::::ITV London
+:6010:::::::ITV Central South
+:6011:::::::ITV Central East
+:6015:::::::ITV Central SW
+:6030:::::::ITV West
+:6040:::::::ITV West Country
+:6089:::::::ITV Anglia East
+:6130:::::::ITV Granada
+:6140:::::::ITV Meridian South
+:6142:::::::ITV Meridian East
+:6143:::::::ITV Meridian North
+:6160:::::::ITV Yorkshire West
+:6161:::::::ITV Yorkshire East
+:6200:::::::ITV Channel Isles
+:6210:::::::STV Grampian
+:6220:::::::STV Scotland West
+:6300:::::::ITV Central
+:6371:::::::STV Scotland East
+:6381:::::::ITV Anglia West
+:6390:::::::ITV Tyne Tees
 
 #ITV +1 regional renames
-131:6325:::::::STV +1
-131:6155:::::::ITV +1 London
-131:6012:::::::ITV +1 Wales
-131:6125:::::::ITV +1 West Country
-131:6126:::::::ITV +1 Tyne Tees
-131:6127:::::::ITV +1 West
-131:6128:::::::ITV +1 Anglia
-131:6145:::::::ITV +1 Central
-131:6355:::::::ITV +1 Granada
-131:6365:::::::ITV +1 Meridian
-131:6065:::::::ITV +1 Yorkshire
+:6012:::::::ITV +1 Wales
+:6065:::::::ITV +1 Yorkshire
+:6125:::::::ITV +1 West Country
+:6126:::::::ITV +1 Tyne Tees
+:6127:::::::ITV +1 West
+:6128:::::::ITV +1 Anglia
+:6145:::::::ITV +1 Central
+:6155:::::::ITV +1 London
+:6355:::::::ITV +1 Granada
+:6365:::::::ITV +1 Meridian
 
 #ITV HD renames
-178:6501:::::::ITV Wales HD
-178:6502:::::::ITV Meridian SE HD
-178:6503:::::::ITV Central West HD
-178:6504:::::::ITV London HD
-178:6505:::::::ITV Granada HD
+:6501:::::::ITV Wales HD
+:6502:::::::ITV Meridian SE HD
+:6503:::::::ITV Central West HD
+:6504:::::::ITV London HD
+:6505:::::::ITV Granada HD
 
 #BT Sport Interactive
-65535:5030:::::::BT Sport Mosaic
-65535:5031:::::::BT Sport Extra 1
-65535:5381:::::::BT Sport Mosaic Extra
-65535:5382:::::::BT Sport Extra 2
-65535:5383:::::::BT Sport Extra 3
-65535:5384:::::::BT Sport Extra 4
-65535:5385:::::::BT Sport Extra 5
-65535:5386:::::::BT Sport Extra 6
+:5030:1::::::BT Sport Mosaic
+:5031:1::::::BT Sport Extra 1
+:5381:1::::::BT Sport Mosaic Extra
+:5382:1::::::BT Sport Extra 2
+:5383:1::::::BT Sport Extra 3
+:5384:1::::::BT Sport Extra 4
+:5385:1::::::BT Sport Extra 5
+:5386:1::::::BT Sport Extra 6
 
 #Sky Sport Interactive
-65535:1471:1::::::Sky Sports Active 1
-65535:1472:1::::::Sky Sports Active 2
-65535:1473:1::::::Sky Sports Active 3
-65535:1474:1::::::Sky Sports Active 4
-65535:1475:1::::::Sky Sports Active 5
-65535:1476:1::::::Sky Sports Active 6
-65535:1477:1::::::Sky Sports Active 7
-65535:1478:1::::::Sky Sports Active 8
-65535:1479:1::::::Sky Sports Active 9
+:1471:1::::::Sky Sports Active 1
+:1472:1::::::Sky Sports Active 2
+:1473:1::::::Sky Sports Active 3
+:1474:1::::::Sky Sports Active 4
+:1475:1::::::Sky Sports Active 5
+:1476:1::::::Sky Sports Active 6
+:1477:1::::::Sky Sports Active 7
+:1478:1::::::Sky Sports Active 8
+:1479:1::::::Sky Sports Active 9
 
 #SBO
-743:1690:::::::Sky Box Office Events
+:1690:::::::Sky Box Office Events
 
 # Alter encryption for viewable HD channels so that they 
 # are not excluded when using "Available HD" scan mode
-###########################################################
+########################################################
 
 #BoxNation HD
-490:5039::::::FTA:
+:5039::::::FTA:
 
 #Insight HD
-279:1047::::::FTA:
+:1047::::::FTA:
 
 #ITV2 HD
-225:6532::::::FTA:
-118:6532::::::FTA:
+:6532::::::FTA:
 
 #ITV3 HD
-263:6533::::::FTA:
-119:6533::::::FTA:
+:6533::::::FTA:
 
 #ITV4 HD
-268:6534::::::FTA:
-120:6534::::::FTA:
+:6534::::::FTA:
 
 #ITV ENCORE HD
-269:6506::::::FTA:
-123:6506::::::FTA:
+:6506::::::FTA:
 
 #MUTV HD
-453:1003::::::FTA:
-418:1003::::::FTA:
+:1003::::::FTA:
 
 #Premier/Setanta HD
-460:5152::::::FTA:
-461:5154::::::FTA:
-462:5153::::::FTA:
+:5152::::::FTA:
+:5154::::::FTA:
+:5153::::::FTA:
 
 #Racing UK HD
-466:5272::::::FTA:
+:5272::::::FTA:
 
-752:4032::::::FTA:
+:4032::::::FTA:
 
-###########################################################
+##################################################################
 # exclude some channels deliberately. Duplicates and test channels
 # change type to 19 and also to NDS
-400:1329:19:::::NDS:
-898:1311:19:::::NDS:
-899:1819:19:::::NDS:
-950:1852:19:::::NDS:
+:1329:19:::::NDS:
+:1311:19:::::NDS:
+:1819:19:::::NDS:
+:1852:19:::::NDS:
 
 # these have been added to compensate for poor data when ran on ITV transponder
-276:5037:::::::AMC from BTHD
-596:5541:::::::DAYSTAR HD
-856:3414:::::::TV Record HD
+:5037:::::::AMC from BTHD
+:5541:::::::DAYSTAR HD
+:3414:::::::TV Record HD
+

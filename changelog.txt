@@ -288,3 +288,9 @@ BBC One/Three changes in swap and custom files
 2016-04-11
 Limit for HD first bouquet fixed
 Swap file edited. If you are not in England edit for your region.
+
+2016-08-06
+Rework supplement function, service position is now optional for flag changes.
+add patch to allow first found only channelid to be added to BAT3 TEST data,
+this should stop overwrit of multiple service postions for regional variations.
+
