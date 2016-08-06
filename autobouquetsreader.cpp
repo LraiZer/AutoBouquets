@@ -1312,23 +1312,35 @@ int main (int argc, char *argv[]) {
 
 				if (is_complete)
 				{
+					autobouquets_log << "NEW CHANNEL: ";
+
 					if ((skyid > 100) && (skyid < 1000))
 					{
 						TV[channel.skyid] = channel;
 						TV[channel.skyid].skyid = epg_id;
+						autobouquets_log << "TV" << endl;
 					}
 					else if ((skyid > 3100) && (skyid < 4000))
 					{
 						RADIO[channel.skyid] = channel;
 						RADIO[channel.skyid].skyid = epg_id;
+						autobouquets_log << "RADIO" << endl;
 					}
 					else if (skyid == 0xffff)
+					{
 						DATA[epg_id] = channel;
+						autobouquets_log << "DATA" << endl;
+					}
 					else
 					{
 						TEST[channel.skyid] = channel;
 						TEST[channel.skyid].skyid = epg_id;
+						autobouquets_log << "TEST" << endl;
 					}
+
+					autobouquets_log << channel.skyid << ":" << epg_id << ":" << channel.type << ":"
+					<< channel.sid << ":" << channel.tsid << ":" << channel.nspace << ":"
+					<< channel.provider << ":" << channel.ca << ":" << channel.name << endl << endl;
 				}
 				else if (is_epgid)
 				{
