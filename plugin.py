@@ -450,10 +450,14 @@ class AutoBouquets(Screen):
 				AutoBouquetsTime = 0
 				print "[AutoBouquets] AutoBouquets Schedule Disabled at", strftime("%c", localtime(now))
 				autoAutoBouquetsTimer.backupstop()
-		if AutoBouquetsTime > 0:
-			t = localtime(AutoBouquetsTime)
-			autobouquetstext = strftime(_("%a %e %b  %-H:%M"), t)
-		else:
+		try:
+			if AutoBouquetsTime > 0:
+				t = localtime(AutoBouquetsTime)
+				autobouquetstext = strftime(_("%a %e %b  %-H:%M"), t)
+			else:
+				autobouquetstext = ""
+		except:
+			AutoBouquetsTime = 0
 			autobouquetstext = ""
 		self["status2"].setText(str(autobouquetstext))
 
