@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20160806
+# Date 20160808
 # log last edit
 
 ###################################################
@@ -71,6 +71,9 @@
 :6365:::::::ITV +1 Meridian
 
 #ITV HD renames
+:1043:::::::ITV Tyne Tees HD
+:1044:::::::ITV Yorkshire HD
+:1045:::::::ITV Anglia HD
 :6501:::::::ITV Wales HD
 :6502:::::::ITV Meridian SE HD
 :6503:::::::ITV Central West HD

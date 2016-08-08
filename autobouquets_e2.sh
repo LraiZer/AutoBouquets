@@ -9,7 +9,7 @@ DVB_ADAPTER="0"   #
 DVB_DEMUX="0"     #
 ###################
 
-versiondate="06 August 2016"
+versiondate="08 August 2016"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -406,6 +406,7 @@ date
 stop_time=$(expr `date +%s` - $start_time)
 log_time="Process Time: "$(expr $stop_time / 60)" minutes "$(expr $stop_time % 60)" seconds"
 echo -e "$log_time\n"
+date >>/tmp/autobouquets.log
 echo "$log_time" >>/tmp/autobouquets.log
 
 mv /tmp/autobouquets.* $fpath/
