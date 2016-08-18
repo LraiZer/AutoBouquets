@@ -713,7 +713,8 @@ int main (int argc, char *argv[]) {
 
 	bool numbering = true, update = true, placeholder = true;
 	bool parentalcontrol = true, custom_swap = false, extra = false;
-	int fd, dvb_frontend = -1, dvb_adapter = 0, dvb_demux = 0, custom_sort = 0, piconstyle = 0;
+	int fd, dvb_frontend = -1, dvb_adapter = 0, dvb_demux = 0;
+	int custom_sort = 0, piconstyle = 0, lamedb_version = 4;
 	string style = "0", piconlink = "0", piconfolder = "0", picon_link, picon_folder;
 
 	char curr_path[256];
@@ -750,15 +751,17 @@ int main (int argc, char *argv[]) {
 	            piconlink = argv[12];
 	            if (argv[13] != NULL) {
 	             piconfolder = argv[13];
-	            if (argv[14] != NULL) {
-	             piconstyle = atoi(argv[14]);
-	             if (argv[15] != NULL) {
-	              dvb_frontend = atoi(argv[15]);
-	              if (argv[16] != NULL) {
-	               dvb_adapter = atoi(argv[16]);
-	               if (argv[17] != NULL) {
-	                dvb_demux = atoi(argv[17]);
-	}}}}}}}}}}}}}}}}}
+	             if (argv[14] != NULL) {
+	              piconstyle = atoi(argv[14]);
+	              if (argv[15] != NULL) {
+	               lamedb_version = atoi(argv[15]);
+	               if (argv[16] != NULL) {
+	                dvb_frontend = atoi(argv[16]);
+	                if (argv[17] != NULL) {
+	                 dvb_adapter = atoi(argv[17]);
+	                 if (argv[18] != NULL) {
+	                  dvb_demux = atoi(argv[18]);
+	}}}}}}}}}}}}}}}}}}
 
 	// Make Hex Editor Hackable so they dont need to recompile for changes ;-)
 	string SkySportsActive1 = "1471"; unsigned short ssa1 = atoi(SkySportsActive1.c_str());
@@ -792,23 +795,45 @@ int main (int argc, char *argv[]) {
 		dat_nit.open ("/tmp/nit_transponders.txt");
 
 		for( map<string, transport_t>::iterator i = NIT.begin(); i != NIT.end(); ++i )
-		{	//transponder id 0x7e3 has a unique namespace with a service scan?
-			dat_nit << ((*i).first == "7e3" ? "011a2f26" : "011a0000") << ":";
-			dat_nit << hex << right;
-			dat_nit << setw(4) << setfill('0') << (*i).first << ":";
-			dat_nit << setw(4) << setfill('0') << (*i).second.original_network_id << endl << "\ts ";
-			dat_nit << dec << left;
-			dat_nit << setw(8) << setfill('0') << (*i).second.frequency << ":";
-			dat_nit << setw(8) << setfill('0') << (*i).second.symbol_rate << ":";
-			dat_nit << hex;
-			dat_nit << (*i).second.polarization << ":" << (*i).second.fec_inner << ":" << (*i).second.orbital_position << ":";
+		{
+			if (lamedb_version == 5)
+			{
+				dat_nit << "t:" << ((*i).first == "7e3" ? "011a2f26" : "011a0000") << ":";
+				dat_nit << hex << right;
+				dat_nit << setw(4) << setfill('0') << (*i).first << ":";
+				dat_nit << setw(4) << setfill('0') << (*i).second.original_network_id << ",s:";
+				dat_nit << dec << left;
+				dat_nit << setw(8) << setfill('0') << (*i).second.frequency << ":";
+				dat_nit << setw(8) << setfill('0') << (*i).second.symbol_rate << ":";
+				dat_nit << hex;
+				dat_nit << (*i).second.polarization << ":" << (*i).second.fec_inner << ":" << (*i).second.orbital_position << ":";
 
-			if ((*i).second.modulation_system == 1)
-				dat_nit << "2:0:1:" << (*i).second.modulation_type << ":" << (*i).second.roll_off << ":2";
-			else
-				dat_nit << "2:0";
+				if ((*i).second.modulation_system == 1)
+					dat_nit << "2:0:1:" << (*i).second.modulation_type << ":" << (*i).second.roll_off << ":2";
+				else
+					dat_nit << "2:0";
 
-			dat_nit << endl << "/" << endl;
+				dat_nit << endl;
+			}
+			else	// lamedb version 4
+			{
+				dat_nit << ((*i).first == "7e3" ? "011a2f26" : "011a0000") << ":";
+				dat_nit << hex << right;
+				dat_nit << setw(4) << setfill('0') << (*i).first << ":";
+				dat_nit << setw(4) << setfill('0') << (*i).second.original_network_id << endl << "\ts ";
+				dat_nit << dec << left;
+				dat_nit << setw(8) << setfill('0') << (*i).second.frequency << ":";
+				dat_nit << setw(8) << setfill('0') << (*i).second.symbol_rate << ":";
+				dat_nit << hex;
+				dat_nit << (*i).second.polarization << ":" << (*i).second.fec_inner << ":" << (*i).second.orbital_position << ":";
+
+				if ((*i).second.modulation_system == 1)
+					dat_nit << "2:0:1:" << (*i).second.modulation_type << ":" << (*i).second.roll_off << ":2";
+				else
+					dat_nit << "2:0";
+
+				dat_nit << endl << "/" << endl;
+			}
 		}
 
 		dat_nit.close();
@@ -1086,10 +1111,21 @@ int main (int argc, char *argv[]) {
 				hex_str[(*i).second.type.size()] = 0;
 				memcpy(hex_str, (*i).second.type.c_str(), (*i).second.type.size());
 				sscanf( hex_str, "%x", &ch );
-				lamedb_services << hex;
-				lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
-				lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0" << endl;
-				lamedb_services << dec << (*i).second.name << endl << "p:" << (*i).second.provider << endl;
+
+				if (lamedb_version == 5)
+				{
+					lamedb_services << "s:" << hex;
+					lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
+					lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0,\"";
+					lamedb_services << dec << (*i).second.name << "\",p:" << (*i).second.provider << endl;
+				}
+				else	// lamedb version 4
+				{
+					lamedb_services << hex;
+					lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
+					lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0" << endl;
+					lamedb_services << dec << (*i).second.name << endl << "p:" << (*i).second.provider << endl;
+				}
 			}
 
 			unsigned short skyid = atoi((*i).second.skyid.c_str());

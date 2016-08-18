@@ -1,15 +1,16 @@
 #!/bin/sh
 # AutoBouquets E2 28.2E by LraiZer for www.ukcvs.net
- 
+
 ###################
 #  DEFAULT SETUP  #
 ###################
 DVB_FRONTEND="-1" #
-DVB_ADAPTER="0"   # 
+DVB_ADAPTER="0"   #
 DVB_DEMUX="0"     #
+NEW_LAMEDB="4"    #
 ###################
 
-versiondate="08 August 2016"
+versiondate="18 August 2016"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -24,7 +25,6 @@ clean_tmp
 fpath=/usr/lib/enigma2/python/Plugins/Extensions/AutoBouquets
 sab=/etc/enigma2
 ldb=$sab/lamedb
-tps=tmp/lamedb_transponders.txt
 
 cr=$(printf "\r")
 for f in $fpath/*.txt; do
@@ -49,21 +49,21 @@ set_options(){
 #	./autobouquets_e2.sh 4097#01#4101#1#1#1#0#1#1#1#1#1#2#1#0#1#3#0
 #
 # default PYTHON  args: 1-18:
-	DATA_SD="4097";
-	REGION="01";
-	DATA_HD="4101";
+	DATA_SD="4097"
+	REGION="01"
+	DATA_HD="4101"
 	BOUQUET_LIST="0"
 	EXTRA="1"
 	SORT="1"
 	NUMBERED="0"
-	NIT_SCAN="1"	
+	NIT_SCAN="1"
 	PLACEHOLDER="1"
 	PARENTAL="1"
 	DEFAULT="1"
 	ORDERING="1"
 	FREE_TO_AIR="2"
 	CHECK_SCRIPT="1"
-	STYLE="0";
+	STYLE="0"
 	PICONLINK="1"
 	PICONFOLDER="3"
 	PICONSTYLE="0"
@@ -211,6 +211,27 @@ EPG Background Audio.\
 p:BSkyB' $ldb
 }
 
+make_lamedb_five(){
+echo 'eDVB services /5/
+# Transponders: t:dvb_namespace:transport_stream_id:original_network_id,FEPARMS
+#     DVBS  FEPARMS:   s:frequency:symbol_rate:polarisation:fec:orbital_position:inversion:flags
+#     DVBS2 FEPARMS:   s:frequency:symbol_rate:polarisation:fec:orbital_position:inversion:flags:system:modulation:rolloff:pilot
+#     DVBT  FEPARMS:   t:frequency:bandwidth:code_rate_HP:code_rate_LP:modulation:transmission_mode:guard_interval:hierarchy:inversion:flags:system:plp_id
+#     DVBC  FEPARMS:   c:frequency:symbol_rate:inversion:modulation:fec_inner:flags:system
+# Services    : s:service_id:dvb_namespace:transport_stream_id:original_network_id:service_type:0,"service_name"[,p:provider_name][,c:cached_pid]*[,C:cached_capid]*[,f:flags]
+t:011a0000:07d4:0002,s:11778000:27500000:1:2:282:2:0
+s:1038:011a0000:07d4:0002:2:0,"EPG Background Audio.",p:BSkyB
+# done. 1 channels and 1 services' >$ldb
+}
+
+edit_lamedb_five(){
+ret_done=`grep '^# done.' $ldb`
+sed -i '/^# done./c\
+t:011a0000:07d4:0002,s:11778000:27500000:1:2:282:2:0\
+s:1038:011a0000:07d4:0002:2:0,"EPG Background Audio.",p:BSkyB\
+'"$ret_done" $ldb
+}
+
 valid_chk(){
 	valid="false"
 	cch=`fwget "subservices"|grep 'servicereference'|sed 's/.*>\(.*\)<.*$/\1/'`
@@ -223,6 +244,15 @@ def_zap(){
 	sleep 10
 	valid_chk
 }
+
+lamedb_version_chk(){
+	if ! `grep -q -m 1 '^eDVB services /5/' $ldb >/dev/null 2>&1`; then
+		LAMEDB_VERSION=4
+	else
+		LAMEDB_VERSION=5
+	fi
+}
+lamedb_version_chk
 
 if [ "$CHECK_SCRIPT" = "1" ]; then
 	#wake from standby?
@@ -245,14 +275,26 @@ if [ "$CHECK_SCRIPT" = "1" ]; then
 	if [ ! -e $ldb ]; then
 		init="true"
 		new_ldb="true"
-		make_lamedb
+		[ "$NEW_LAMEDB" = "5" ] && LAMEDB_VERSION="5"
+		if [ "$LAMEDB_VERSION" = "5" ]; then
+			make_lamedb_five
+		else
+			make_lamedb
+		fi
 	else
 		count=`wc -l <$ldb`
-		[ "$count" -lt "7" ] && new_ldb="true"
+		[ "$count" -lt "9" ] && new_ldb="true"
 		#next check if default 28.2E service transponder exists?
-		if ! `grep -q -m 1 '^011a0000:07d4:0002' $ldb`; then
-			init="true"
-			edit_lamedb
+		if [ "$LAMEDB_VERSION" = "5" ]; then
+			if ! `grep -q -m 1 '^t:011a0000:07d4:0002' $ldb`; then
+				init="true"
+				edit_lamedb_five
+			fi
+		else
+			if ! `grep -q -m 1 '^011a0000:07d4:0002' $ldb`; then
+				init="true"
+				edit_lamedb
+			fi
 		fi
 	fi
 
@@ -314,7 +356,7 @@ fi
 echo -e "Downloading 28.2E Bouquets, please wait...\n"
 date >/tmp/autobouquets.log
 
-# READER args: 17 paramaters
+# READER args: 18 paramaters
 cd $fpath
 ./autobouquetsreader \
 "$DATA" \
@@ -331,6 +373,7 @@ cd $fpath
 "$PICONLINK" \
 "$PICONFOLDER" \
 "$PICONSTYLE" \
+"$LAMEDB_VERSION" \
 "$DVB_FRONTEND" \
 "$DVB_ADAPTER" \
 "$DVB_DEMUX"
@@ -346,20 +389,35 @@ check_update "tv"
 check_update "radio"
 
 if [ "$NIT_SCAN" = "1" ]; then
+	tldb=/tmp/lamedb
+	tnit=/tmp/nit_transponders.txt
+	tps=/tmp/lamedb_transponders.txt
+	tldbst=/tmp/lamedb_strip.txt
+	tldbsv=/tmp/lamedb_services.txt
 	#update lamedb with services from BAT, transponders from NIT
 	echo "Updating 28.2E Transponders and Services.."
-	end=`grep -n '^end' $ldb | sed 'q' | cut -d ":" -f1`
-	sed -n "1,$end{p}" $ldb | sed '$d' |\
-	sed '/^.*:.*:0002$/,/\//d' >/$tps
-	cat /tmp/nit_transponders.txt >>/$tps
-	echo "end" >>/$tps
-	sed -n "/^services/,/^end/p" $ldb | sed '$d' |\
-	sed '/.*:.*:.*:0002:.*/,/^p:/d' >/tmp/lamedb_strip.txt
-	cat /$tps /tmp/lamedb_strip.txt /tmp/lamedb_services.txt >/tmp/lamedb
-	echo "end" >>/tmp/lamedb
-	echo "Updated by AutoBouquets on `date`" >>/tmp/lamedb
-	rm -f /$tps /tmp/lamedb_services.txt /tmp/lamedb_strip.txt /tmp/nit_transponders.txt
-	mv /tmp/lamedb $ldb
+	if [ "$LAMEDB_VERSION" = "5" ]; then
+		sed '/^t:.*:.*:0002,.*$/d;/^# done.*$/d;/^s.*$/d' $ldb >$tps
+		cat $tnit >>$tps
+		sed -n '/^s.*$/p' $ldb | sed '/^s:.*:.*:.*:0002:.*/d' >$tldbst
+		cat $tps $tldbst $tldbsv >$tldb
+		channels_cnt=`grep -c '^t' $tldb`
+		services_cnt=`grep -c '^s' $tldb`
+		echo "# done. $channels_cnt channels and $services_cnt services" >>$tldb
+	else
+		end=`grep -n '^end' $ldb | sed 'q' | cut -d ":" -f1`
+		sed -n "1,$end{p}" $ldb | sed '$d' |\
+		sed '/^.*:.*:0002$/,/\//d' >$tps
+		cat $tnit >>$tps
+		echo "end" >>$tps
+		sed -n "/^services/,/^end/p" $ldb | sed '$d' |\
+		sed '/.*:.*:.*:0002:.*/,/^p:/d' >$tldbst
+		cat $tps $tldbst $tldbsv >$tldb
+		echo "end" >>$tldb
+		echo "Updated by AutoBouquets on `date`" >>$tldb
+	fi
+	rm -f $tps $tldbst $tldbsv $tnit
+	mv $tldb $ldb
 fi
 
 #write autobouquets info to last bouquet
@@ -379,7 +437,7 @@ $SD Testers: Lincsat, Bazinga, Abu Baniaz
 $SD - - - http://www.ukcvs.net - - -
 $SD -
 $SD Credits for DVB scanner binary:
-$SD - - Sandro Cavazzoni aka Skaman - - 
+$SD - - Sandro Cavazzoni aka Skaman - -
 $SD http://www.sifteam.eu
 $SD - - Andrew Blackburn aka AndyBlac - -
 $SD http://www.world-of-satellite.com" >/tmp/userbouquet.ukcvs16.tv
@@ -393,7 +451,7 @@ fi
 # update new bouquets
 mv /tmp/*.tv $sab
 mv /tmp/*.radio $sab
-echo -e "Updating Bouquets\n"
+echo -e "Updating Bouquets, lamedb version $LAMEDB_VERSION\n"
 if [ "$NIT_SCAN" = "1" ]; then
 # reload both lamedb and Userbouquets
 	reload 0
@@ -406,7 +464,7 @@ date
 stop_time=$(expr `date +%s` - $start_time)
 log_time="Process Time: "$(expr $stop_time / 60)" minutes "$(expr $stop_time % 60)" seconds"
 echo -e "$log_time\n"
-date >>/tmp/autobouquets.log
+echo "lamedb version $LAMEDB_VERSION, "`date` >>/tmp/autobouquets.log
 echo "$log_time" >>/tmp/autobouquets.log
 
 mv /tmp/autobouquets.* $fpath/
