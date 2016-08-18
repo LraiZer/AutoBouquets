@@ -83,7 +83,7 @@
 #BT Sport Interactive
 :5030:1::::::BT Sport Mosaic
 :5031:1::::::BT Sport Extra 1
-:5381:1::::::BT Sport Mosaic Extra
+:5381:1::::::BT Sport Mosaic 2
 :5382:1::::::BT Sport Extra 2
 :5383:1::::::BT Sport Extra 3
 :5384:1::::::BT Sport Extra 4
@@ -103,6 +103,13 @@
 
 #SBO
 :1690:::::::Sky Box Office Events
+
+#RoI Sports Channels
+:1309:::::::Sky Sports 1 RoI
+:1308:::::::Sky Sports 2 RoI
+:1323:::::::Sky Sports 3 RoI
+:1324:::::::Sky Sports 4 RoI
+:1312:::::::Sky Sports 5 RoI 
 
 # Alter encryption for viewable HD channels so that they 
 # are not excluded when using "Available HD" scan mode
@@ -151,4 +158,3 @@
 :5037:::::::AMC from BTHD
 :5541:::::::DAYSTAR HD
 :3414:::::::TV Record HD
-
