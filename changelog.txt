@@ -297,3 +297,6 @@ this should stop overwrit of multiple service postions for regional variations.
 2016-08-18
 add support for writing lamedb version 5, add check for version in current lamedb.
 
+2016-09-04
+Removed the "not set" area. User can still set area
+Sort 3 changes

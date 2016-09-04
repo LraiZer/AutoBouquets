@@ -28,7 +28,7 @@ from Components.NimManager import nimmanager, getConfigSatlist
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
-ab_version = "18 August 2016"
+ab_version = "04 Sept 2016"
 defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"	# "Sky News"
 initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"	# "EPG Background Audio."
 
