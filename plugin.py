@@ -33,7 +33,6 @@ defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"	# "Sky News"
 initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"	# "EPG Background Audio."
 
 arealist = []
-arealist.append(("None", "Not Set"))
 arealist.append(("4097#19#4101", "Atherstone"))
 arealist.append(("4097#12#4101", "Border England"))
 arealist.append(("4098#36#4102", "Border Scotland"))
