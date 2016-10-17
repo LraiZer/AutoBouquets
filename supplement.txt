@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20161017
+# Date 20160808
 # log last edit
 
 ###################################################
@@ -109,9 +109,7 @@
 :1308:::::::Sky Sports 2 RoI
 :1323:::::::Sky Sports 3 RoI
 :1324:::::::Sky Sports 4 RoI
-:1312:::::::Sky Sports 5 RoI
-
-:1023:::::::Al Jazeera Eng HD
+:1312:::::::Sky Sports 5 RoI 
 
 # Alter encryption for viewable HD channels so that they 
 # are not excluded when using "Available HD" scan mode
@@ -131,6 +129,9 @@
 
 #ITV4 HD
 :6534::::::FTA:
+
+#ITV ENCORE HD
+:6506::::::FTA:
 
 #MUTV HD
 :1003::::::FTA:
