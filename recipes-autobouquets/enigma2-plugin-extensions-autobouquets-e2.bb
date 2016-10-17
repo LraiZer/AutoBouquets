@@ -17,7 +17,7 @@ AUTOBOUQUETS_BRANCH ?= "release"
 SRCREV = "${AUTOREV}"
 PV = "1.0+git${SRCPV}"
 PKGV = "1.0+git${GITPKGV}"
-PR = "r4"
+PR = "r5"
 
 INSANE_SKIP_${PN} += "already-stripped"
 
