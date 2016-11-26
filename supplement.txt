@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20161017
+# Date 20161126
 # log last edit
 
 ###################################################
@@ -74,6 +74,9 @@
 :1043:::::::ITV Tyne Tees HD
 :1044:::::::ITV Yorkshire HD
 :1045:::::::ITV Anglia HD
+:1061:::::::ITV Border England HD
+:1062:::::::ITV Westcountry West HD
+:1063:::::::ITV Westcountry SW HD
 :6501:::::::ITV Wales HD
 :6502:::::::ITV Meridian SE HD
 :6503:::::::ITV Central West HD
