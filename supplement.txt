@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20161126
+# Date 20170223
 # log last edit
 
 ###################################################
@@ -114,7 +114,7 @@
 :1324:::::::Sky Sports 4 RoI
 :1312:::::::Sky Sports 5 RoI
 
-:1023:::::::Al Jazeera Eng HD
+:1074:::::::Bloomberg HD
 
 # Alter encryption for viewable HD channels so that they 
 # are not excluded when using "Available HD" scan mode
