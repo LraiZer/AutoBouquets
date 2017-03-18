@@ -677,7 +677,7 @@ void write_bouquet_names(int count,string bq_n01,string bq_n02,string bq_n03,str
 	else if (count == 650) write_bouquet_name(bq_n0a,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (count == 700) write_bouquet_name(bq_n0b,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (count == 780) write_bouquet_name(bq_n0c,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 861 && !parentalcontrol) // parental control - gaming and dating
+	else if (count == 871 && !parentalcontrol) // parental control - gaming and dating
 		               write_bouquet_name(bq_n0d,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (count == 881) write_bouquet_name(bq_n0e,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (count == 900 && !parentalcontrol) // parental control - adult
@@ -1631,8 +1631,8 @@ int main (int argc, char *argv[]) {
 					else if ( count > 600 && count <= 650 ) bq_09 << bq_P << endl << bq_d << " " << endl;
 					else if ( count > 649 && count <= 700 ) bq_0a << bq_P << endl << bq_d << " " << endl;
 					else if ( count > 699 && count <= 780 ) bq_0b << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 779 && count <= 861 ) bq_0c << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 860 && count <= 881 ) 
+					else if ( count > 779 && count <= 871 ) bq_0c << bq_P << endl << bq_d << " " << endl;
+					else if ( count > 870 && count <= 881 ) 
 					{
 						// add placholder padding to prevous bq - gaming and dating
 						if (parentalcontrol)
@@ -1684,8 +1684,8 @@ int main (int argc, char *argv[]) {
 			else if ( skyid > 600 && skyid < 650 ) write_bouquet_service((*i).second,bq_09,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			else if ( skyid > 649 && skyid < 700 ) write_bouquet_service((*i).second,bq_0a,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			else if ( skyid > 699 && skyid < 780 ) write_bouquet_service((*i).second,bq_0b,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 779 && skyid < 861 ) write_bouquet_service((*i).second,bq_0c,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 860 && skyid < 881 )
+			else if ( skyid > 779 && skyid < 871 ) write_bouquet_service((*i).second,bq_0c,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( skyid > 870 && skyid < 881 )
 			{
 				// add placholder padding to prevous bq - gaming and dating
 				if (parentalcontrol)
