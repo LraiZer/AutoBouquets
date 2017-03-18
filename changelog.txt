@@ -303,3 +303,6 @@ Sort 3 changes
 
 2016-10-17
 Remove ITV Encore HD from whitelist/swap
+
+2017-03-18
+Alter International range
