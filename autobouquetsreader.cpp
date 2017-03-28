@@ -1661,7 +1661,7 @@ int main (int argc, char *argv[]) {
 			count = skyid;
 		}
 
-		parentalguidance = (( skyid > 860 && skyid < 881 ) || ( skyid > 899 && skyid < 950 )) ? true : false;
+		parentalguidance = (( skyid > 870 && skyid < 881 ) || ( skyid > 899 && skyid < 950 )) ? true : false;
 
 		if (custom_sort != 1)
 		{
