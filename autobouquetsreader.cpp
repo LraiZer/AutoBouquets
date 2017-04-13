@@ -1366,7 +1366,6 @@ int main (int argc, char *argv[]) {
 						if (is_name)		DATA[epg_id].name = channel.name;
 						if (is_reassign && !found_reassign)
 						{
-							autobouquets_log << "REASSIGN BAT: DATA > ";
 							string ch_skyid = channel.skyid;
 							channel = DATA[epg_id];
 							channel.skyid = ch_skyid;
@@ -1412,7 +1411,6 @@ int main (int argc, char *argv[]) {
 							if (is_name)		(*i).second.name = channel.name;
 							if (is_reassign && !found_reassign)
 							{
-								autobouquets_log << "REASSIGN BAT: TV > ";
 								TV[(*i).first].skyid = channel.skyid;
 								channel = TV[(*i).first];
 								TV.erase((*i).first);
@@ -1444,7 +1442,6 @@ int main (int argc, char *argv[]) {
 							if (is_name)		(*i).second.name = channel.name;
 							if (is_reassign && !found_reassign)
 							{
-								autobouquets_log << "REASSIGN BAT: TEST > ";
 								TEST[(*i).first].skyid = channel.skyid;
 								channel = TEST[(*i).first];
 								TEST.erase((*i).first);
@@ -1462,30 +1459,26 @@ int main (int argc, char *argv[]) {
 
 				if (is_complete || (is_reassign && found_reassign))
 				{
-					if (is_complete) autobouquets_log << "NEW CHANNEL: ";
+					if (is_complete) autobouquets_log << "NEW CHANNEL:" << endl;
 
 					if ((skyid > 100) && (skyid < 1000))
 					{
 						TV[channel.skyid] = channel;
 						TV[channel.skyid].skyid = epg_id;
-						autobouquets_log << "TV" << endl;
 					}
 					else if ((skyid > 3100) && (skyid < 4000))
 					{
 						RADIO[channel.skyid] = channel;
 						RADIO[channel.skyid].skyid = epg_id;
-						autobouquets_log << "RADIO" << endl;
 					}
 					else if (skyid == 0xffff)
 					{
 						DATA[epg_id] = channel;
-						autobouquets_log << "DATA" << endl;
 					}
 					else
 					{
 						TEST[channel.skyid] = channel;
 						TEST[channel.skyid].skyid = epg_id;
-						autobouquets_log << "TEST" << endl;
 					}
 
 					autobouquets_log << channel.skyid << ":" << epg_id << ":" << channel.type << ":"
