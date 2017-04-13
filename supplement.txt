@@ -33,7 +33,7 @@
 #  CHANGE CURRENT DATA - OVERRIDE ENCRYPTION      #
 #  :3358::::::NDS:                                #
 #                                                 #
-#  ADD CHANENL BY ID							  #
+#  CHANGE CURRENT DATA - MOVE CHANNEL POS BY ID   #
 #  406:1325:::::::                                #
 #                                                 #
 ###################################################
