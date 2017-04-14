@@ -310,3 +310,5 @@ Alter International range
 2017-04-12
 allow reassign channel position via channel_id reference
 
+2017-04-14
+Supplement/sort 3 changes

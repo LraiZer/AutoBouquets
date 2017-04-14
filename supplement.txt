@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20170413
+# Date 20170414
 # log last edit
 
 ###################################################
@@ -81,7 +81,7 @@
 :1062:::::::ITV Westcountry West HD
 :1063:::::::ITV Westcountry SW HD
 :6501:::::::ITV Wales HD
-:6502:::::::ITV Meridian SE HD
+:6502:::::::ITV Meridian South HD
 :6503:::::::ITV Central West HD
 :6504:::::::ITV London HD
 :6505:::::::ITV Granada HD
@@ -111,10 +111,6 @@
 :1690:::::::Sky Box Office Events
 
 #RoI Sports Channels
-:1309:::::::Sky Sports 1 RoI
-:1308:::::::Sky Sports 2 RoI
-:1323:::::::Sky Sports 3 RoI
-:1324:::::::Sky Sports 4 RoI
 :1312:::::::Sky Sports 5 RoI
 
 # Alter encryption for viewable HD channels so that they 
