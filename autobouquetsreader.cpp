@@ -951,7 +951,7 @@ int main (int argc, char *argv[]) {
 
 	// add sdt data to merged bat1
 	string sid;
-	for( map<string, channel_t>::iterator i = BAT1.begin(); i != BAT1.end(); ++i )
+	for( map<string, channel_t>::iterator i = BAT1.begin(); i != BAT1.end(); )
 	{
 		sid = to_string<string>((*i).second.sid, hex);
 		if ((fta == 1 && SDT[sid].ca == "FTA") || fta != 1)
@@ -960,9 +960,10 @@ int main (int argc, char *argv[]) {
 			BAT1[(*i).first].provider = SDT[sid].provider;
 			BAT1[(*i).first].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
 			BAT1[(*i).first].nspace   = ((*i).second.tsid == "7e3" ? "11a2f26" : "11a0000");
+			++i;
 		}
 		else
-			BAT1.erase((*i).first);
+			BAT1.erase(i++);
 	}
 
 	SDT.clear();
