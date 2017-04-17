@@ -1347,7 +1347,10 @@ int main (int argc, char *argv[]) {
 				is_complete = (is_skyid && is_epgid && is_type && is_sid && is_tsid && is_nspace && is_provider && is_ca && is_name) ? true : false;
 				is_reassign = (is_skyid && is_epgid) ? true : false;
 
-				bool found_reassign = false;
+				string found_assign = "65535";
+				bool data_reassign = false;
+				bool test_reassign = false;
+				bool tv_reassign = false;
 
 				if (is_epgid && !is_complete)
 				{
@@ -1364,13 +1367,13 @@ int main (int argc, char *argv[]) {
 						if (is_provider)	DATA[epg_id].provider = channel.provider;
 						if (is_ca)		DATA[epg_id].ca = channel.ca;
 						if (is_name)		DATA[epg_id].name = channel.name;
-						if (is_reassign && !found_reassign)
+						if (is_reassign && !data_reassign)
 						{
 							string ch_skyid = channel.skyid;
 							channel = DATA[epg_id];
 							channel.skyid = ch_skyid;
 							DATA.erase(epg_id);
-							found_reassign = true;
+							data_reassign = true;
 						}
 						else
 						{
@@ -1385,12 +1388,12 @@ int main (int argc, char *argv[]) {
 						if (TV.find(channel.skyid) != TV.end())
 						{
 							DATA[TV[channel.skyid].skyid] = TV[channel.skyid];
-							DATA[TV[channel.skyid].skyid].skyid = "65535";
+							DATA[TV[channel.skyid].skyid].skyid = found_assign;
 						}
 						if (TEST.find(channel.skyid) != TEST.end())
 						{
 							DATA[TEST[channel.skyid].skyid] = TEST[channel.skyid];
-							DATA[TEST[channel.skyid].skyid].skyid = "65535";
+							DATA[TEST[channel.skyid].skyid].skyid = found_assign;
 						}
 					}
 
@@ -1409,12 +1412,12 @@ int main (int argc, char *argv[]) {
 							if (is_provider)	(*i).second.provider = channel.provider;
 							if (is_ca)		(*i).second.ca = channel.ca;
 							if (is_name)		(*i).second.name = channel.name;
-							if (is_reassign && !found_reassign)
+							if (is_reassign && !tv_reassign)
 							{
 								TV[(*i).first].skyid = channel.skyid;
 								channel = TV[(*i).first];
-								TV.erase((*i).first);
-								found_reassign = true;
+								found_assign = (*i).first;
+								tv_reassign = true;
 							}
 							else
 							{
@@ -1424,6 +1427,7 @@ int main (int argc, char *argv[]) {
 							}
 						}
 					}
+					if (tv_reassign) TV.erase(found_assign);
 
 					for( map<string, channel_t>::iterator i = TEST.begin(); i != TEST.end(); ++i )
 					{
@@ -1440,12 +1444,12 @@ int main (int argc, char *argv[]) {
 							if (is_provider)	(*i).second.provider = channel.provider;
 							if (is_ca)		(*i).second.ca = channel.ca;
 							if (is_name)		(*i).second.name = channel.name;
-							if (is_reassign && !found_reassign)
+							if (is_reassign && !test_reassign)
 							{
 								TEST[(*i).first].skyid = channel.skyid;
 								channel = TEST[(*i).first];
-								TEST.erase((*i).first);
-								found_reassign = true;
+								found_assign = (*i).first;
+								test_reassign = true;
 							}
 							else
 							{
@@ -1455,9 +1459,10 @@ int main (int argc, char *argv[]) {
 							}
 						}
 					}
+					if (test_reassign) TEST.erase(found_assign);
 				}
 
-				if (is_complete || (is_reassign && found_reassign))
+				if (is_complete || (is_reassign && (data_reassign || test_reassign || tv_reassign)))
 				{
 					if (is_complete) autobouquets_log << "NEW CHANNEL:" << endl;
 
