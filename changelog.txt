@@ -317,3 +317,5 @@ Supplement/sort 3 changes
 fix channel position reassign via supplement.txt
 fix scan mode FTA Only
 
+2017-04-19
+Move unavailable channels to "other" bouquet
