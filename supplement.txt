@@ -196,8 +196,23 @@
 65535:2201:::::::
 65535:4320:::::::
 
-#sky living+
+#slow death section
+#
+# Sky 1
+106:1402:::::::
+# Sky Living
+107:4334:::::::
+# Sky Living+1
 122:4335:::::::
+# ComedyXtra
+128:2709:::::::
+# Sky Sports 1
+401:1301:::::::
+# Sky Sports 2
+402:1308:::::::
+# Sky Sports 3
+403:1333:::::::
+
 
 ##################################################################
 # exclude some channels deliberately. Duplicates and test channels
