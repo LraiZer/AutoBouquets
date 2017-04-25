@@ -319,3 +319,6 @@ fix scan mode FTA Only
 
 2017-04-19
 Move unavailable channels to "other" bouquet
+
+2017-04-25
+Move more unavailable channels to "other" bouquet
