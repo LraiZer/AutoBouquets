@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20170425
+# Date 20170504
 # log last edit
 
 ###################################################
@@ -144,6 +144,9 @@
 :5272::::::FTA:
 
 :4032::::::FTA:
+
+#Correct TRT world HD encryption flag
+:5237::::::FTA:
 
 #exclude services on 11914 frequency
 65535:1303:::::::
