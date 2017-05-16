@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20170504
+# Date 20170516
 # log last edit
 
 ###################################################
@@ -110,9 +110,6 @@
 #SBO
 :1690:::::::Sky Box Office Events
 
-#RoI Sports Channels
-:1312:::::::Sky Sports 5 RoI
-
 # Alter encryption for viewable HD channels so that they 
 # are not excluded when using "Available HD" scan mode
 ########################################################
@@ -148,7 +145,8 @@
 #Correct TRT world HD encryption flag
 :5237::::::FTA:
 
-#exclude services on 11914 frequency
+#exclude services on TSID 0x7db
+#move to "other" bouquet
 65535:1303:::::::
 65535:1323:::::::
 65535:1324:::::::
@@ -164,7 +162,8 @@
 65535:1884:::::::
 65535:1890:::::::
 
-#exclude services on 12148 frequency
+#exclude services on TSID 0x7e7
+#move to "other" bouquet
 65535:1412:::::::
 65535:2205:::::::
 65535:1813:::::::
@@ -182,7 +181,8 @@
 65535:1319:::::::
 65535:1414:::::::
 
-#exclude services on 12206 frequency
+#exclude services on TSID 0x7ea
+#move to "other" bouquet
 65535:1030:::::::
 65535:1097:::::::
 65535:1302:::::::
@@ -199,23 +199,45 @@
 65535:2201:::::::
 65535:4320:::::::
 
+#exclude services on TSID 0x7e5
+#move to "other" bouquet
+65535:1301:::::::
+65535:1305:::::::
+65535:1306:::::::
+65535:1307:::::::
+65535:1308:::::::
+65535:1333:::::::
+65535:1341:::::::
+65535:1343:::::::
+65535:1371:::::::
+65535:1402:::::::
+65535:1403:::::::
+65535:1405:::::::
+65535:1752:::::::
+65535:1814:::::::
+65535:2510:::::::
+65535:4334:::::::
+
+#exclude services on TSID 0x7ed
+#move to "other" bouquet
+65535:1251:::::::
+65535:1252:::::::
+65535:1253:::::::
+65535:1256:::::::
+65535:1845:::::::
+65535:1846:::::::
+65535:1849:::::::
+65535:1857:::::::
+65535:2804:::::::
+65535:2808:::::::
+65535:3645:::::::
+65535:4091:::::::
+65535:4093:::::::
+65535:4335:::::::
+
 #slow death section
-#
-# Sky 1
-106:1402:::::::
-# Sky Living
-107:4334:::::::
-# Sky Living+1
-122:4335:::::::
 # ComedyXtra
 128:2709:::::::
-# Sky Sports 1
-401:1301:::::::
-# Sky Sports 2
-402:1308:::::::
-# Sky Sports 3
-403:1333:::::::
-
 
 ##################################################################
 # exclude some channels deliberately. Duplicates and test channels
