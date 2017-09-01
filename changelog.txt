@@ -323,5 +323,11 @@ Move unavailable channels to "other" bouquet
 2017-04-25
 Move more unavailable channels to "other" bouquet
 
-2017/05-16
+2017-05-16
 Move more unavailable channels to "other" bouquet
+
+2017-09-01
+Whitelist more services
+Move more unavailable channels to "other" bouquet
+Cosmetic changes to order of TSIDs
+Some swap changes
