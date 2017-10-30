@@ -331,3 +331,6 @@ Whitelist more services
 Move more unavailable channels to "other" bouquet
 Cosmetic changes to order of TSIDs
 Some swap changes
+
+2017-10-30
+Hardcode some entries in supplement as not being picked up with EPG ID alone

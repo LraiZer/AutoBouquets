@@ -1,6 +1,6 @@
 # requires a unix compatible editor like NotePad++ 
 
-# Date 20170901
+# Date 20171030
 # log last edit
 
 ###################################################
@@ -135,14 +135,13 @@
 :5237::::::FTA:
 
 #slow death section
-# ComedyXtra
-112:3705:::::::
-128:2709:::::::
-415:1355:::::::
+112:3705:1:c78c:815:11a0000:BSkyB:NDS:ComedyCentral
+128:2709:1:c78e:815:11a0000:BSkyB:NDS:ComedyXtra
+415:1355:1:cd3f:844:11a0000:BSkyB:NDS:At The Races
 522:2418:::::::
-604:2517:::::::
-606:5527:::::::
-615:3356:::::::
+604:2517:1:c793:815:11a0000:BSkyB:NDS:Nickelodeon
+606:5527:1:c78a:815:11a0000:BSkyB:NDS:Nicktoons
+615:3356:1:c790:815:11a0000:BSkyB:NDS:Nicktoons Jr
 
 # these have been added to compensate for poor data when ran on ITV transponder
 :5037:::::::AMC from BTHD
