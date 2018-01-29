@@ -28,7 +28,7 @@ from Components.NimManager import nimmanager, getConfigSatlist
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
-ab_version = "30 Oct 2017"
+ab_version = "29 Jan 2018"
 defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"	# "Sky News"
 initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"	# "EPG Background Audio."
 
@@ -365,7 +365,7 @@ class AutoBouquets(Screen):
 		self['sortvalue'] = Label()
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("Start"))
-		self["key_yellow"] = Button(_("Help"))
+		self["key_yellow"] = Button(_("Help file"))
 		self["key_blue"] = Button(_("About"))
 		self["myActionMap"] = ActionMap(["SetupActions", "ColorActions", "MenuActions", "TimerEditActions"],
 		{
@@ -710,7 +710,7 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 		<screen name="AutoBouquetsMenu" position="center,center" size="600,550" title="AutoBouquets Setup">
 			<widget name="config" position="30,5" size="540,400" scrollbarMode="showOnDemand" />
 			<ePixmap pixmap="skin_default/div-h.png" position="30,410" zPosition="1" size="540,2" />
-			<widget source="help" render="Label" position="30,425" size="540,80" font="Regular;18" />
+			<widget name="description" render="Label" position="30,425" size="540,80" font="Regular;18" />
 			<widget name="key_red" position="10,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
 			<ePixmap name="red" position="10,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
 			<widget name="key_green" position="157,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
@@ -744,7 +744,8 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 		self["key_yellow"] = Button("")
 		self["key_blue"] = Button("") 
 		self["help"] = StaticText()
-
+		self["description"] = Label(_(""))
+		
 		def selectionChanged():
 			if self["config"].current:
 				self["config"].current[1].onDeselect(self.session)
@@ -819,6 +820,9 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 
 	def getCurrentValue(self):
 		return str(self["config"].getCurrent()[1].getText())
+
+	def getCurrentDescription(self):
+		return self["config"].getCurrent() and len(self["config"].getCurrent()) > 2 and self["config"].getCurrent()[2] or ""
 
 	def saveAll(self):
 		for x in self["config"].list:
