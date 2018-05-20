@@ -690,10 +690,10 @@ bool bouquet_has_service(string file_name) {
 	memset(name_file, '\0', 256);
 	sprintf(name_file, "/tmp/userbouquet.ukcvs%s.tv", file_name.c_str());
 	int number_of_lines = 0;
-	std::string line;
-	std::ifstream myfile(name_file);
+	string line;
+	ifstream myfile(name_file);
 
-	while (std::getline(myfile, line))
+	while (getline(myfile, line))
 		++number_of_lines;
 
 	if (number_of_lines < 4)
