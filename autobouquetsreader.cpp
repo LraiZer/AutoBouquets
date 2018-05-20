@@ -172,9 +172,16 @@ struct channel_t {
 	string nspace;
 } channel;
 
+struct bq_t {
+	unsigned short lower;
+	unsigned short upper;
+	string name;
+};
+
 sections_t BAT1_SECTIONS, BAT2_SECTIONS, BAT3_SECTIONS, NIT_SECTIONS;
 map<string, channel_t> BAT1, BAT2, BAT3, SDT, TV, RADIO, DATA, TEST;
 map<string, transport_t> NIT;
+static map<string, bq_t> BQ;
 
 // default Granada HD >< Northern Ireland HD
 int BAT_local = 0x1005, BAT_local_region = 0x7;
@@ -656,33 +663,34 @@ void write_bouquet_service(channel_t channel,ofstream& bq_stream,bool numbering,
 	}
 }
 
-void write_bouquet_name(string bq_name,ofstream& bq_00,ofstream& bq_14,ofstream& bq_15,int custom_sort,string bq_S,string bq_d,string bq_n1,string bq_n2) {
-	bq_14 << bq_S << endl << bq_d << bq_n1 << bq_name << bq_n2 << endl;
-	bq_15 << bq_S << endl << bq_d << bq_n1 << bq_name << bq_n2 << endl;
+void write_bouquet_name(string bq_name,ofstream& bq_00,ofstream& bq_fta,ofstream& bq_hd,int custom_sort,string bq_S,string bq_d,string bq_n1,string bq_n2) {
+	bq_fta << bq_S << endl << bq_d << bq_n1 << bq_name << bq_n2 << endl;
+	bq_hd << bq_S << endl << bq_d << bq_n1 << bq_name << bq_n2 << endl;
 	if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_name << bq_n2 << endl;
 }
 
-void write_bouquet_names(int count,string bq_n01,string bq_n02,string bq_n03,string bq_n04,string bq_n05,string bq_n06,string bq_n07,
-			string bq_n08,string bq_n09,string bq_n0a,string bq_n0b,string bq_n0c,string bq_n0d,string bq_n0e,string bq_n0f,string bq_n10,
-			ofstream& bq_00,ofstream& bq_14,ofstream& bq_15,int custom_sort,string bq_S,string bq_d,string bq_n1,string bq_n2,bool parentalcontrol) {
-	     if (count == 101) write_bouquet_name(bq_n01,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-//	else if (count == 240) write_bouquet_name(bq_n02,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);  //Reserved: Lifestyle and Culture
-	else if (count == 301) write_bouquet_name(bq_n03,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 350) write_bouquet_name(bq_n04,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 401) write_bouquet_name(bq_n05,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 501) write_bouquet_name(bq_n06,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 520) write_bouquet_name(bq_n07,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 580) write_bouquet_name(bq_n08,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 601) write_bouquet_name(bq_n09,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 650) write_bouquet_name(bq_n0a,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 700) write_bouquet_name(bq_n0b,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 780) write_bouquet_name(bq_n0c,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 871 && !parentalcontrol) // parental control - gaming and dating
-		               write_bouquet_name(bq_n0d,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 881) write_bouquet_name(bq_n0e,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 900 && !parentalcontrol) // parental control - adult
-		               write_bouquet_name(bq_n0f,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
-	else if (count == 950) write_bouquet_name(bq_n10,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+void write_bouquet_names(int lower,ofstream& bq_00,ofstream& bq_fta,ofstream& bq_hd,int custom_sort,string bq_S,string bq_d,string bq_n1,string bq_n2,bool parentalcontrol) {
+	     if (lower == BQ["01"].lower) write_bouquet_name(BQ["01"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["02"].lower) write_bouquet_name(BQ["02"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["03"].lower) write_bouquet_name(BQ["03"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["04"].lower) write_bouquet_name(BQ["04"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["05"].lower) write_bouquet_name(BQ["05"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["06"].lower) write_bouquet_name(BQ["06"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["07"].lower) write_bouquet_name(BQ["07"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["08"].lower) write_bouquet_name(BQ["08"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["09"].lower) write_bouquet_name(BQ["09"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["10"].lower) write_bouquet_name(BQ["10"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["11"].lower) write_bouquet_name(BQ["11"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["12"].lower) write_bouquet_name(BQ["12"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["13"].lower) write_bouquet_name(BQ["13"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["14"].lower) write_bouquet_name(BQ["14"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["15"].lower) write_bouquet_name(BQ["15"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["16"].lower) write_bouquet_name(BQ["16"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["17"].lower && !parentalcontrol)
+		               write_bouquet_name(BQ["17"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["18"].lower && !parentalcontrol)
+		               write_bouquet_name(BQ["18"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["99"].lower) write_bouquet_name(BQ["99"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 }
 
 bool bouquet_has_service(string file_name) {
@@ -690,10 +698,10 @@ bool bouquet_has_service(string file_name) {
 	memset(name_file, '\0', 256);
 	sprintf(name_file, "/tmp/userbouquet.ukcvs%s.tv", file_name.c_str());
 	int number_of_lines = 0;
-	std::string line;
-	std::ifstream myfile(name_file);
+	string line;
+	ifstream myfile(name_file);
 
-	while (std::getline(myfile, line))
+	while (getline(myfile, line))
 		++number_of_lines;
 
 	if (number_of_lines < 4)
@@ -763,15 +771,35 @@ int main (int argc, char *argv[]) {
 	                  dvb_demux = atoi(argv[18]);
 	}}}}}}}}}}}}}}}}}}
 
-	// Make Hex Editor Hackable so they dont need to recompile for changes ;-)
-	string SkySportsActive1 = "1471"; unsigned short ssa1 = atoi(SkySportsActive1.c_str());
-	string SkySportsActive2 = "1480"; unsigned short ssa2 = atoi(SkySportsActive2.c_str());
-	string BTextra1 = "5030"; unsigned short btx1 = atoi(BTextra1.c_str());
-	string BTextra2 = "5032"; unsigned short btx2 = atoi(BTextra2.c_str());
-	string BTextra3 = "5380"; unsigned short btx3 = atoi(BTextra3.c_str());
-	string BTextra4 = "5387"; unsigned short btx4 = atoi(BTextra4.c_str());
-	string SkyAnytime1 = "4094"; unsigned short any1 = atoi(SkyAnytime1.c_str());
-	string SkyAnytime2 = "4099"; unsigned short any2 = atoi(SkyAnytime2.c_str());
+	// Channel ID ranges
+	unsigned short any1 = 4095; // Sky Anytime - lower - test bouquet = 540
+	unsigned short any2 = 4099; // Sky Anytime - upper - test bouquet = 549
+	unsigned short ssa1 = 1471; // Sky Sports Active - lower - test bouquet = 550
+	unsigned short ssa2 = 1480; // Sky Sports Active - upper - test bouquet = 559
+	unsigned short btx1 = 5030; // BT Sports Active - lower - 1st range
+	unsigned short btx2 = 5032; // BT Sports Active - upper - 1st range
+	unsigned short btx3 = 5381; // BT Sports Active - lower - 2nd range
+	unsigned short btx4 = 5387; // BT Sports Active - upper - 2nd range
+
+	BQ["01"].lower = 101; BQ["01"].upper = 200; BQ["01"].name = "Entertainment and Documentaries";
+	BQ["02"].lower = 000; BQ["02"].upper = 000; BQ["02"].name = "Documentaries"; // legacy reserved
+	BQ["03"].lower = 000; BQ["03"].upper = 000; BQ["03"].name = "Lifestyle and Culture"; // legacy reserved
+	BQ["04"].lower = 201; BQ["04"].upper = 300; BQ["04"].name = "Ent. and Doc. Plus 1s"; // parental last 2 digits
+	BQ["05"].lower = 301; BQ["05"].upper = 349; BQ["05"].name = "Movies";
+	BQ["06"].lower = 350; BQ["06"].upper = 400; BQ["06"].name = "Music";
+	BQ["07"].lower = 401; BQ["07"].upper = 449; BQ["07"].name = "Sports";
+	BQ["08"].lower = 450; BQ["08"].upper = 489; BQ["08"].name = "Ent. and Doc. continued"; // overspill +200
+	BQ["09"].lower = 490; BQ["09"].upper = 500; BQ["09"].name = "Pay-Per-View";
+	BQ["10"].lower = 501; BQ["10"].upper = 559; BQ["10"].name = "News";
+	BQ["11"].lower = 560; BQ["11"].upper = 579; BQ["11"].name = "Specialist";
+	BQ["12"].lower = 580; BQ["12"].upper = 600; BQ["12"].name = "Religious";
+	BQ["13"].lower = 601; BQ["13"].upper = 659; BQ["13"].name = "Kids";
+	BQ["14"].lower = 660; BQ["14"].upper = 700; BQ["14"].name = "Shopping";
+	BQ["15"].lower = 701; BQ["15"].upper = 800; BQ["15"].name = "International";
+	BQ["16"].lower = 801; BQ["16"].upper = 899; BQ["16"].name = "Secondary Channels"; // HD/SD swaps
+	BQ["17"].lower = 900; BQ["17"].upper = 939; BQ["17"].name = "Adult";
+	BQ["18"].lower = 940; BQ["18"].upper = 950; BQ["18"].name = "Gaming and Dating";
+	BQ["99"].lower = 951; BQ["99"].upper = 999; BQ["99"].name = "Other";
 
 	if (update)
 	{
@@ -894,14 +922,6 @@ int main (int argc, char *argv[]) {
 		if ((fta == 1 && SDT[sid].ca == "FTA") || fta != 1)
 		{
 			unsigned short skyid = atoi((*ii).second.skyid.c_str());
-
-			// hack to re-assign channel numbers for duplicate regionals in transmitted TEST bouquet services
-			switch (skyid)
-			{
-				case 131: // ITV +1
-					(*ii).second.skyid = "69";
-					break;
-			}
 
 			if (skyid != 65535)
 			{
@@ -1059,27 +1079,11 @@ int main (int argc, char *argv[]) {
 	string bouquets_ntv2 = ".tv\" ORDER BY bouquet";
 
 	string bq_n00 = "28.2E UK Bouquets";
-	string bq_n01 = "Entertainment";
-	string bq_n02 = "Lifestyle and Culture";
-	string bq_n03 = "Movies";
-	string bq_n04 = "Music";
-	string bq_n05 = "Sports";
-	string bq_n06 = "News";
-	string bq_n07 = "Documentaries";
-	string bq_n08 = "Religious";
-	string bq_n09 = "Kids";
-	string bq_n0a = "Shopping";
-	string bq_n0b = "Sky Box Office";
-	string bq_n0c = "International";
-	string bq_n0d = "Gaming and Dating";
-	string bq_n0e = "Specialist";
-	string bq_n0f = "Adult";
-	string bq_n10 = "Other";
-	string bq_n11 = "Sky Sports Interactive";
-	string bq_n12 = "BT Sports Interactive";
-	string bq_n13 = "Sky Anytime";
-	string bq_n14 = "Free To Air";
-	string bq_n15 = "High Definition";
+	string bq_nany = "Sky Anytime";
+	string bq_nssa = "Sky Sports Active";
+	string bq_nbts = "BT Sports Active";
+	string bq_nfta = "Free To Air";
+	string bq_nhd = "High Definition";
 	string bq_nu1 = "User Bouquet 1";
 	string bq_nu2 = "User Bouquet 2";
 	string bq_nu3 = "User Bouquet 3";
@@ -1180,27 +1184,25 @@ int main (int argc, char *argv[]) {
 				string bouquet_name = dat_line.substr(index + 1);
 
 				     if ( name_bouquet == "00" ) bq_n00 = bouquet_name;
-				else if ( name_bouquet == "01" ) bq_n01 = bouquet_name;
-				else if ( name_bouquet == "02" ) bq_n02 = bouquet_name;
-				else if ( name_bouquet == "03" ) bq_n03 = bouquet_name;
-				else if ( name_bouquet == "04" ) bq_n04 = bouquet_name;
-				else if ( name_bouquet == "05" ) bq_n05 = bouquet_name;
-				else if ( name_bouquet == "06" ) bq_n06 = bouquet_name;
-				else if ( name_bouquet == "07" ) bq_n07 = bouquet_name;
-				else if ( name_bouquet == "08" ) bq_n08 = bouquet_name;
-				else if ( name_bouquet == "09" ) bq_n09 = bouquet_name;
-				else if ( name_bouquet == "0a" ) bq_n0a = bouquet_name;
-				else if ( name_bouquet == "0b" ) bq_n0b = bouquet_name;
-				else if ( name_bouquet == "0c" ) bq_n0c = bouquet_name;
-				else if ( name_bouquet == "0d" ) bq_n0d = bouquet_name;
-				else if ( name_bouquet == "0e" ) bq_n0e = bouquet_name;
-				else if ( name_bouquet == "0f" ) bq_n0f = bouquet_name;
-				else if ( name_bouquet == "10" ) bq_n10 = bouquet_name;
-				else if ( name_bouquet == "11" ) bq_n11 = bouquet_name;
-				else if ( name_bouquet == "12" ) bq_n12 = bouquet_name;
-				else if ( name_bouquet == "13" ) bq_n13 = bouquet_name;
-				else if ( name_bouquet == "14" ) bq_n14 = bouquet_name;
-				else if ( name_bouquet == "15" ) bq_n15 = bouquet_name;
+				else if ( name_bouquet == "01" ) BQ["01"].name = bouquet_name;
+				else if ( name_bouquet == "02" ) BQ["02"].name = bouquet_name;
+				else if ( name_bouquet == "03" ) BQ["03"].name = bouquet_name;
+				else if ( name_bouquet == "04" ) BQ["04"].name = bouquet_name;
+				else if ( name_bouquet == "05" ) BQ["05"].name = bouquet_name;
+				else if ( name_bouquet == "06" ) BQ["06"].name = bouquet_name;
+				else if ( name_bouquet == "07" ) BQ["07"].name = bouquet_name;
+				else if ( name_bouquet == "08" ) BQ["08"].name = bouquet_name;
+				else if ( name_bouquet == "09" ) BQ["09"].name = bouquet_name;
+				else if ( name_bouquet == "10" ) BQ["10"].name = bouquet_name;
+				else if ( name_bouquet == "11" ) BQ["11"].name = bouquet_name;
+				else if ( name_bouquet == "12" ) BQ["12"].name = bouquet_name;
+				else if ( name_bouquet == "13" ) BQ["13"].name = bouquet_name;
+				else if ( name_bouquet == "14" ) BQ["14"].name = bouquet_name;
+				else if ( name_bouquet == "15" ) BQ["15"].name = bouquet_name;
+				else if ( name_bouquet == "16" ) BQ["16"].name = bouquet_name;
+				else if ( name_bouquet == "17" ) BQ["17"].name = bouquet_name;
+				else if ( name_bouquet == "18" ) BQ["18"].name = bouquet_name;
+				else if ( name_bouquet == "99" ) BQ["99"].name = bouquet_name;
 				else if ( name_bouquet == "u1" ) bq_nu1 = bouquet_name;
 				else if ( name_bouquet == "u2" ) bq_nu2 = bouquet_name;
 				else if ( name_bouquet == "u3" ) bq_nu3 = bouquet_name;
@@ -1212,52 +1214,38 @@ int main (int argc, char *argv[]) {
 	}
 
 	ofstream bq_00 ("/tmp/userbouquet.ukcvs00.tv"); bq_00 << bq_N << bq_n00 << endl << bq_S << endl << bq_D << bq_n1 << bq_n00 << bq_n2 << endl;
-	ofstream bq_01 ("/tmp/userbouquet.ukcvs01.tv"); bq_01 << bq_N << bq_s1 << bq_n01 << endl << bq_S << endl << bq_D << bq_n1 << bq_n01 << bq_n2 << endl;
-	ofstream bq_02 ("/tmp/userbouquet.ukcvs02.tv"); bq_02 << bq_N << bq_s1 << bq_n02 << endl << bq_S << endl << bq_D << bq_n1 << bq_n02 << bq_n2 << endl;
-	ofstream bq_03 ("/tmp/userbouquet.ukcvs03.tv"); bq_03 << bq_N << bq_s1 << bq_n03 << endl << bq_S << endl << bq_D << bq_n1 << bq_n03 << bq_n2 << endl;
-	ofstream bq_04 ("/tmp/userbouquet.ukcvs04.tv"); bq_04 << bq_N << bq_s1 << bq_n04 << endl << bq_S << endl << bq_D << bq_n1 << bq_n04 << bq_n2 << endl;
-	ofstream bq_05 ("/tmp/userbouquet.ukcvs05.tv"); bq_05 << bq_N << bq_s1 << bq_n05 << endl << bq_S << endl << bq_D << bq_n1 << bq_n05 << bq_n2 << endl;
-	ofstream bq_06 ("/tmp/userbouquet.ukcvs06.tv"); bq_06 << bq_N << bq_s1 << bq_n06 << endl << bq_S << endl << bq_D << bq_n1 << bq_n06 << bq_n2 << endl;
-	ofstream bq_07 ("/tmp/userbouquet.ukcvs07.tv"); bq_07 << bq_N << bq_s1 << bq_n07 << endl << bq_S << endl << bq_D << bq_n1 << bq_n07 << bq_n2 << endl;
-	ofstream bq_08 ("/tmp/userbouquet.ukcvs08.tv"); bq_08 << bq_N << bq_s1 << bq_n08 << endl << bq_S << endl << bq_D << bq_n1 << bq_n08 << bq_n2 << endl;
-	ofstream bq_09 ("/tmp/userbouquet.ukcvs09.tv"); bq_09 << bq_N << bq_s1 << bq_n09 << endl << bq_S << endl << bq_D << bq_n1 << bq_n09 << bq_n2 << endl;
-	ofstream bq_0a ("/tmp/userbouquet.ukcvs0a.tv"); bq_0a << bq_N << bq_s1 << bq_n0a << endl << bq_S << endl << bq_D << bq_n1 << bq_n0a << bq_n2 << endl;
-	ofstream bq_0b ("/tmp/userbouquet.ukcvs0b.tv"); bq_0b << bq_N << bq_s1 << bq_n0b << endl << bq_S << endl << bq_D << bq_n1 << bq_n0b << bq_n2 << endl;
-	ofstream bq_0c ("/tmp/userbouquet.ukcvs0c.tv"); bq_0c << bq_N << bq_s1 << bq_n0c << endl << bq_S << endl << bq_D << bq_n1 << bq_n0c << bq_n2 << endl;
-	ofstream bq_0d ("/tmp/userbouquet.ukcvs0d.tv"); bq_0d << bq_N << bq_s1 << bq_n0d << endl << bq_S << endl << bq_D << bq_n1 << bq_n0d << bq_n2 << endl;
-	ofstream bq_0e ("/tmp/userbouquet.ukcvs0e.tv"); bq_0e << bq_N << bq_s1 << bq_n0e << endl << bq_S << endl << bq_D << bq_n1 << bq_n0e << bq_n2 << endl;
-	ofstream bq_0f ("/tmp/userbouquet.ukcvs0f.tv"); bq_0f << bq_N << bq_s1 << bq_n0f << endl << bq_S << endl << bq_D << bq_n1 << bq_n0f << bq_n2 << endl;
-	ofstream bq_10 ("/tmp/userbouquet.ukcvs10.tv"); bq_10 << bq_N << bq_s1 << bq_n10 << endl << bq_S << endl << bq_D << bq_n1 << bq_n10 << bq_n2 << endl;
-	ofstream bq_14 ("/tmp/userbouquet.ukcvs14.tv"); bq_14 << bq_N << bq_s1 << bq_n14 << endl << bq_S << endl << bq_D << bq_n1 << bq_n14 << bq_n2 << endl;
-	ofstream bq_15 ("/tmp/userbouquet.ukcvs15.tv"); bq_15 << bq_N << bq_s1 << bq_n15 << endl << bq_S << endl << bq_D << bq_n1 << bq_n15 << bq_n2 << endl;
+
+	ofstream bq_01 ("/tmp/userbouquet.ukcvs01.tv"); bq_01 << bq_N << bq_s1 << BQ["01"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["01"].name << bq_n2 << endl;
+	ofstream bq_02 ("/tmp/userbouquet.ukcvs02.tv"); bq_02 << bq_N << bq_s1 << BQ["02"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["02"].name << bq_n2 << endl;
+	ofstream bq_03 ("/tmp/userbouquet.ukcvs03.tv"); bq_03 << bq_N << bq_s1 << BQ["03"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["03"].name << bq_n2 << endl;
+	ofstream bq_04 ("/tmp/userbouquet.ukcvs04.tv"); bq_04 << bq_N << bq_s1 << BQ["04"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["04"].name << bq_n2 << endl;
+	ofstream bq_05 ("/tmp/userbouquet.ukcvs05.tv"); bq_05 << bq_N << bq_s1 << BQ["05"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["05"].name << bq_n2 << endl;
+	ofstream bq_06 ("/tmp/userbouquet.ukcvs06.tv"); bq_06 << bq_N << bq_s1 << BQ["06"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["06"].name << bq_n2 << endl;
+	ofstream bq_07 ("/tmp/userbouquet.ukcvs07.tv"); bq_07 << bq_N << bq_s1 << BQ["07"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["07"].name << bq_n2 << endl;
+	ofstream bq_08 ("/tmp/userbouquet.ukcvs08.tv"); bq_08 << bq_N << bq_s1 << BQ["08"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["08"].name << bq_n2 << endl;
+	ofstream bq_09 ("/tmp/userbouquet.ukcvs09.tv"); bq_09 << bq_N << bq_s1 << BQ["09"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["09"].name << bq_n2 << endl;
+	ofstream bq_10 ("/tmp/userbouquet.ukcvs10.tv"); bq_10 << bq_N << bq_s1 << BQ["10"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["10"].name << bq_n2 << endl;
+	ofstream bq_11 ("/tmp/userbouquet.ukcvs11.tv"); bq_11 << bq_N << bq_s1 << BQ["11"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["11"].name << bq_n2 << endl;
+	ofstream bq_12 ("/tmp/userbouquet.ukcvs12.tv"); bq_12 << bq_N << bq_s1 << BQ["12"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["12"].name << bq_n2 << endl;
+	ofstream bq_13 ("/tmp/userbouquet.ukcvs13.tv"); bq_13 << bq_N << bq_s1 << BQ["13"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["13"].name << bq_n2 << endl;
+	ofstream bq_14 ("/tmp/userbouquet.ukcvs14.tv"); bq_14 << bq_N << bq_s1 << BQ["14"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["14"].name << bq_n2 << endl;
+	ofstream bq_15 ("/tmp/userbouquet.ukcvs15.tv"); bq_15 << bq_N << bq_s1 << BQ["15"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["15"].name << bq_n2 << endl;
+	ofstream bq_16 ("/tmp/userbouquet.ukcvs16.tv"); bq_16 << bq_N << bq_s1 << BQ["16"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["16"].name << bq_n2 << endl;
+	ofstream bq_17 ("/tmp/userbouquet.ukcvs17.tv"); bq_17 << bq_N << bq_s1 << BQ["17"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["17"].name << bq_n2 << endl;
+	ofstream bq_18 ("/tmp/userbouquet.ukcvs18.tv"); bq_18 << bq_N << bq_s1 << BQ["18"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["18"].name << bq_n2 << endl;
+	ofstream bq_99 ("/tmp/userbouquet.ukcvs99.tv"); bq_99 << bq_N << bq_s1 << BQ["99"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["99"].name << bq_n2 << endl;
+
+	ofstream bq_any ("/tmp/userbouquet.ukcvs_any.tv"); bq_any << bq_N << bq_s1 << bq_nany << endl << bq_S << endl << bq_D << bq_n1 << bq_nany << bq_n2 << endl;
+	ofstream bq_ssa ("/tmp/userbouquet.ukcvs_ssa.tv"); bq_ssa << bq_N << bq_s1 << bq_nssa << endl << bq_S << endl << bq_D << bq_n1 << bq_nssa << bq_n2 << endl;
+	ofstream bq_bts ("/tmp/userbouquet.ukcvs_bts.tv"); bq_bts << bq_N << bq_s1 << bq_nbts << endl << bq_S << endl << bq_D << bq_n1 << bq_nbts << bq_n2 << endl;
+	ofstream bq_fta ("/tmp/userbouquet.ukcvs_fta.tv"); bq_fta << bq_N << bq_s1 << bq_nfta << endl << bq_S << endl << bq_D << bq_n1 << bq_nfta << bq_n2 << endl;
+	ofstream bq_hd ("/tmp/userbouquet.ukcvs_hd.tv"); bq_hd << bq_N << bq_s1 << bq_nhd << endl << bq_S << endl << bq_D << bq_n1 << bq_nhd << bq_n2 << endl;
+
 	ofstream bq_u1 ("/tmp/userbouquet.ukcvs-user1.tv"); bq_u1 << bq_N << bq_s1 << bq_nu1 << endl << bq_S << endl << bq_D << bq_n1 << bq_nu1 << bq_n2 << endl;
 	ofstream bq_u2 ("/tmp/userbouquet.ukcvs-user2.tv"); bq_u2 << bq_N << bq_s1 << bq_nu2 << endl << bq_S << endl << bq_D << bq_n1 << bq_nu2 << bq_n2 << endl;
 	ofstream bq_u3 ("/tmp/userbouquet.ukcvs-user3.tv"); bq_u3 << bq_N << bq_s1 << bq_nu3 << endl << bq_S << endl << bq_D << bq_n1 << bq_nu3 << bq_n2 << endl;
 	ofstream bq_u4 ("/tmp/userbouquet.ukcvs-user4.tv"); bq_u4 << bq_N << bq_s1 << bq_nu4 << endl << bq_S << endl << bq_D << bq_n1 << bq_nu4 << bq_n2 << endl;
 	ofstream bq_u5 ("/tmp/userbouquet.ukcvs-user5.tv"); bq_u5 << bq_N << bq_s1 << bq_nu5 << endl << bq_S << endl << bq_D << bq_n1 << bq_nu5 << bq_n2 << endl;
-
-	bq_n00 = "28.2E UK Bouquets";
-	bq_n01 = "Entertainment";
-	bq_n02 = "Lifestyle and Culture";
-	bq_n03 = "Movies";
-	bq_n04 = "Music";
-	bq_n05 = "Sports";
-	bq_n06 = "News";
-	bq_n07 = "Documentaries";
-	bq_n08 = "Religious";
-	bq_n09 = "Kids";
-	bq_n0a = "Shopping";
-	bq_n0b = "Sky Box Office";
-	bq_n0c = "International";
-	bq_n0d = "Gaming and Dating";
-	bq_n0e = "Specialist";
-	bq_n0f = "Adult";
-	bq_n10 = "Other";
-	bq_n11 = "Sky Sports Interactive";
-	bq_n12 = "BT Sports Interactive";
-	bq_n13 = "Sky Anytime";
-	bq_n14 = "Free To Air";
-	bq_n15 = "High Definition";
 
 	if (custom_sort != 1)
 	{
@@ -1280,7 +1268,7 @@ int main (int argc, char *argv[]) {
 
 			if (count > 4) break;
 		}
-		bq_00 << bq_S << endl << bq_d << bq_n1 << bq_n15 << bq_n2 << endl;
+		bq_00 << bq_S << endl << bq_d << bq_n1 << bq_nhd << bq_n2 << endl;
 	}
 
 	char supp_file[256];
@@ -1628,13 +1616,16 @@ int main (int argc, char *argv[]) {
 						else if ( sort_bouquet == "07" ) write_bouquet_service(channel,bq_07,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "08" ) write_bouquet_service(channel,bq_08,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "09" ) write_bouquet_service(channel,bq_09,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-						else if ( sort_bouquet == "0a" ) write_bouquet_service(channel,bq_0a,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-						else if ( sort_bouquet == "0b" ) write_bouquet_service(channel,bq_0b,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-						else if ( sort_bouquet == "0c" ) write_bouquet_service(channel,bq_0c,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-						else if ( sort_bouquet == "0d" ) write_bouquet_service(channel,bq_0d,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-						else if ( sort_bouquet == "0e" ) write_bouquet_service(channel,bq_0e,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-						else if ( sort_bouquet == "0f" ) write_bouquet_service(channel,bq_0f,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "10" ) write_bouquet_service(channel,bq_10,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "11" ) write_bouquet_service(channel,bq_11,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "12" ) write_bouquet_service(channel,bq_12,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "13" ) write_bouquet_service(channel,bq_13,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "14" ) write_bouquet_service(channel,bq_14,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "15" ) write_bouquet_service(channel,bq_15,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "16" ) write_bouquet_service(channel,bq_16,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "17" ) write_bouquet_service(channel,bq_17,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "18" ) write_bouquet_service(channel,bq_18,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "99" ) write_bouquet_service(channel,bq_99,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "u1" ) write_bouquet_service(channel,bq_u1,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "u2" ) write_bouquet_service(channel,bq_u2,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "u3" ) write_bouquet_service(channel,bq_u3,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
@@ -1650,7 +1641,7 @@ int main (int argc, char *argv[]) {
 	bq_u1.close(); bq_u2.close(); bq_u3.close(); bq_u4.close(); bq_u5.close();
 
 	count = 100;
-	unsigned short hdcount = 0;
+	unsigned short lower, higher, hdcount = 0;
 	string skynum = "";
 
 	for( map<string, channel_t>::iterator i = TV.begin(); i != TV.end(); ++i )
@@ -1660,8 +1651,7 @@ int main (int argc, char *argv[]) {
 		bool parentalguidance = false;
 
 		if (count == skyid)
-			write_bouquet_names(count,bq_n01,bq_n02,bq_n03,bq_n04,bq_n05,bq_n06,bq_n07,bq_n08,bq_n09,bq_n0a,bq_n0b,
-				bq_n0c,bq_n0d,bq_n0e,bq_n0f,bq_n10,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2,parentalcontrol);
+			write_bouquet_names(count,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2,parentalcontrol);
 		else
 		{	// placeholder
 			while (count < skyid)
@@ -1670,48 +1660,52 @@ int main (int argc, char *argv[]) {
 
 				if (custom_sort == 1)
 				{
-					if ( count > 100 && count <= 301 ) bq_01 << bq_P << endl << bq_d << " " << endl;
-				//	else if ( count > 239 && count <= 240 ) bq_02 << bq_P << endl << bq_d << " " << endl; //Reserved: Lifestyle and Culture
-					else if ( count > 300 && count <= 350 ) bq_03 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 349 && count <= 401 ) bq_04 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 400 && count <= 501 ) bq_05 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 500 && count <= 520 ) bq_06 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 519 && count <= 580 ) bq_07 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 579 && count <= 601 ) bq_08 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 600 && count <= 650 ) bq_09 << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 649 && count <= 700 ) bq_0a << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 699 && count <= 780 ) bq_0b << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 779 && count <= 871 ) bq_0c << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 870 && count <= 881 ) 
+					unsigned short lower = count + 1;
+					unsigned short upper = count - 1;
+
+					     if ( lower > BQ["01"].lower && upper < BQ["01"].upper ) bq_01 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["02"].lower && upper < BQ["02"].upper ) bq_02 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["03"].lower && upper < BQ["03"].upper ) bq_03 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["04"].lower && upper < BQ["04"].upper ) bq_04 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["05"].lower && upper < BQ["05"].upper ) bq_05 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["06"].lower && upper < BQ["06"].upper ) bq_06 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["07"].lower && upper < BQ["07"].upper ) bq_07 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["08"].lower && upper < BQ["08"].upper ) bq_08 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["09"].lower && upper < BQ["09"].upper ) bq_09 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["10"].lower && upper < BQ["10"].upper ) bq_10 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["11"].lower && upper < BQ["11"].upper ) bq_11 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["12"].lower && upper < BQ["12"].upper ) bq_12 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["13"].lower && upper < BQ["13"].upper ) bq_13 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["14"].lower && upper < BQ["14"].upper ) bq_14 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["15"].lower && upper < BQ["15"].upper ) bq_15 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["16"].lower && upper < BQ["16"].upper ) bq_16 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["17"].lower && upper < BQ["17"].upper )
 					{
-						// add placholder padding to prevous bq - gaming and dating
 						if (parentalcontrol)
-							bq_0c << bq_P << endl << bq_d << " " << endl;
+							bq_16 << bq_P << endl << bq_d << " " << endl; // add placholder padding to bq 16
 						else
-							bq_0d << bq_P << endl << bq_d << " " << endl;
+							bq_17 << bq_P << endl << bq_d << " " << endl; // Adult
 					}
-					else if ( count > 880 && count <= 900 ) bq_0e << bq_P << endl << bq_d << " " << endl;
-					else if ( count > 899 && count <= 950 ) 
+					else if ( lower > BQ["18"].lower && upper <= BQ["18"].upper )
 					{
-						// add placholder padding to prevous bq - adult
 						if (parentalcontrol)
-							bq_0e << bq_P << endl << bq_d << " " << endl;
+							bq_16 << bq_P << endl << bq_d << " " << endl; // add placholder padding to bq 16
 						else
-							bq_0f << bq_P << endl << bq_d << " " << endl;
+							bq_18 << bq_P << endl << bq_d << " " << endl; // Gaming and Dating
 					}
-					else bq_10 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["99"].lower && upper <= BQ["99"].upper ) bq_99 << bq_P << endl << bq_d << " " << endl;
+					else bq_99 << bq_P << endl << bq_d << " " << endl; // default - Other
 				}
 				else
 					bq_00 << bq_P << endl << bq_d << " " << endl;
 
-				write_bouquet_names(count,bq_n01,bq_n02,bq_n03,bq_n04,bq_n05,bq_n06,bq_n07,bq_n08,bq_n09,bq_n0a,bq_n0b,
-					bq_n0c,bq_n0d,bq_n0e,bq_n0f,bq_n10,bq_00,bq_14,bq_15,custom_sort,bq_S,bq_d,bq_n1,bq_n2,parentalcontrol);
+				write_bouquet_names(count,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2,parentalcontrol);
 
 			}
 			count = skyid;
 		}
 
-		parentalguidance = (( skyid > 870 && skyid < 881 ) || ( skyid > 899 && skyid < 950 )) ? true : false;
+		parentalguidance = (skyid > BQ["17"].lower && skyid < BQ["18"].upper) ? true : false; // Adult, Gaming and Dating - combined lower to uppper bouquets range
 
 		if (custom_sort != 1)
 		{
@@ -1723,58 +1717,64 @@ int main (int argc, char *argv[]) {
 
 		if (custom_sort < 2)
 		{
-			     if ( skyid > 100 && skyid < 301 ) write_bouquet_service((*i).second,bq_01,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-		//	else if ( skyid > 239 && skyid < 240 ) write_bouquet_service((*i).second,bq_02,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P); //Reserved: Lifestyle and Culture
-			else if ( skyid > 300 && skyid < 350 ) write_bouquet_service((*i).second,bq_03,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 349 && skyid < 401 ) write_bouquet_service((*i).second,bq_04,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 400 && skyid < 501 ) write_bouquet_service((*i).second,bq_05,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 500 && skyid < 520 ) write_bouquet_service((*i).second,bq_06,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 519 && skyid < 580 ) write_bouquet_service((*i).second,bq_07,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 579 && skyid < 601 ) write_bouquet_service((*i).second,bq_08,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 600 && skyid < 650 ) write_bouquet_service((*i).second,bq_09,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 649 && skyid < 700 ) write_bouquet_service((*i).second,bq_0a,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 699 && skyid < 780 ) write_bouquet_service((*i).second,bq_0b,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 779 && skyid < 871 ) write_bouquet_service((*i).second,bq_0c,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 870 && skyid < 881 )
+			unsigned short lower = skyid + 1;
+			unsigned short upper = skyid - 1;
+
+			     if ( lower > BQ["01"].lower && upper < BQ["01"].upper ) write_bouquet_service((*i).second,bq_01,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["02"].lower && upper < BQ["02"].upper ) write_bouquet_service((*i).second,bq_02,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["03"].lower && upper < BQ["03"].upper ) write_bouquet_service((*i).second,bq_03,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["04"].lower && upper < BQ["04"].upper ) write_bouquet_service((*i).second,bq_04,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["05"].lower && upper < BQ["05"].upper ) write_bouquet_service((*i).second,bq_05,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["06"].lower && upper < BQ["06"].upper ) write_bouquet_service((*i).second,bq_06,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["07"].lower && upper < BQ["07"].upper ) write_bouquet_service((*i).second,bq_07,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["08"].lower && upper < BQ["08"].upper ) write_bouquet_service((*i).second,bq_08,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["09"].lower && upper < BQ["09"].upper ) write_bouquet_service((*i).second,bq_09,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["10"].lower && upper < BQ["10"].upper ) write_bouquet_service((*i).second,bq_10,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["11"].lower && upper < BQ["11"].upper ) write_bouquet_service((*i).second,bq_11,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["12"].lower && upper < BQ["12"].upper ) write_bouquet_service((*i).second,bq_12,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["13"].lower && upper < BQ["13"].upper ) write_bouquet_service((*i).second,bq_13,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["14"].lower && upper < BQ["14"].upper ) write_bouquet_service((*i).second,bq_14,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["15"].lower && upper < BQ["15"].upper ) write_bouquet_service((*i).second,bq_15,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["16"].lower && upper < BQ["16"].upper ) write_bouquet_service((*i).second,bq_16,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["17"].lower && upper < BQ["17"].upper )
 			{
-				// add placholder padding to prevous bq - gaming and dating
+				// add placholder padding to prevous bq - Adult
 				if (parentalcontrol)
 				{
 					if (custom_sort == 1)
-						bq_0c << bq_P << endl << bq_d << " " << endl;
+						bq_16 << bq_P << endl << bq_d << " " << endl;
 				}
 				else
- 					write_bouquet_service((*i).second,bq_0d,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+					write_bouquet_service((*i).second,bq_17,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			}
-			else if ( skyid > 880 && skyid < 900 ) write_bouquet_service((*i).second,bq_0e,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
-			else if ( skyid > 899 && skyid < 950 )
+			else if ( lower > BQ["18"].lower && upper < BQ["18"].upper )
 			{
-				// add placholder padding to prevous bq - adult
+				// add placholder padding to prevous bq - Gaming and Dating
 				if (parentalcontrol)
 				{
 					if (custom_sort == 1)
-						bq_0e << bq_P << endl << bq_d << " " << endl;
+						bq_16 << bq_P << endl << bq_d << " " << endl;
 				}
 				else
-					write_bouquet_service((*i).second,bq_0f,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+					write_bouquet_service((*i).second,bq_18,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			}
 			else
- 				write_bouquet_service((*i).second,bq_10,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+				write_bouquet_service((*i).second,bq_99,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 		}
 
 		if ( ((*i).second.ca == "FTA") && !(parentalguidance && parentalcontrol) )
- 			write_bouquet_service((*i).second,bq_14,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			write_bouquet_service((*i).second,bq_fta,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 
 		int is_type = atoi((*i).second.type.c_str());
 		if ( ( is_type == 19 || is_type == 87 ) && !(parentalguidance && parentalcontrol) )
 		{
- 			write_bouquet_service((*i).second,bq_15,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			write_bouquet_service((*i).second,bq_hd,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 
 			if (custom_sort == 1)
 			{
 				hdcount++;
 				if (hdcount <= 95) // up to max 100 hd channels - first original 5 local region
- 					write_bouquet_service((*i).second,bq_00,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+					write_bouquet_service((*i).second,bq_00,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			}
 		}
 
@@ -1822,29 +1822,18 @@ int main (int argc, char *argv[]) {
 			bq_00 << bq_P << endl << bq_d << " " << endl;
 	}
 
-	bq_01.close(); bq_02.close(); bq_03.close(); bq_04.close(); bq_05.close();
-	bq_06.close(); bq_07.close(); bq_08.close(); bq_09.close(); bq_0a.close();
-	bq_0b.close(); bq_0c.close(); bq_0d.close(); bq_0e.close(); bq_0f.close();
-
-	ofstream bq_11; ofstream bq_12; ofstream bq_13;
-
-	bq_11.open ("/tmp/userbouquet.ukcvs11.tv");
-	bq_12.open ("/tmp/userbouquet.ukcvs12.tv");
-	bq_13.open ("/tmp/userbouquet.ukcvs13.tv");
-
-	bq_11 << bq_N << bq_s1 << bq_n11 << endl << bq_S << endl << bq_D << bq_n1 << bq_n11 << bq_n2 << endl;
-	bq_12 << bq_N << bq_s1 << bq_n12 << endl << bq_S << endl << bq_D << bq_n1 << bq_n12 << bq_n2 << endl;
-	bq_13 << bq_N << bq_s1 << bq_n13 << endl << bq_S << endl << bq_D << bq_n1 << bq_n13 << bq_n2 << endl;
+	bq_01.close(); bq_02.close(); bq_03.close(); bq_04.close(); bq_05.close(); bq_06.close(); bq_07.close(); bq_08.close(); bq_09.close(); bq_10.close();
+	bq_11.close(); bq_12.close(); bq_13.close(); bq_14.close(); bq_15.close(); bq_16.close(); bq_17.close(); bq_18.close();
 
 	if (extra)
 	{
-		bq_10 << bq_S << endl << bq_d << bq_n1 << bq_tst << bq_n2 << endl;
+		bq_99 << bq_S << endl << bq_d << bq_n1 << bq_tst << bq_n2 << endl;
 
 		for( map<string, channel_t>::iterator i = TEST.begin(); i != TEST.end(); ++i )
 		{
 			unsigned short skyid = atoi((*i).first.c_str());
 			if (skyid < 1000)
- 				write_bouquet_service((*i).second,bq_10,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+				write_bouquet_service((*i).second,bq_99,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 		}
 	}
 
@@ -1854,7 +1843,7 @@ int main (int argc, char *argv[]) {
 		if (skyid > 999)
 		{
 			if (extra)
- 				write_bouquet_service((*i).second,bq_10,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+				write_bouquet_service((*i).second,bq_99,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 		}
 
 		if (piconstyle != 0)
@@ -1894,79 +1883,19 @@ int main (int argc, char *argv[]) {
 	TEST.clear();
 
 	if (extra)
-		bq_10 << bq_S << endl << bq_d << bq_n1 << bq_dat << bq_n2 << endl;
+		bq_99 << bq_S << endl << bq_d << bq_n1 << bq_dat << bq_n2 << endl;
 
 	for( map<string, channel_t>::iterator i = DATA.begin(); i != DATA.end(); ++i )
 	{
 		count++;
 		unsigned short skyid = atoi((*i).first.c_str());
 
-		if ( skyid > (ssa1 -1) && skyid < ssa2 )
-		{
-			if (skyid == ssa1) {
-				bq_14 << bq_S << endl << bq_d << bq_n1 << bq_n11 << bq_n2 << endl;
-				bq_15 << bq_S << endl << bq_d << bq_n1 << bq_n11 << bq_n2 << endl;
-				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_n11 << bq_n2 << endl;
-			}
-
-			if (custom_sort != 1)
-			{
-				bq_00 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_00 << bq_d << dec << (*i).second.name << endl;
-			}
-
-			bq_11 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-			bq_11 << bq_d << dec << (*i).second.name << endl;
-
-			if ( (*i).second.ca == "FTA" )
-			{
-				bq_14 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_14 << bq_d << (*i).second.name << endl;
-			}
-
-			int is_type = atoi((*i).second.type.c_str());
-			if ( is_type == 19 || is_type == 87 )
-			{
-				bq_15 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_15 << bq_d << dec << (*i).second.name << endl;
-			}
-		}
-		else if (( skyid > (btx1 - 1) && skyid < btx2 ) || ( skyid > btx3 && skyid < btx4 ))
-		{
-			if (skyid == btx1) {
-				bq_14 << bq_S << endl << bq_d << bq_n1 << bq_n12 << bq_n2 << endl;
-				bq_15 << bq_S << endl << bq_d << bq_n1 << bq_n12 << bq_n2 << endl;
-				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_n12 << bq_n2 << endl;
-			}
-
-			if (custom_sort != 1)
-			{
-				bq_00 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_00 << bq_d << dec << (*i).second.name << endl;
-			}
-
-			bq_12 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-			bq_12 << bq_d << dec << (*i).second.name << endl;
-
-			if ( (*i).second.ca == "FTA" )
-			{
-				bq_14 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_14 << bq_d << dec << (*i).second.name << endl;
-			}
-
-			int is_type = atoi((*i).second.type.c_str());
-			if ( is_type == 19 || is_type == 87 )
-			{
-				bq_15 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_15 << bq_d << dec << (*i).second.name << endl;
-			}
-		}
-		else if ( skyid > (any1 - 1) && skyid < any2 )
+		if ( skyid >= any1 && skyid <= any2 )
 		{
 			if (skyid == any1) {
-				bq_14 << bq_S << endl << bq_d << bq_n1 << bq_n13 << bq_n2 << endl;
-				bq_15 << bq_S << endl << bq_d << bq_n1 << bq_n13 << bq_n2 << endl;
-				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_n13 << bq_n2 << endl;
+				bq_fta << bq_S << endl << bq_d << bq_n1 << bq_nany << bq_n2 << endl;
+				bq_hd << bq_S << endl << bq_d << bq_n1 << bq_nany << bq_n2 << endl;
+				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_nany << bq_n2 << endl;
 			}
 
 			if (custom_sort != 1)
@@ -1975,20 +1904,80 @@ int main (int argc, char *argv[]) {
 				bq_00 << bq_d << dec << (*i).second.name << endl;
 			}
 
-			bq_13 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-			bq_13 << bq_d << dec << (*i).second.name << endl;
+			bq_any << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+			bq_any << bq_d << dec << (*i).second.name << endl;
 
 			if ( (*i).second.ca == "FTA" )
 			{
-				bq_14 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_14 << bq_d << dec << (*i).second.name << endl;
+				bq_fta << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_fta << bq_d << dec << (*i).second.name << endl;
 			}
 
 			int is_type = atoi((*i).second.type.c_str());
 			if ( is_type == 19 || is_type == 87 )
 			{
-				bq_15 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-				bq_15 << bq_d << dec << (*i).second.name << endl;
+				bq_hd << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_hd << bq_d << dec << (*i).second.name << endl;
+			}
+		}
+		else if ( skyid >= ssa1 && skyid <= ssa2 )
+		{
+			if (skyid == ssa1) {
+				bq_fta << bq_S << endl << bq_d << bq_n1 << bq_nssa << bq_n2 << endl;
+				bq_hd << bq_S << endl << bq_d << bq_n1 << bq_nssa << bq_n2 << endl;
+				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_nssa << bq_n2 << endl;
+			}
+
+			if (custom_sort != 1)
+			{
+				bq_00 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_00 << bq_d << dec << (*i).second.name << endl;
+			}
+
+			bq_ssa << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+			bq_ssa << bq_d << dec << (*i).second.name << endl;
+
+			if ( (*i).second.ca == "FTA" )
+			{
+				bq_fta << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_fta << bq_d << (*i).second.name << endl;
+			}
+
+			int is_type = atoi((*i).second.type.c_str());
+			if ( is_type == 19 || is_type == 87 )
+			{
+				bq_hd << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_hd << bq_d << dec << (*i).second.name << endl;
+			}
+		}
+		else if (( skyid >= btx1 && skyid <= btx2 ) || ( skyid >= btx3 && skyid <= btx4 ))
+		{
+			if (skyid == btx1) {
+				bq_fta << bq_S << endl << bq_d << bq_n1 << bq_nbts << bq_n2 << endl;
+				bq_hd << bq_S << endl << bq_d << bq_n1 << bq_nbts << bq_n2 << endl;
+				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_nbts << bq_n2 << endl;
+			}
+
+			if (custom_sort != 1)
+			{
+				bq_00 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_00 << bq_d << dec << (*i).second.name << endl;
+			}
+
+			bq_bts << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+			bq_bts << bq_d << dec << (*i).second.name << endl;
+
+			if ( (*i).second.ca == "FTA" )
+			{
+				bq_fta << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_fta << bq_d << dec << (*i).second.name << endl;
+			}
+
+			int is_type = atoi((*i).second.type.c_str());
+			if ( is_type == 19 || is_type == 87 )
+			{
+				bq_hd << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_hd << bq_d << dec << (*i).second.name << endl;
 			}
 		}
 		else
@@ -1996,7 +1985,7 @@ int main (int argc, char *argv[]) {
 			if (extra)
 			{
 				if ((atoi((*i).second.type.c_str()) != 4 && parentalcontrol) || !parentalcontrol)
- 					write_bouquet_service((*i).second,bq_10,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+					write_bouquet_service((*i).second,bq_99,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			}
 		}
 
@@ -2034,7 +2023,7 @@ int main (int argc, char *argv[]) {
 		database_csv << ",1:0:" << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
 	}
 
-	bq_00.close(); bq_10.close(); bq_11.close(); bq_12.close(); bq_13.close(); bq_14.close(); bq_15.close();
+	bq_00.close(); bq_99.close(); bq_any.close(); bq_ssa.close(); bq_bts.close(); bq_fta.close(); bq_hd.close();
 
 	ofstream bq_radio;
 	bq_radio.open ("/tmp/userbouquet.ukcvs00.radio");
@@ -2102,31 +2091,34 @@ int main (int argc, char *argv[]) {
 	if (bouquet_has_service("07")) bouquets_tv << bouquets_ntv1 << "07" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("08")) bouquets_tv << bouquets_ntv1 << "08" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("09")) bouquets_tv << bouquets_ntv1 << "09" << bouquets_ntv2 << endl;
-	if (bouquet_has_service("0a")) bouquets_tv << bouquets_ntv1 << "0a" << bouquets_ntv2 << endl;
-	if (bouquet_has_service("0b")) bouquets_tv << bouquets_ntv1 << "0b" << bouquets_ntv2 << endl;
-	if (bouquet_has_service("0c")) bouquets_tv << bouquets_ntv1 << "0c" << bouquets_ntv2 << endl;
-
-	if (!parentalcontrol)
-		if (bouquet_has_service("0d")) bouquets_tv << bouquets_ntv1 << "0d" << bouquets_ntv2 << endl;
-
-	if (bouquet_has_service("0e")) bouquets_tv << bouquets_ntv1 << "0e" << bouquets_ntv2 << endl;
-
-	if (!parentalcontrol)
-		if (bouquet_has_service("0f")) bouquets_tv << bouquets_ntv1 << "0f" << bouquets_ntv2 << endl;
-
 	if (bouquet_has_service("10")) bouquets_tv << bouquets_ntv1 << "10" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("11")) bouquets_tv << bouquets_ntv1 << "11" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("12")) bouquets_tv << bouquets_ntv1 << "12" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("13")) bouquets_tv << bouquets_ntv1 << "13" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("14")) bouquets_tv << bouquets_ntv1 << "14" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("15")) bouquets_tv << bouquets_ntv1 << "15" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("16")) bouquets_tv << bouquets_ntv1 << "16" << bouquets_ntv2 << endl;
+
+	if (!parentalcontrol)
+	{
+		if (bouquet_has_service("17")) bouquets_tv << bouquets_ntv1 << "17" << bouquets_ntv2 << endl;
+		if (bouquet_has_service("18")) bouquets_tv << bouquets_ntv1 << "18" << bouquets_ntv2 << endl;
+	}
+
+	if (bouquet_has_service("99")) bouquets_tv << bouquets_ntv1 << "99" << bouquets_ntv2 << endl;
+
+	if (bouquet_has_service("_any")) bouquets_tv << bouquets_ntv1 << "_any" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("_ssa")) bouquets_tv << bouquets_ntv1 << "_ssa" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("_bts")) bouquets_tv << bouquets_ntv1 << "_bts" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("_fta")) bouquets_tv << bouquets_ntv1 << "_fta" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("_hd")) bouquets_tv << bouquets_ntv1 << "_hd" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("-user1")) bouquets_tv << bouquets_ntv1 << "-user1" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("-user2")) bouquets_tv << bouquets_ntv1 << "-user2" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("-user3")) bouquets_tv << bouquets_ntv1 << "-user3" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("-user4")) bouquets_tv << bouquets_ntv1 << "-user4" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("-user5")) bouquets_tv << bouquets_ntv1 << "-user5" << bouquets_ntv2 << endl;
 
-	bouquets_tv << bouquets_ntv1 << "16" << bouquets_ntv2 << endl;
+	bouquets_tv << bouquets_ntv1 << "_about" << bouquets_ntv2 << endl;
 	bouquets_tv << "#SERVICE 1:7:2:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.tv\" ORDER BY bouquet" << endl;
 	bouquets_tv.close();
 

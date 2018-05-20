@@ -7,40 +7,17 @@
 #                                                 #
 ###################################################
 
-# Based on SD region numbers in England
-# Other nations must edit numbers to match their ones. 
-# Number for BBC One HD and BBC Two HD are different across the four nations
+#swap local SD with HD
+101=115
+102=802
+103=803
+104=138
+105=805
 
-#swap local SD with HD.
-115=101
-802=102
-803=103
-804=104
-805=105
+#BBC Four
+116=815
 
-#bbc four
-815=116
+#BBC NEWS
+503=877
 
-#ITV2
-816=118
-
-#ITV3
-817=119
-
-#ITV4
-818=120
-
-#Racing UK
-874=426
-
-#news
-876=502
-877=503
-878=506
-
-#premier HD
-866=412
-
-#KIDS
-646=613
-647=614
+#end

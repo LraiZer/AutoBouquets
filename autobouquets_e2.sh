@@ -10,7 +10,7 @@ DVB_DEMUX="0"     #
 NEW_LAMEDB="4"    #
 ###################
 
-versiondate="29 Jan 2018"
+versiondate="20 May 2018"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -440,7 +440,7 @@ $SD Credits for DVB scanner binary:
 $SD - - Sandro Cavazzoni aka Skaman - -
 $SD http://www.sifteam.eu
 $SD - - Andrew Blackburn aka AndyBlac - -
-$SD http://www.world-of-satellite.com" >/tmp/userbouquet.ukcvs16.tv
+$SD http://www.world-of-satellite.com" >/tmp/userbouquet.ukcvs_about.tv
 
 # conditionally nuke Adult/Gaming bouquets if PC is active
 if [ "$PARENTAL" = "1" ]; then

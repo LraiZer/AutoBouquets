@@ -337,3 +337,8 @@ Hardcode some entries in supplement as not being picked up with EPG ID alone
 
 2018-01-29
 Add "Description" for hint text as that is what most other plugins use
+
+2018-05-20
+Update for the May 1st major provider bouquet reshuffle
+Rework code to simplify future bouquet changes, new bouquet file name extensions
+New clean default set of custom files for use with the new file nomenclature
