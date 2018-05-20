@@ -1705,7 +1705,7 @@ int main (int argc, char *argv[]) {
 			count = skyid;
 		}
 
-		parentalguidance = (skyid > BQ["17"].lower && skyid < BQ["18"].upper) ? true : false; // Adult, Gaming and Dating - combined lower to uppper bouquets range
+		parentalguidance = (skyid >= BQ["17"].lower && skyid <= BQ["18"].upper) ? true : false; // Adult, Gaming and Dating - combined lower to uppper bouquets range
 
 		if (custom_sort != 1)
 		{
