@@ -5,14 +5,6 @@
 #                                                 #
 #  service data can be found in autobouquets.csv  #
 #                                                 #
-###################################################
-
-###################################################
-#                                                 #
-#  AutoBouquets E2 - custom channel sort manager  #
-#                                                 #
-#  service data can be found in autobouquets.csv  #
-#                                                 #
 #  There are 5 user bouquets at bottom (u1 - u5)  #
 #                                                 #
 #  To rename a bouquet, add a $ sign in front of  #
