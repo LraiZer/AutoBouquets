@@ -690,6 +690,8 @@ void write_bouquet_names(int lower,ofstream& bq_00,ofstream& bq_fta,ofstream& bq
 		               write_bouquet_name(BQ["17"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (lower == BQ["18"].lower && !parentalcontrol)
 		               write_bouquet_name(BQ["18"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["19"].lower) write_bouquet_name(BQ["19"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+	else if (lower == BQ["20"].lower) write_bouquet_name(BQ["20"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (lower == BQ["99"].lower) write_bouquet_name(BQ["99"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 }
 
@@ -799,7 +801,9 @@ int main (int argc, char *argv[]) {
 	BQ["16"].lower = 801; BQ["16"].upper = 899; BQ["16"].name = "Secondary Channels"; // HD/SD swaps
 	BQ["17"].lower = 900; BQ["17"].upper = 939; BQ["17"].name = "Adult";
 	BQ["18"].lower = 940; BQ["18"].upper = 950; BQ["18"].name = "Gaming and Dating";
-	BQ["99"].lower = 951; BQ["99"].upper = 999; BQ["99"].name = "Other";
+	BQ["19"].lower = 951; BQ["19"].upper = 979; BQ["19"].name = "Regional";
+	BQ["20"].lower = 980; BQ["20"].upper = 989; BQ["20"].name = "BBC Red Button";
+	BQ["99"].lower = 990; BQ["99"].upper = 999; BQ["99"].name = "Other";
 
 	if (update)
 	{
@@ -1202,6 +1206,8 @@ int main (int argc, char *argv[]) {
 				else if ( name_bouquet == "16" ) BQ["16"].name = bouquet_name;
 				else if ( name_bouquet == "17" ) BQ["17"].name = bouquet_name;
 				else if ( name_bouquet == "18" ) BQ["18"].name = bouquet_name;
+				else if ( name_bouquet == "19" ) BQ["19"].name = bouquet_name;
+				else if ( name_bouquet == "20" ) BQ["20"].name = bouquet_name;
 				else if ( name_bouquet == "99" ) BQ["99"].name = bouquet_name;
 				else if ( name_bouquet == "u1" ) bq_nu1 = bouquet_name;
 				else if ( name_bouquet == "u2" ) bq_nu2 = bouquet_name;
@@ -1233,6 +1239,8 @@ int main (int argc, char *argv[]) {
 	ofstream bq_16 ("/tmp/userbouquet.ukcvs16.tv"); bq_16 << bq_N << bq_s1 << BQ["16"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["16"].name << bq_n2 << endl;
 	ofstream bq_17 ("/tmp/userbouquet.ukcvs17.tv"); bq_17 << bq_N << bq_s1 << BQ["17"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["17"].name << bq_n2 << endl;
 	ofstream bq_18 ("/tmp/userbouquet.ukcvs18.tv"); bq_18 << bq_N << bq_s1 << BQ["18"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["18"].name << bq_n2 << endl;
+	ofstream bq_19 ("/tmp/userbouquet.ukcvs19.tv"); bq_19 << bq_N << bq_s1 << BQ["19"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["19"].name << bq_n2 << endl;
+	ofstream bq_20 ("/tmp/userbouquet.ukcvs20.tv"); bq_20 << bq_N << bq_s1 << BQ["20"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["20"].name << bq_n2 << endl;
 	ofstream bq_99 ("/tmp/userbouquet.ukcvs99.tv"); bq_99 << bq_N << bq_s1 << BQ["99"].name << endl << bq_S << endl << bq_D << bq_n1 << BQ["99"].name << bq_n2 << endl;
 
 	ofstream bq_any ("/tmp/userbouquet.ukcvs_any.tv"); bq_any << bq_N << bq_s1 << bq_nany << endl << bq_S << endl << bq_D << bq_n1 << bq_nany << bq_n2 << endl;
@@ -1625,6 +1633,8 @@ int main (int argc, char *argv[]) {
 						else if ( sort_bouquet == "16" ) write_bouquet_service(channel,bq_16,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "17" ) write_bouquet_service(channel,bq_17,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "18" ) write_bouquet_service(channel,bq_18,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "19" ) write_bouquet_service(channel,bq_19,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+						else if ( sort_bouquet == "20" ) write_bouquet_service(channel,bq_20,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "99" ) write_bouquet_service(channel,bq_99,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "u1" ) write_bouquet_service(channel,bq_u1,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 						else if ( sort_bouquet == "u2" ) write_bouquet_service(channel,bq_u2,numbering,sort_skyid,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
@@ -1693,6 +1703,8 @@ int main (int argc, char *argv[]) {
 						else
 							bq_18 << bq_P << endl << bq_d << " " << endl; // Gaming and Dating
 					}
+					else if ( lower > BQ["19"].lower && upper < BQ["19"].upper ) bq_19 << bq_P << endl << bq_d << " " << endl;
+					else if ( lower > BQ["20"].lower && upper < BQ["20"].upper ) bq_20 << bq_P << endl << bq_d << " " << endl;
 					else if ( lower > BQ["99"].lower && upper <= BQ["99"].upper ) bq_99 << bq_P << endl << bq_d << " " << endl;
 					else bq_99 << bq_P << endl << bq_d << " " << endl; // default - Other
 				}
@@ -1758,6 +1770,8 @@ int main (int argc, char *argv[]) {
 				else
 					write_bouquet_service((*i).second,bq_18,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			}
+			else if ( lower > BQ["19"].lower && upper < BQ["19"].upper ) write_bouquet_service((*i).second,bq_19,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
+			else if ( lower > BQ["20"].lower && upper < BQ["20"].upper ) write_bouquet_service((*i).second,bq_20,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 			else
 				write_bouquet_service((*i).second,bq_99,numbering,(*i).first,bq_O,bq_F,bq_d,bq_s,bq_s2,bq_P);
 		}
@@ -1823,7 +1837,7 @@ int main (int argc, char *argv[]) {
 	}
 
 	bq_01.close(); bq_02.close(); bq_03.close(); bq_04.close(); bq_05.close(); bq_06.close(); bq_07.close(); bq_08.close(); bq_09.close(); bq_10.close();
-	bq_11.close(); bq_12.close(); bq_13.close(); bq_14.close(); bq_15.close(); bq_16.close(); bq_17.close(); bq_18.close();
+	bq_11.close(); bq_12.close(); bq_13.close(); bq_14.close(); bq_15.close(); bq_16.close(); bq_17.close(); bq_18.close(); bq_19.close(); bq_20.close();
 
 	if (extra)
 	{
@@ -2105,6 +2119,8 @@ int main (int argc, char *argv[]) {
 		if (bouquet_has_service("18")) bouquets_tv << bouquets_ntv1 << "18" << bouquets_ntv2 << endl;
 	}
 
+	if (bouquet_has_service("19")) bouquets_tv << bouquets_ntv1 << "19" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("20")) bouquets_tv << bouquets_ntv1 << "20" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("99")) bouquets_tv << bouquets_ntv1 << "99" << bouquets_ntv2 << endl;
 
 	if (bouquet_has_service("_any")) bouquets_tv << bouquets_ntv1 << "_any" << bouquets_ntv2 << endl;
