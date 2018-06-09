@@ -346,3 +346,7 @@ New clean default set of custom files for use with the new file nomenclature
 2018-05-24
 Update custom sort 3 manager file
 seperate Entertainment and Documentaries bouquets as default for this sort mode
+
+2018-06-09
+minor version increase 2.1
+add default Bouquets "Regional" and "BBC Red Button"
