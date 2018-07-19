@@ -83,16 +83,6 @@
 :6504:::::::ITV London HD
 :6505:::::::ITV Granada HD
 
-#BBC Red Button
-#services come and go, ie. Wimbledon
-980:2053:::::::BBC RB HD
-981:2051:::::::BBC RB1
-982:2058:::::::BBC RB2
-983:2057:::::::BBC RB3
-984:2056:::::::BBC RB4
-985:2055:::::::BBC RB5
-986:2054:::::::BBC RB6
-
 #Correct encryption flag
 #TRT World HD
 :5237::::::FTA:
