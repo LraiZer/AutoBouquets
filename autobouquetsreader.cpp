@@ -819,8 +819,8 @@ int main (int argc, char *argv[]) {
 	BQ["16"].lower = 801; BQ["16"].upper = 899; BQ["16"].name = "Secondary Channels"; // HD/SD swaps
 	BQ["17"].lower = 900; BQ["17"].upper = 939; BQ["17"].name = "Adult";
 	BQ["18"].lower = 940; BQ["18"].upper = 950; BQ["18"].name = "Gaming and Dating";
-	BQ["19"].lower = 951; BQ["19"].upper = 979; BQ["19"].name = "Regional";
-	BQ["20"].lower = 980; BQ["20"].upper = 989; BQ["20"].name = "BBC Red Button";
+	BQ["19"].lower = 951; BQ["19"].upper = 980; BQ["19"].name = "Regional";
+	BQ["20"].lower = 981; BQ["20"].upper = 989; BQ["20"].name = "BBC Red Button";
 	BQ["99"].lower = 990; BQ["99"].upper = 999; BQ["99"].name = "Other";
 
 	if (update)

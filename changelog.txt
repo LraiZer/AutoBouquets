@@ -355,3 +355,6 @@ add default Bouquets "Regional" and "BBC Red Button"
 update supplement.txt - add BBC Red Button services
 DMX_SET_SOURCE patch for linux kernel v4.17 dmx.h
 minor version increase 2.2
+
+2018-12-17
+update boundary range between Bouquets "Regional" and "BBC Red Button"
