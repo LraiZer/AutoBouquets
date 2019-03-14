@@ -745,8 +745,8 @@ int main (int argc, char *argv[]) {
 	int custom_sort = 0, piconstyle = 0, lamedb_version = 4;
 	string style = "0", piconlink = "0", piconfolder = "0", picon_link, picon_folder;
 
-	char curr_path[256];
-	memset(curr_path, '\0', 256);
+	char curr_path[236];
+	memset(curr_path, '\0', 236);
 	sprintf(curr_path, "%s", prog_path().c_str());
 
 	if (argv[1] != NULL) {
@@ -1669,7 +1669,7 @@ int main (int argc, char *argv[]) {
 	bq_u1.close(); bq_u2.close(); bq_u3.close(); bq_u4.close(); bq_u5.close();
 
 	count = 100;
-	unsigned short lower, higher, hdcount = 0;
+	unsigned short hdcount = 0;
 	string skynum = "";
 
 	for( map<string, channel_t>::iterator i = TV.begin(); i != TV.end(); ++i )
