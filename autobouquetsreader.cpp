@@ -745,8 +745,8 @@ int main (int argc, char *argv[]) {
 	int custom_sort = 0, piconstyle = 0, lamedb_version = 4;
 	string style = "0", piconlink = "0", piconfolder = "0", picon_link, picon_folder;
 
-	char curr_path[256];
-	memset(curr_path, '\0', 256);
+	char curr_path[236];
+	memset(curr_path, '\0', 236);
 	sprintf(curr_path, "%s", prog_path().c_str());
 
 	if (argv[1] != NULL) {
