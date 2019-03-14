@@ -1669,7 +1669,7 @@ int main (int argc, char *argv[]) {
 	bq_u1.close(); bq_u2.close(); bq_u3.close(); bq_u4.close(); bq_u5.close();
 
 	count = 100;
-	unsigned short lower, higher, hdcount = 0;
+	unsigned short hdcount = 0;
 	string skynum = "";
 
 	for( map<string, channel_t>::iterator i = TV.begin(); i != TV.end(); ++i )
