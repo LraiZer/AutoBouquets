@@ -55,4 +55,4 @@ script:
   - export STRIP="strip"
   - make
   - python -m compileall -l .
-
+  - find . -type f -name "*.po" -exec msgfmt {} -o {}.mo \;
