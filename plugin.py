@@ -299,8 +299,8 @@ class AutoBouquets(Screen):
 			<widget name="area" position="0,10" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0" />
 			<widget name="areavalue" position="310,10" size="280,30" font="Regular;22" zPosition="2" />
 			<widget name="fta" position="0,45" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0" />
-			<widget name="ftavalue" position="310,45" size="300,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />		
-			<widget name="sort" position="0,80" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0" />			
+			<widget name="ftavalue" position="310,45" size="300,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
+			<widget name="sort" position="0,80" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0" />
 			<widget name="sortvalue" position="310,80" size="300,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<widget name="status" position="0,115" size="300,30" font="Regular; 22" halign="right" zPosition="2" transparent="0"/>
 			<widget name="status2" position="310,115" size="205,30" font="Regular;22" zPosition="5"/>
@@ -310,28 +310,28 @@ class AutoBouquets(Screen):
 			<widget name="ordering" position="50,250" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<widget name="numcheck" position="315,250" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
 			<widget name="num" position="350,250" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
-			<widget name="otherextra" position="15,280" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>			
+			<widget name="otherextra" position="15,280" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
 			<widget name="otherx" position="50,280" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
-			<widget name="parentalcheck" position="315,280" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>		
-			<widget name="parental" position="350,280" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />	
-			<widget name="nitcheck" position="15,310" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>	
+			<widget name="parentalcheck" position="315,280" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
+			<widget name="parental" position="350,280" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
+			<widget name="nitcheck" position="15,310" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
 			<widget name="nit" position="50,310" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<widget name="scriptcheck" position="315,310" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
-			<widget name="scriptc" position="350,310" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />			
+			<widget name="scriptc" position="350,310" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<widget name="placehcheck" position="15,340" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
 			<widget name="placeh" position="50,340" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<widget name="defcheck" position="315,340" size="32,32" alphatest="on" zPosition="1" pixmaps="skin_default/icons/lock_off.png,skin_default/icons/lock_on.png"/>
-			<widget name="def" position="350,340" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />			
+			<widget name="def" position="350,340" size="250,30" font="Regular; 22" halign="left" zPosition="2" transparent="0" />
 			<ePixmap pixmap="skin_default/buttons/key_info.png" position="207,470" size="40,40" alphatest="blend" transparent="1" zPosition="3" />
-			<ePixmap pixmap="skin_default/buttons/key_menu.png" position="353,470" size="40,40" alphatest="blend" transparent="1" zPosition="3" />			
-			<widget name="key_red" position="10,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="red" position="10,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
-			<widget name="key_green" position="157,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="green" position="157,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on" />			
-			<widget name="key_yellow" position="304,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="yellow" position="304,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on" />	
-			<widget name="key_blue" position="451,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="blue" position="451,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on" />
+			<ePixmap pixmap="skin_default/buttons/key_menu.png" position="353,470" size="40,40" alphatest="blend" transparent="1" zPosition="3" />
+			<widget name="key_red" position="10,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="red" position="10,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
+			<widget name="key_green" position="157,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="green" position="157,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on" />
+			<widget name="key_yellow" position="304,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="yellow" position="304,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on" />
+			<widget name="key_blue" position="451,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="blue" position="451,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on" />
 		</screen>"""
 
 	def __init__(self, session, args = 0):
@@ -342,7 +342,7 @@ class AutoBouquets(Screen):
 		self['otherx'] = Label(_('Other Extra'))
 		self['otherextra'] = MultiPixmap()
 		self['picons'] = Label(_('Auto Picon:'))
-		self['piconstyle'] = Label()	
+		self['piconstyle'] = Label()
 		self['num'] = Label(_('Add No. to Name'))
 		self['numcheck'] = MultiPixmap()
 		self['nit'] = Label(_('NIT Scan'))
@@ -462,7 +462,7 @@ class AutoBouquets(Screen):
 
 	def showLog(self):
 		self.session.open(AutoBouquetsLogView)
-		
+
 	def showAbout(self):
 		self.session.open(AutoBouquetsAbout)
 
@@ -711,14 +711,14 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 			<widget name="config" position="30,5" size="540,400" scrollbarMode="showOnDemand" />
 			<ePixmap pixmap="skin_default/div-h.png" position="30,410" zPosition="1" size="540,2" />
 			<widget name="description" render="Label" position="30,425" size="540,80" font="Regular;18" />
-			<widget name="key_red" position="10,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="red" position="10,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
-			<widget name="key_green" position="157,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="green" position="157,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on" />			
-			<widget name="key_yellow" position="304,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="yellow" position="304,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on" />	
-			<widget name="key_blue" position="451,510" size="137,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
-			<ePixmap name="blue" position="451,510" zPosition="2" size="137,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on" />		
+			<widget name="key_red" position="10,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="red" position="10,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
+			<widget name="key_green" position="157,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="green" position="157,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on" />
+			<widget name="key_yellow" position="304,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="yellow" position="304,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on" />
+			<widget name="key_blue" position="451,510" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;18" transparent="1"/>
+			<ePixmap name="blue" position="451,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on" />
 		</screen>"""
 
 	def __init__(self, session):
@@ -742,10 +742,10 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("OK"))
 		self["key_yellow"] = Button("")
-		self["key_blue"] = Button("") 
+		self["key_blue"] = Button("")
 		self["help"] = StaticText()
 		self["description"] = Label(_(""))
-		
+
 		def selectionChanged():
 			if self["config"].current:
 				self["config"].current[1].onDeselect(self.session)
@@ -999,7 +999,7 @@ class AutoBouquetsDownloader(Screen):
 			container.appClosed.append(appClosed)
 		except Exception, e:
 			print "[AutoBouquets Downloader] FAILED: ", e
-			
+
 	def scanBackgroundcomplete(self):
 		InfoBar.instance.servicelist.setModeTv()
 		eDVBDB.getInstance().reloadBouquets()
