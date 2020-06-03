@@ -1,3 +1,4 @@
+from __future__ import print_function
 # for localized messages
 from . import _
 
@@ -160,13 +161,13 @@ def AutoBouquetsautostart(reason, session=None, **kwargs):
 	global _session
 	now = int(time())
 	if reason == 0:
-		print "[AutoBouquets] AutoStart Enabled"
+		print("[AutoBouquets] AutoStart Enabled")
 		if session is not None:
 			_session = session
 			if autoAutoBouquetsTimer is None:
 				autoAutoBouquetsTimer = AutoAutoBouquetsTimer(session)
 	else:
-		print "[AutoBouquets] Stop"
+		print("[AutoBouquets] Stop")
 		autoAutoBouquetsTimer.stop()
 
 class AutoAutoBouquetsTimer:
@@ -179,16 +180,16 @@ class AutoAutoBouquetsTimer:
 		now = int(time())
 		global AutoBouquetsTime
 		if config.autobouquets.schedule.value:
-			print "[AutoBouquets] AutoBouquets Schedule Enabled at ", strftime("%c", localtime(now))
+			print("[AutoBouquets] AutoBouquets Schedule Enabled at ", strftime("%c", localtime(now)))
 			if now > 1262304000:
 				self.autobouquetsdate()
 			else:
-				print "[AutoBouquets] AutoBouquets Time not yet set."
+				print("[AutoBouquets] AutoBouquets Time not yet set.")
 				AutoBouquetsTime = 0
 				self.autobouquetsactivityTimer.start(36000)
 		else:
 			AutoBouquetsTime = 0
-			print "[AutoBouquets] AutoBouquets Schedule Disabled at", strftime("(now=%c)", localtime(now))
+			print("[AutoBouquets] AutoBouquets Schedule Disabled at", strftime("(now=%c)", localtime(now)))
 			self.autobouquetsactivityTimer.stop()
 
 	def autobouquetsdatedelay(self):
@@ -224,7 +225,7 @@ class AutoAutoBouquetsTimer:
 			self.autobouquetstimer.startLongTimer(next)
 		else:
 			AutoBouquetsTime = -1
-		print "[AutoBouquets] AutoBouquets Time set to", strftime("%c", localtime(AutoBouquetsTime)), strftime("(now=%c)", localtime(now))
+		print("[AutoBouquets] AutoBouquets Time set to", strftime("%c", localtime(AutoBouquetsTime)), strftime("(now=%c)", localtime(now)))
 		return AutoBouquetsTime
 
 	def backupstop(self):
@@ -237,39 +238,39 @@ class AutoAutoBouquetsTimer:
 		# If we're close enough, we're okay...
 		atLeast = 0
 		if wake - now < 60:
-			print "[AutoBouquets] AutoBouquets onTimer occured at", strftime("%c", localtime(now))
+			print("[AutoBouquets] AutoBouquets onTimer occured at", strftime("%c", localtime(now)))
 			from Screens.Standby import inStandby
 			if not inStandby:
 				message = _("You are about to update your bouquets,\nDo you want to allow this?")
 				ybox = self.session.openWithCallback(self.doAutoBouquets, MessageBox, message, MessageBox.TYPE_YESNO, timeout = 30)
 				ybox.setTitle('Scheduled AutoBouquets.')
 			else:
-				print "[AutoBouquets] in Standby, so just running backup", strftime("%c", localtime(now))
+				print("[AutoBouquets] in Standby, so just running backup", strftime("%c", localtime(now)))
 				self.doAutoBouquets(True)
 		else:
-			print '[AutoBouquets] Where are not close enough', strftime("%c", localtime(now))
+			print('[AutoBouquets] Where are not close enough', strftime("%c", localtime(now)))
 			self.autobouquetsdate(60)
 
 	def doAutoBouquets(self, answer):
 		now = int(time())
 		if answer is False:
 			if config.autobouquets.retrycount.value < 2:
-				print '[AutoBouquets] Number of retries',config.autobouquets.retrycount.value
-				print "[AutoBouquets] AutoBouquets delayed."
+				print('[AutoBouquets] Number of retries',config.autobouquets.retrycount.value)
+				print("[AutoBouquets] AutoBouquets delayed.")
 				repeat = config.autobouquets.retrycount.value
 				repeat += 1
 				config.autobouquets.retrycount.value = repeat
 				AutoBouquetsTime = now + (int(config.autobouquets.retry.value) * 60)
-				print "[AutoBouquets] AutoBouquets Time now set to", strftime("%c", localtime(AutoBouquetsTime)), strftime("(now=%c)", localtime(now))
+				print("[AutoBouquets] AutoBouquets Time now set to", strftime("%c", localtime(AutoBouquetsTime)), strftime("(now=%c)", localtime(now)))
 				self.autobouquetstimer.startLongTimer(int(config.autobouquets.retry.value) * 60)
 			else:
 				atLeast = 60
-				print "[AutoBouquets] Enough Retries, delaying till next schedule.", strftime("%c", localtime(now))
+				print("[AutoBouquets] Enough Retries, delaying till next schedule.", strftime("%c", localtime(now)))
 				self.session.open(MessageBox, _("Enough Retries, delaying till next schedule."), MessageBox.TYPE_INFO, timeout = 10)
 				config.autobouquets.retrycount.value = 0
 				self.autobouquetsdate(atLeast)
 		else:
-			print "[AutoBouquets] Running AutoBouquets", strftime("%c", localtime(now))
+			print("[AutoBouquets] Running AutoBouquets", strftime("%c", localtime(now)))
 			from Screens.Standby import inStandby
 			global scriptwasinstandby
 			if inStandby:
@@ -442,12 +443,12 @@ class AutoBouquets(Screen):
 		global AutoBouquetsTime
 		if config.autobouquets.schedule.value:
 			if autoAutoBouquetsTimer is not None:
-				print "[AutoBouquets] AutoBouquets Schedule Enabled at", strftime("%c", localtime(now))
+				print("[AutoBouquets] AutoBouquets Schedule Enabled at", strftime("%c", localtime(now)))
 				autoAutoBouquetsTimer.autobouquetsdate()
 		else:
 			if autoAutoBouquetsTimer is not None:
 				AutoBouquetsTime = 0
-				print "[AutoBouquets] AutoBouquets Schedule Disabled at", strftime("%c", localtime(now))
+				print("[AutoBouquets] AutoBouquets Schedule Disabled at", strftime("%c", localtime(now)))
 				autoAutoBouquetsTimer.backupstop()
 		try:
 			if AutoBouquetsTime > 0:
@@ -513,11 +514,11 @@ class AutoBouquets(Screen):
 			for x in networks:
 				if x not in known_networks:
 					need_scan = True
-					print x, "not in ", known_networks
+					print(x, "not in ", known_networks)
 					known_networks.append(x)
 
-# 			print "nim %d provides" % nim.slot, networks
-# 			print "known:", known_networks
+# 			print("nim %d provides" % nim.slot, networks)
+# 			print("known:", known_networks)
 #
 			# don't offer to scan nims if nothing is connected
 			if not nimmanager.somethingConnected(nim.slot):
@@ -649,7 +650,7 @@ class AutoBouquets(Screen):
 			else:
 				self.doScan()
 		except:
-			print "[AutoBouquets] script will first initialize your system!"
+			print("[AutoBouquets] script will first initialize your system!")
 			self.postScanService = eServiceReference(defaultservice)
 			self.doScan()
 
@@ -961,7 +962,7 @@ class AutoBouquetsDownloader(Screen):
 			else:
 				self.doBackgroundScan()
 		except:
-			print "[AutoBouquets] script will first initialize your system!"
+			print("[AutoBouquets] script will first initialize your system!")
 			self.postScanService = eServiceReference(defaultservice)
 			self.doBackgroundScan()
 
@@ -990,15 +991,15 @@ class AutoBouquetsDownloader(Screen):
 			global container
 			def appClosed(retval):
 				global container
-				print "[AutoBouquets Downloader] FINISHED: ", retval
+				print("[AutoBouquets Downloader] FINISHED: ", retval)
 				container = None
 				self.scanBackgroundcomplete()
 			container = eConsoleAppContainer()
 			if container.execute(com):
-				raise Exception, "Script Failed: " + com
+				raise Exception("Script Failed: " + com)
 			container.appClosed.append(appClosed)
-		except Exception, e:
-			print "[AutoBouquets Downloader] FAILED: ", e
+		except Exception as e:
+			print("[AutoBouquets Downloader] FAILED: ", e)
 
 	def scanBackgroundcomplete(self):
 		InfoBar.instance.servicelist.setModeTv()
