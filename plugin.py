@@ -255,7 +255,7 @@ class AutoAutoBouquetsTimer:
 		now = int(time())
 		if answer is False:
 			if config.autobouquets.retrycount.value < 2:
-				print('[AutoBouquets] Number of retries',config.autobouquets.retrycount.value)
+				print('[AutoBouquets] Number of retries', config.autobouquets.retrycount.value)
 				print("[AutoBouquets] AutoBouquets delayed.")
 				repeat = config.autobouquets.retrycount.value
 				repeat += 1
@@ -476,7 +476,7 @@ class AutoBouquets(Screen):
 		if returnValue != "None":
 			self.channelupdate()
 		else:
-			question = self.session.open(MessageBox,_('Please first setup, by pressing menu button'), MessageBox.TYPE_INFO)
+			question = self.session.open(MessageBox, _('Please first setup, by pressing menu button'), MessageBox.TYPE_INFO)
 			question.setTitle(_("AutoBouquets E2 for 28.2E"))
 
 	def channelupdate(self):
@@ -484,7 +484,7 @@ class AutoBouquets(Screen):
 			message = _("Do you want to perform a NIT scan")
 		else:
 			message = _("Do you want to perform a service scan")
-		self.question = self.session.openWithCallback(self.updatecallback,MessageBox,message, MessageBox.TYPE_YESNO)
+		self.question = self.session.openWithCallback(self.updatecallback, MessageBox, message, MessageBox.TYPE_YESNO)
 		self.question.setTitle(_("AutoBouquets E2 for 28.2E"))
 
 	def updatecallback(self, val):
@@ -676,12 +676,12 @@ class AutoBouquets(Screen):
 
 	def shcom(self, com):
 		if fileExists("%s/autobouquetsreader" % (path.dirname(modules[__name__].__file__))):
-			self.session.openWithCallback(self.scancomplete,Console,_("AutoBouquets E2 for 28.2E"), ["%s" % com], closeOnSuccess=True)
+			self.session.openWithCallback(self.scancomplete, Console, _("AutoBouquets E2 for 28.2E"), ["%s" % com], closeOnSuccess=True)
 		else:
-			self.session.open(MessageBox,"autobouquetsreader not found!",MessageBox.TYPE_ERROR)
+			self.session.open(MessageBox, "autobouquetsreader not found!", MessageBox.TYPE_ERROR)
 
 	def scancomplete(self):
-		infobox = self.session.open(MessageBox,_("Reloading Bouquets and Services..."), MessageBox.TYPE_INFO, timeout=5)
+		infobox = self.session.open(MessageBox, _("Reloading Bouquets and Services..."), MessageBox.TYPE_INFO, timeout=5)
 		infobox.setTitle(_("AutoBouquets E2"))
 		InfoBar.instance.servicelist.setModeTv()
 		eDVBDB.getInstance().reloadBouquets()
@@ -701,7 +701,7 @@ class AutoBouquets(Screen):
 			self.timer.start(5000, 1)
 
 	def help(self):
-		self.session.open(Console,_("Showing AutoBouquets helpfile.txt"),[("cat %s/helpfile.txt" % (path.dirname(modules[__name__].__file__)))])
+		self.session.open(Console, _("Showing AutoBouquets helpfile.txt"), [("cat %s/helpfile.txt" % (path.dirname(modules[__name__].__file__)))])
 
 	def cancel(self):
 		self.close(None)
@@ -1032,8 +1032,8 @@ def mainscan(menuid, **kwargs):
 ###########################################################################
 
 def Plugins(**kwargs):
-	plist = [PluginDescriptor(name=_("AutoBouquets E2"),description=_("28.2e stream bouquet downloader"),where = PluginDescriptor.WHERE_PLUGINMENU,icon="autobouquets.png", fnc=main)]
-	plist.append(PluginDescriptor(name=_("AutoBouquets Downloader"),description=_("28.2e stream bouquet downloader"),where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=maindownloader))
+	plist = [PluginDescriptor(name=_("AutoBouquets E2"), description=_("28.2e stream bouquet downloader"), where = PluginDescriptor.WHERE_PLUGINMENU, icon="autobouquets.png", fnc=main)]
+	plist.append(PluginDescriptor(name=_("AutoBouquets Downloader"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=maindownloader))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=AutoBouquetsautostart))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=mainscan))
 	return plist
