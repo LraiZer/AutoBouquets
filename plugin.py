@@ -210,17 +210,17 @@ class AutoAutoBouquetsTimer:
 		if AutoBouquetsTime > 0:
 			if AutoBouquetsTime < now + atLeast:
 				if config.autobouquets.repeattype.value == "daily":
-					AutoBouquetsTime += 24*3600
-					while (int(AutoBouquetsTime)-30) < now:
-						AutoBouquetsTime += 24*3600
+					AutoBouquetsTime += 24 *3600
+					while (int(AutoBouquetsTime) -30) < now:
+						AutoBouquetsTime += 24 *3600
 				elif config.autobouquets.repeattype.value == "weekly":
-					AutoBouquetsTime += 7*24*3600
-					while (int(AutoBouquetsTime)-30) < now:
-						AutoBouquetsTime += 7*24*3600
+					AutoBouquetsTime += 7 *24 *3600
+					while (int(AutoBouquetsTime) -30) < now:
+						AutoBouquetsTime += 7 *24 *3600
 				elif config.autobouquets.repeattype.value == "monthly":
-					AutoBouquetsTime += 30*24*3600
-					while (int(AutoBouquetsTime)-30) < now:
-						AutoBouquetsTime += 30*24*3600
+					AutoBouquetsTime += 30 *24 *3600
+					while (int(AutoBouquetsTime) -30) < now:
+						AutoBouquetsTime += 30 *24 *3600
 			next = AutoBouquetsTime - now
 			self.autobouquetstimer.startLongTimer(next)
 		else:
