@@ -173,6 +173,7 @@ def AutoBouquetsautostart(reason, session=None, **kwargs):
 
 
 class AutoAutoBouquetsTimer:
+
 	def __init__(self, session):
 		self.session = session
 		self.autobouquetstimer = eTimer()
@@ -996,6 +997,7 @@ class AutoBouquetsDownloader(Screen):
 	def shcomBackground(self, com):
 		try:
 			global container
+
 			def appClosed(retval):
 				global container
 				print("[AutoBouquets Downloader] FINISHED: ", retval)
