@@ -155,6 +155,7 @@ config.autobouquets.lastlog = ConfigText(default=' ', fixed_size=False)
 scriptwasinstandby = False
 autoAutoBouquetsTimer = None
 
+
 def AutoBouquetsautostart(reason, session=None, **kwargs):
 	"called with reason=1 to during /sbin/shutdown.sysvinit, with reason=0 at startup?"
 	global autoAutoBouquetsTimer
@@ -170,7 +171,9 @@ def AutoBouquetsautostart(reason, session=None, **kwargs):
 		print("[AutoBouquets] Stop")
 		autoAutoBouquetsTimer.stop()
 
+
 class AutoAutoBouquetsTimer:
+
 	def __init__(self, session):
 		self.session = session
 		self.autobouquetstimer = eTimer()
@@ -293,6 +296,7 @@ class AutoAutoBouquetsTimer:
 		else:
 			self.timer.callback.append(self.AutoBouquets.startservicescan(postScanService, self.wasinstandby))
 		self.timer.start(5000, 1)
+
 
 class AutoBouquets(Screen):
 	skin = """
@@ -706,6 +710,7 @@ class AutoBouquets(Screen):
 	def cancel(self):
 		self.close(None)
 
+
 class AutoBouquetsMenu(ConfigListScreen, Screen):
 	skin = """
 		<screen name="AutoBouquetsMenu" position="center,center" size="600,550" title="AutoBouquets Setup">
@@ -849,6 +854,7 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 		else:
 			self.close()
 
+
 class AutoBouquetsLogView(Screen):
 	skin = """
 		<screen name="AutoBouquetsLogView" position="center,center" size="700,550" title="Update Database Log" >
@@ -885,6 +891,7 @@ class AutoBouquetsLogView(Screen):
 
 	def closeRecursive(self):
 		self.close(True)
+
 
 class AutoBouquetsAbout(Screen):
 	skin = """
@@ -935,6 +942,7 @@ class AutoBouquetsAbout(Screen):
 
 	def quit(self):
 		self.close()
+
 
 class AutoBouquetsDownloader(Screen):
 	skin = """
@@ -989,6 +997,7 @@ class AutoBouquetsDownloader(Screen):
 	def shcomBackground(self, com):
 		try:
 			global container
+
 			def appClosed(retval):
 				global container
 				print("[AutoBouquets Downloader] FINISHED: ", retval)
@@ -1017,11 +1026,14 @@ class AutoBouquetsDownloader(Screen):
 
 ###########################################################################
 
+
 def main(session, **kwargs):
 	session.open(AutoBouquets)
 
+
 def maindownloader(session, **kwargs):
 	session.open(AutoBouquetsDownloader)
+
 
 def mainscan(menuid, **kwargs):
 	if menuid == "scan":
@@ -1030,6 +1042,7 @@ def mainscan(menuid, **kwargs):
 		return []
 
 ###########################################################################
+
 
 def Plugins(**kwargs):
 	plist = [PluginDescriptor(name=_("AutoBouquets E2"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_PLUGINMENU, icon="autobouquets.png", fnc=main)]
