@@ -30,8 +30,8 @@ from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
 ab_version = "17 December 2018"
-defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"	# "Sky News"
-initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"	# "EPG Background Audio."
+defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"  # "Sky News"
+initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"  # "EPG Background Audio."
 
 arealist = []
 arealist.append(("4097#19#4101", "Atherstone"))
@@ -145,7 +145,7 @@ config.autobouquets.piconlink = ConfigSelection(default="1", choices=piconlink)
 config.autobouquets.piconfolder = ConfigSelection(default="3", choices=piconfolder)
 config.autobouquets.piconstyle = ConfigSelection(default="0", choices=piconstyle)
 config.autobouquets.schedule = ConfigYesNo(default=False)
-config.autobouquets.scheduletime = ConfigClock(default=0) # 1:00
+config.autobouquets.scheduletime = ConfigClock(default=0)  # 1:00
 config.autobouquets.repeattype = ConfigSelection(default="daily", choices=[("daily", _("Daily")), ("weekly", _("Weekly")), ("monthly", _("30 Days"))])
 config.autobouquets.retry = ConfigNumber(default=30)
 config.autobouquets.retrycount = NoSave(ConfigNumber(default=0))
@@ -557,7 +557,7 @@ class AutoBouquets(Screen):
 			networks = [ ]
 		return networks
 
-	def buildTransponderList(self): # this method is called multiple times because of asynchronous stuff
+	def buildTransponderList(self):  # this method is called multiple times because of asynchronous stuff
 		APPEND_NOW = 0
 		SEARCH_CABLE_TRANSPONDERS = 1
 		action = APPEND_NOW
@@ -565,7 +565,7 @@ class AutoBouquets(Screen):
 		n = self.nim_iter < len(self.nim_enable) and self.nim_enable[self.nim_iter] or None
 		self.nim_iter += 1
 		if n:
-			if n.value: # check if nim is enabled
+			if n.value:  # check if nim is enabled
 				flags = 0
 				nim = nimmanager.nim_slots[n.nim_index]
 				networks = set(self.getNetworksForNim(nim))
@@ -580,7 +580,7 @@ class AutoBouquets(Screen):
 						getInitialTransponderList(tlist, sat[0])
 				else:
 					assert False
-				flags |= eComponentScan.scanNetworkSearch #FIXMEEE.. use flags from cables / satellites / terrestrial.xml
+				flags |= eComponentScan.scanNetworkSearch  # FIXMEEE.. use flags from cables / satellites / terrestrial.xml
 				flags |= eComponentScan.scanRemoveServices
 
 				if action == APPEND_NOW:
@@ -594,7 +594,7 @@ class AutoBouquets(Screen):
 				else:
 					assert False
 
-			self.buildTransponderList() # recursive call of this function !!!
+			self.buildTransponderList()  # recursive call of this function !!!
 			return
 		# when we are here, then the recursion is finished and all enabled nims are checked
 		# so we now start the real transponder scan
@@ -981,7 +981,7 @@ class AutoBouquetsDownloader(Screen):
 		com += "#" + str(config.autobouquets.extra.getValue())
 		com += "#" + config.autobouquets.sort.getValue()
 		com += "#" + str(config.autobouquets.numbered.getValue())
-		com += "#" + "True" #always use NIT scan in background scan mode!
+		com += "#" + "True"  # always use NIT scan in background scan mode!
 		com += "#" + str(config.autobouquets.placeholder.getValue())
 		com += "#" + str(config.autobouquets.parental.getValue())
 		com += "#" + str(config.autobouquets.default.getValue())
@@ -1024,8 +1024,6 @@ class AutoBouquetsDownloader(Screen):
 		self.timer.callback.append(self.close(None))
 		self.timer.start(5000, 1)
 
-###########################################################################
-
 
 def main(session, **kwargs):
 	session.open(AutoBouquets)
@@ -1040,8 +1038,6 @@ def mainscan(menuid, **kwargs):
 		return [(_("AutoBouquets (28.2E)"), main, _("28.2e stream bouquet downloader"), None)]
 	else:
 		return []
-
-###########################################################################
 
 
 def Plugins(**kwargs):
