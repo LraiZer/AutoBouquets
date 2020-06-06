@@ -128,28 +128,28 @@ freetoair.append(("2", _("Available HD")))
 
 from Components.config import config, configfile, ConfigSubsection, ConfigYesNo, ConfigSelection, ConfigText, ConfigNumber, NoSave, ConfigClock, getConfigListEntry
 config.autobouquets = ConfigSubsection()
-config.autobouquets.area = ConfigSelection(default = None, choices = arealist)
-config.autobouquets.bouquetlist = ConfigSelection(default = "False", choices = bouquetlist)
-config.autobouquets.extra = ConfigYesNo(default = True)
-config.autobouquets.sort = ConfigSelection(default = "1", choices = sortlist)
-config.autobouquets.numbered = ConfigYesNo(default = False)
-config.autobouquets.nitscan = ConfigYesNo(default = True)
-config.autobouquets.placeholder = ConfigYesNo(default = True)
-config.autobouquets.parental = ConfigYesNo(default = True)
-config.autobouquets.default = ConfigYesNo(default = True)
-config.autobouquets.ordering = ConfigYesNo(default = False)
-config.autobouquets.freetoair = ConfigSelection(default = "2", choices = freetoair)
-config.autobouquets.checkscript = ConfigYesNo(default = True)
-config.autobouquets.style = ConfigSelection(default = "0", choices = stylelist)
-config.autobouquets.piconlink = ConfigSelection(default = "1", choices = piconlink)
-config.autobouquets.piconfolder = ConfigSelection(default = "3", choices = piconfolder)
-config.autobouquets.piconstyle = ConfigSelection(default = "0", choices = piconstyle)
-config.autobouquets.schedule = ConfigYesNo(default = False)
-config.autobouquets.scheduletime = ConfigClock(default = 0) # 1:00
-config.autobouquets.repeattype = ConfigSelection(default = "daily", choices = [("daily", _("Daily")), ("weekly", _("Weekly")), ("monthly", _("30 Days"))])
-config.autobouquets.retry = ConfigNumber(default = 30)
-config.autobouquets.retrycount = NoSave(ConfigNumber(default = 0))
-config.autobouquets.nextscheduletime = NoSave(ConfigNumber(default = 0))
+config.autobouquets.area = ConfigSelection(default=None, choices=arealist)
+config.autobouquets.bouquetlist = ConfigSelection(default="False", choices=bouquetlist)
+config.autobouquets.extra = ConfigYesNo(default=True)
+config.autobouquets.sort = ConfigSelection(default="1", choices=sortlist)
+config.autobouquets.numbered = ConfigYesNo(default=False)
+config.autobouquets.nitscan = ConfigYesNo(default=True)
+config.autobouquets.placeholder = ConfigYesNo(default=True)
+config.autobouquets.parental = ConfigYesNo(default=True)
+config.autobouquets.default = ConfigYesNo(default=True)
+config.autobouquets.ordering = ConfigYesNo(default=False)
+config.autobouquets.freetoair = ConfigSelection(default="2", choices=freetoair)
+config.autobouquets.checkscript = ConfigYesNo(default=True)
+config.autobouquets.style = ConfigSelection(default="0", choices=stylelist)
+config.autobouquets.piconlink = ConfigSelection(default="1", choices=piconlink)
+config.autobouquets.piconfolder = ConfigSelection(default="3", choices=piconfolder)
+config.autobouquets.piconstyle = ConfigSelection(default="0", choices=piconstyle)
+config.autobouquets.schedule = ConfigYesNo(default=False)
+config.autobouquets.scheduletime = ConfigClock(default=0) # 1:00
+config.autobouquets.repeattype = ConfigSelection(default="daily", choices=[("daily", _("Daily")), ("weekly", _("Weekly")), ("monthly", _("30 Days"))])
+config.autobouquets.retry = ConfigNumber(default=30)
+config.autobouquets.retrycount = NoSave(ConfigNumber(default=0))
+config.autobouquets.nextscheduletime = NoSave(ConfigNumber(default=0))
 config.autobouquets.lastlog = ConfigText(default=' ', fixed_size=False)
 
 scriptwasinstandby = False
@@ -202,7 +202,7 @@ class AutoAutoBouquetsTimer:
 		now = localtime(nowt)
 		return int(mktime((now.tm_year, now.tm_mon, now.tm_mday, backupclock[0], backupclock[1], 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
 
-	def autobouquetsdate(self, atLeast = 0):
+	def autobouquetsdate(self, atLeast=0):
 		self.autobouquetstimer.stop()
 		global AutoBouquetsTime
 		AutoBouquetsTime = self.getAutoBouquetsTime()
@@ -242,7 +242,7 @@ class AutoAutoBouquetsTimer:
 			from Screens.Standby import inStandby
 			if not inStandby:
 				message = _("You are about to update your bouquets,\nDo you want to allow this?")
-				ybox = self.session.openWithCallback(self.doAutoBouquets, MessageBox, message, MessageBox.TYPE_YESNO, timeout = 30)
+				ybox = self.session.openWithCallback(self.doAutoBouquets, MessageBox, message, MessageBox.TYPE_YESNO, timeout=30)
 				ybox.setTitle('Scheduled AutoBouquets.')
 			else:
 				print("[AutoBouquets] in Standby, so just running backup", strftime("%c", localtime(now)))
@@ -266,7 +266,7 @@ class AutoAutoBouquetsTimer:
 			else:
 				atLeast = 60
 				print("[AutoBouquets] Enough Retries, delaying till next schedule.", strftime("%c", localtime(now)))
-				self.session.open(MessageBox, _("Enough Retries, delaying till next schedule."), MessageBox.TYPE_INFO, timeout = 10)
+				self.session.open(MessageBox, _("Enough Retries, delaying till next schedule."), MessageBox.TYPE_INFO, timeout=10)
 				config.autobouquets.retrycount.value = 0
 				self.autobouquetsdate(atLeast)
 		else:
@@ -335,7 +335,7 @@ class AutoBouquets(Screen):
 			<ePixmap name="blue" position="451,510" zPosition="2" size="140,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on" />
 		</screen>"""
 
-	def __init__(self, session, args = 0):
+	def __init__(self, session, args=0):
 		self.session = session
 		Screen.__init__(self, session)
 		self['area'] = Label(_('Area:'))
@@ -532,7 +532,7 @@ class AutoBouquets(Screen):
 
 		if len(nims_to_scan):
 			for nim in nims_to_scan:
-				nimconfig = ConfigYesNo(default = True)
+				nimconfig = ConfigYesNo(default=True)
 				nimconfig.nim_index = nim.slot
 				self.nim_enable.append(nimconfig)
 
@@ -729,7 +729,7 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 
 		self.onChangedEntry = [ ]
 		self.list = []
-		ConfigListScreen.__init__(self, self.list, session = self.session, on_change = self.changedEntry)
+		ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
 		self.createSetup()
 
 		self["actions"] = ActionMap(["SetupActions", 'ColorActions', 'VirtualKeyboardActions', "MenuActions"],
@@ -1032,7 +1032,7 @@ def mainscan(menuid, **kwargs):
 ###########################################################################
 
 def Plugins(**kwargs):
-	plist = [PluginDescriptor(name=_("AutoBouquets E2"), description=_("28.2e stream bouquet downloader"), where = PluginDescriptor.WHERE_PLUGINMENU, icon="autobouquets.png", fnc=main)]
+	plist = [PluginDescriptor(name=_("AutoBouquets E2"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_PLUGINMENU, icon="autobouquets.png", fnc=main)]
 	plist.append(PluginDescriptor(name=_("AutoBouquets Downloader"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=maindownloader))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=AutoBouquetsautostart))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=mainscan))
