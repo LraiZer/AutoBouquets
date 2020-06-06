@@ -505,8 +505,8 @@ class AutoBouquets(Screen):
 		self.postScanService = postScanService
 
 		tlist = []
-		known_networks = [ ]
-		nims_to_scan = [ ]
+		known_networks = []
+		nims_to_scan = []
 
 		for nim in nimmanager.nim_slots:
 			# collect networks provided by this tuner
@@ -532,7 +532,7 @@ class AutoBouquets(Screen):
 				nims_to_scan.append(nim)
 
 		# we save the config elements to use them on keyGo
-		self.nim_enable = [ ]
+		self.nim_enable = []
 
 		if len(nims_to_scan):
 			for nim in nims_to_scan:
@@ -546,7 +546,7 @@ class AutoBouquets(Screen):
 		self.buildTransponderList()
 
 	def getNetworksForNim(self, nim):
-		networks = [ ]
+		networks = []
 		if nim.isCompatible("DVB-S"):
 			tmpnetworks = nimmanager.getSatListForNim(nim.slot)
 			for x in tmpnetworks:
@@ -554,7 +554,7 @@ class AutoBouquets(Screen):
 					networks.append(x)
 		else:
 			# empty tuners provide no networks.
-			networks = [ ]
+			networks = []
 		return networks
 
 	def buildTransponderList(self):  # this method is called multiple times because of asynchronous stuff
@@ -573,7 +573,7 @@ class AutoBouquets(Screen):
 				# don't scan anything twice
 				networks.discard(self.known_networks)
 
-				tlist = [ ]
+				tlist = []
 				if nim.isCompatible("DVB-S"):
 					# get initial transponders for each satellite to be scanned
 					for sat in networks:
@@ -732,7 +732,7 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 		self.session = session
 		Screen.setTitle(self, _("AutoBouquets Setup") + " - " + ab_version)
 
-		self.onChangedEntry = [ ]
+		self.onChangedEntry = []
 		self.list = []
 		ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
 		self.createSetup()
