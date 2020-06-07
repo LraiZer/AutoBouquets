@@ -30,8 +30,8 @@ from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
 ab_version = "17 December 2018"
-defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"	# "Sky News"
-initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"	# "EPG Background Audio."
+defaultservice = "1:0:1:1260:7EA:2:11A0000:0:0:0:"  # "Sky News"
+initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"  # "EPG Background Audio."
 
 arealist = []
 arealist.append(("4097#19#4101", "Atherstone"))
@@ -145,7 +145,7 @@ config.autobouquets.piconlink = ConfigSelection(default="1", choices=piconlink)
 config.autobouquets.piconfolder = ConfigSelection(default="3", choices=piconfolder)
 config.autobouquets.piconstyle = ConfigSelection(default="0", choices=piconstyle)
 config.autobouquets.schedule = ConfigYesNo(default=False)
-config.autobouquets.scheduletime = ConfigClock(default=0) # 1:00
+config.autobouquets.scheduletime = ConfigClock(default=0)  # 1:00
 config.autobouquets.repeattype = ConfigSelection(default="daily", choices=[("daily", _("Daily")), ("weekly", _("Weekly")), ("monthly", _("30 Days"))])
 config.autobouquets.retry = ConfigNumber(default=30)
 config.autobouquets.retrycount = NoSave(ConfigNumber(default=0))
@@ -213,17 +213,17 @@ class AutoAutoBouquetsTimer:
 		if AutoBouquetsTime > 0:
 			if AutoBouquetsTime < now + atLeast:
 				if config.autobouquets.repeattype.value == "daily":
-					AutoBouquetsTime += 24 *3600
-					while (int(AutoBouquetsTime) -30) < now:
-						AutoBouquetsTime += 24 *3600
+					AutoBouquetsTime += 24 * 3600
+					while (int(AutoBouquetsTime) - 30) < now:
+						AutoBouquetsTime += 24 * 3600
 				elif config.autobouquets.repeattype.value == "weekly":
-					AutoBouquetsTime += 7 *24 *3600
-					while (int(AutoBouquetsTime) -30) < now:
-						AutoBouquetsTime += 7 *24 *3600
+					AutoBouquetsTime += 7 * 24 * 3600
+					while (int(AutoBouquetsTime) - 30) < now:
+						AutoBouquetsTime += 7 * 24 * 3600
 				elif config.autobouquets.repeattype.value == "monthly":
-					AutoBouquetsTime += 30 *24 *3600
-					while (int(AutoBouquetsTime) -30) < now:
-						AutoBouquetsTime += 30 *24 *3600
+					AutoBouquetsTime += 30 * 24 * 3600
+					while (int(AutoBouquetsTime) - 30) < now:
+						AutoBouquetsTime += 30 * 24 * 3600
 			next = AutoBouquetsTime - now
 			self.autobouquetstimer.startLongTimer(next)
 		else:
@@ -505,8 +505,8 @@ class AutoBouquets(Screen):
 		self.postScanService = postScanService
 
 		tlist = []
-		known_networks = [ ]
-		nims_to_scan = [ ]
+		known_networks = []
+		nims_to_scan = []
 
 		for nim in nimmanager.nim_slots:
 			# collect networks provided by this tuner
@@ -532,7 +532,7 @@ class AutoBouquets(Screen):
 				nims_to_scan.append(nim)
 
 		# we save the config elements to use them on keyGo
-		self.nim_enable = [ ]
+		self.nim_enable = []
 
 		if len(nims_to_scan):
 			for nim in nims_to_scan:
@@ -542,11 +542,11 @@ class AutoBouquets(Screen):
 
 		self.scanList = []
 		self.known_networks = set()
-		self.nim_iter=0
+		self.nim_iter = 0
 		self.buildTransponderList()
 
 	def getNetworksForNim(self, nim):
-		networks = [ ]
+		networks = []
 		if nim.isCompatible("DVB-S"):
 			tmpnetworks = nimmanager.getSatListForNim(nim.slot)
 			for x in tmpnetworks:
@@ -554,10 +554,10 @@ class AutoBouquets(Screen):
 					networks.append(x)
 		else:
 			# empty tuners provide no networks.
-			networks = [ ]
+			networks = []
 		return networks
 
-	def buildTransponderList(self): # this method is called multiple times because of asynchronous stuff
+	def buildTransponderList(self):  # this method is called multiple times because of asynchronous stuff
 		APPEND_NOW = 0
 		SEARCH_CABLE_TRANSPONDERS = 1
 		action = APPEND_NOW
@@ -565,7 +565,7 @@ class AutoBouquets(Screen):
 		n = self.nim_iter < len(self.nim_enable) and self.nim_enable[self.nim_iter] or None
 		self.nim_iter += 1
 		if n:
-			if n.value: # check if nim is enabled
+			if n.value:  # check if nim is enabled
 				flags = 0
 				nim = nimmanager.nim_slots[n.nim_index]
 				networks = set(self.getNetworksForNim(nim))
@@ -573,14 +573,14 @@ class AutoBouquets(Screen):
 				# don't scan anything twice
 				networks.discard(self.known_networks)
 
-				tlist = [ ]
+				tlist = []
 				if nim.isCompatible("DVB-S"):
 					# get initial transponders for each satellite to be scanned
 					for sat in networks:
 						getInitialTransponderList(tlist, sat[0])
 				else:
 					assert False
-				flags |= eComponentScan.scanNetworkSearch #FIXMEEE.. use flags from cables / satellites / terrestrial.xml
+				flags |= eComponentScan.scanNetworkSearch  # FIXMEEE.. use flags from cables / satellites / terrestrial.xml
 				flags |= eComponentScan.scanRemoveServices
 
 				if action == APPEND_NOW:
@@ -594,7 +594,7 @@ class AutoBouquets(Screen):
 				else:
 					assert False
 
-			self.buildTransponderList() # recursive call of this function !!!
+			self.buildTransponderList()  # recursive call of this function !!!
 			return
 		# when we are here, then the recursion is finished and all enabled nims are checked
 		# so we now start the real transponder scan
@@ -732,7 +732,7 @@ class AutoBouquetsMenu(ConfigListScreen, Screen):
 		self.session = session
 		Screen.setTitle(self, _("AutoBouquets Setup") + " - " + ab_version)
 
-		self.onChangedEntry = [ ]
+		self.onChangedEntry = []
 		self.list = []
 		ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
 		self.createSetup()
@@ -981,7 +981,7 @@ class AutoBouquetsDownloader(Screen):
 		com += "#" + str(config.autobouquets.extra.getValue())
 		com += "#" + config.autobouquets.sort.getValue()
 		com += "#" + str(config.autobouquets.numbered.getValue())
-		com += "#" + "True" #always use NIT scan in background scan mode!
+		com += "#" + "True"  # always use NIT scan in background scan mode!
 		com += "#" + str(config.autobouquets.placeholder.getValue())
 		com += "#" + str(config.autobouquets.parental.getValue())
 		com += "#" + str(config.autobouquets.default.getValue())
@@ -1024,8 +1024,6 @@ class AutoBouquetsDownloader(Screen):
 		self.timer.callback.append(self.close(None))
 		self.timer.start(5000, 1)
 
-###########################################################################
-
 
 def main(session, **kwargs):
 	session.open(AutoBouquets)
@@ -1040,8 +1038,6 @@ def mainscan(menuid, **kwargs):
 		return [(_("AutoBouquets (28.2E)"), main, _("28.2e stream bouquet downloader"), None)]
 	else:
 		return []
-
-###########################################################################
 
 
 def Plugins(**kwargs):
