@@ -159,7 +159,6 @@ def AutoBouquetsautostart(reason, session=None, **kwargs):
 	"called with reason=1 to during /sbin/shutdown.sysvinit, with reason=0 at startup?"
 	global autoAutoBouquetsTimer
 	global _session
-	now = int(time())
 	if reason == 0:
 		print("[AutoBouquets] AutoStart Enabled")
 		if session is not None:
@@ -238,7 +237,6 @@ class AutoAutoBouquetsTimer:
 		now = int(time())
 		wake = self.getAutoBouquetsTime()
 		# If we're close enough, we're okay...
-		atLeast = 0
 		if wake - now < 60:
 			print("[AutoBouquets] AutoBouquets onTimer occured at", strftime("%c", localtime(now)))
 			from Screens.Standby import inStandby
@@ -503,7 +501,6 @@ class AutoBouquets(Screen):
 		self.wasinstandby = wasinstandby
 		self.postScanService = postScanService
 
-		tlist = []
 		known_networks = []
 		nims_to_scan = []
 
