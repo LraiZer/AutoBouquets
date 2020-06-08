@@ -12,7 +12,8 @@ from Tools.Directories import fileExists
 from Plugins.Plugin import PluginDescriptor
 from Components.ScrollLabel import ScrollLabel
 from Components.ConfigList import ConfigListScreen
-from Components.config import config
+from Components.config import config, configfile, ConfigSubsection, ConfigYesNo, ConfigSelection
+from Components.config import ConfigText, ConfigNumber, NoSave, ConfigClock, getConfigListEntry
 from Components.Sources.StaticText import StaticText
 from Components.Label import Label
 from Components.Pixmap import MultiPixmap, Pixmap
@@ -125,7 +126,6 @@ freetoair.append(("0", _("All Channels")))
 freetoair.append(("1", _("FTA Only")))
 freetoair.append(("2", _("Available HD")))
 
-from Components.config import config, configfile, ConfigSubsection, ConfigYesNo, ConfigSelection, ConfigText, ConfigNumber, NoSave, ConfigClock, getConfigListEntry
 config.autobouquets = ConfigSubsection()
 config.autobouquets.area = ConfigSelection(default=None, choices=arealist)
 config.autobouquets.bouquetlist = ConfigSelection(default="False", choices=bouquetlist)
