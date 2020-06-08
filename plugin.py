@@ -865,8 +865,9 @@ class AutoBouquetsLogView(Screen):
 		if path.exists("%s/autobouquets.log" % (path.dirname(modules[__name__].__file__))):
 			filedate = str(date.fromtimestamp(stat(filename).st_mtime))
 			log = _('Last update') + ': ' + filedate + '\n\n'
-			tmpfile = file(filename).read()
-			contents = str(tmpfile)
+			tmpfile = open(filename, 'r')
+			contents = str(tmpfile.read())
+			tmpfile.close()
 			log = log + contents
 		else:
 			log = _('Last update') + ': '
