@@ -6,7 +6,6 @@ from Screens.InfoBar import InfoBar
 from Screens.Screen import Screen
 from Screens.Console import Console
 from Screens.MessageBox import MessageBox
-from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Tools.Directories import fileExists
@@ -17,15 +16,15 @@ from Components.config import config
 from Components.Sources.StaticText import StaticText
 from Components.Label import Label
 from Components.Pixmap import MultiPixmap, Pixmap
-from Screens.Standby import Standby, inStandby
+from Screens.Standby import Standby
 from enigma import eDVBDB, eTimer, eServiceReference, eConsoleAppContainer
 from datetime import date
-from time import localtime, time, strftime, mktime, sleep
+from time import localtime, time, strftime, mktime
 from os import stat, path
 from sys import modules
 
 from Screens.ServiceScan import ServiceScan
-from Components.NimManager import nimmanager, getConfigSatlist
+from Components.NimManager import nimmanager
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
