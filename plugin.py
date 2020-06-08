@@ -6,26 +6,26 @@ from Screens.InfoBar import InfoBar
 from Screens.Screen import Screen
 from Screens.Console import Console
 from Screens.MessageBox import MessageBox
-from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Tools.Directories import fileExists
 from Plugins.Plugin import PluginDescriptor
 from Components.ScrollLabel import ScrollLabel
 from Components.ConfigList import ConfigListScreen
-from Components.config import config
+from Components.config import config, configfile, ConfigSubsection, ConfigYesNo, ConfigSelection
+from Components.config import ConfigText, ConfigNumber, NoSave, ConfigClock, getConfigListEntry
 from Components.Sources.StaticText import StaticText
 from Components.Label import Label
 from Components.Pixmap import MultiPixmap, Pixmap
-from Screens.Standby import Standby, inStandby
+from Screens.Standby import Standby
 from enigma import eDVBDB, eTimer, eServiceReference, eConsoleAppContainer
 from datetime import date
-from time import localtime, time, strftime, mktime, sleep
+from time import localtime, time, strftime, mktime
 from os import stat, path
 from sys import modules
 
 from Screens.ServiceScan import ServiceScan
-from Components.NimManager import nimmanager, getConfigSatlist
+from Components.NimManager import nimmanager
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
@@ -126,7 +126,6 @@ freetoair.append(("0", _("All Channels")))
 freetoair.append(("1", _("FTA Only")))
 freetoair.append(("2", _("Available HD")))
 
-from Components.config import config, configfile, ConfigSubsection, ConfigYesNo, ConfigSelection, ConfigText, ConfigNumber, NoSave, ConfigClock, getConfigListEntry
 config.autobouquets = ConfigSubsection()
 config.autobouquets.area = ConfigSelection(default=None, choices=arealist)
 config.autobouquets.bouquetlist = ConfigSelection(default="False", choices=bouquetlist)
@@ -160,7 +159,6 @@ def AutoBouquetsautostart(reason, session=None, **kwargs):
 	"called with reason=1 to during /sbin/shutdown.sysvinit, with reason=0 at startup?"
 	global autoAutoBouquetsTimer
 	global _session
-	now = int(time())
 	if reason == 0:
 		print("[AutoBouquets] AutoStart Enabled")
 		if session is not None:
@@ -239,7 +237,6 @@ class AutoAutoBouquetsTimer:
 		now = int(time())
 		wake = self.getAutoBouquetsTime()
 		# If we're close enough, we're okay...
-		atLeast = 0
 		if wake - now < 60:
 			print("[AutoBouquets] AutoBouquets onTimer occured at", strftime("%c", localtime(now)))
 			from Screens.Standby import inStandby
@@ -504,7 +501,6 @@ class AutoBouquets(Screen):
 		self.wasinstandby = wasinstandby
 		self.postScanService = postScanService
 
-		tlist = []
 		known_networks = []
 		nims_to_scan = []
 
@@ -869,8 +865,9 @@ class AutoBouquetsLogView(Screen):
 		if path.exists("%s/autobouquets.log" % (path.dirname(modules[__name__].__file__))):
 			filedate = str(date.fromtimestamp(stat(filename).st_mtime))
 			log = _('Last update') + ': ' + filedate + '\n\n'
-			tmpfile = file(filename).read()
-			contents = str(tmpfile)
+			tmpfile = open(filename, 'r')
+			contents = str(tmpfile.read())
+			tmpfile.close()
 			log = log + contents
 		else:
 			log = _('Last update') + ': '
@@ -1046,4 +1043,3 @@ def Plugins(**kwargs):
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=AutoBouquetsautostart))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=mainscan))
 	return plist
-
