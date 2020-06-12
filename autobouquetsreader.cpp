@@ -1184,8 +1184,8 @@ int main (int argc, char *argv[]) {
 	if (!update)
 		remove(datfile.c_str());
 
-	char name_file[256];
-	memset(name_file, '\0', 256);
+	char name_file[265];
+	memset(name_file, '\0', 265);
 
 	if (custom_sort > 1)
 		sprintf(name_file, "%s/custom_sort_%i.txt", curr_path, custom_sort-1);
@@ -1588,8 +1588,8 @@ int main (int argc, char *argv[]) {
 
 	if (custom_sort > 1)
 	{
-		char sort_file[256];
-		memset(sort_file, '\0', 256);
+		char sort_file[265];
+		memset(sort_file, '\0', 265);
 		sprintf(sort_file, "%s/custom_sort_%i.txt", curr_path, custom_sort-1);
 		ifstream custom_sort_file(sort_file);
 
