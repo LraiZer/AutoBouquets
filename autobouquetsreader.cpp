@@ -1184,8 +1184,8 @@ int main (int argc, char *argv[]) {
 	if (!update)
 		remove(datfile.c_str());
 
-	char name_file[256];
-	memset(name_file, '\0', 256);
+	char name_file[265];
+	memset(name_file, '\0', 265);
 
 	if (custom_sort > 1)
 		sprintf(name_file, "%s/custom_sort_%i.txt", curr_path, custom_sort-1);
@@ -1588,8 +1588,8 @@ int main (int argc, char *argv[]) {
 
 	if (custom_sort > 1)
 	{
-		char sort_file[256];
-		memset(sort_file, '\0', 256);
+		char sort_file[265];
+		memset(sort_file, '\0', 265);
 		sprintf(sort_file, "%s/custom_sort_%i.txt", curr_path, custom_sort-1);
 		ifstream custom_sort_file(sort_file);
 
@@ -1824,7 +1824,7 @@ int main (int argc, char *argv[]) {
 					string picon_nspace = (*i).second.nspace; stringToUpper(picon_nspace);
 					sprintf(picon_source, "%s1_0_%s_%s_%s_2_%s_0_0_0.png", picon_link.c_str(), picon_type.c_str(), picon_sid.c_str(), picon_tsid.c_str(), picon_nspace.c_str());
 					sprintf(picon_target, "%s282E_%s.png", picon_folder.c_str(), (*i).second.skyid.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 			else
@@ -1834,7 +1834,7 @@ int main (int argc, char *argv[]) {
 				{
 					sprintf(picon_source, "%s%s%s.png", picon_link.c_str(), (*i).first.c_str(), picon_name.c_str());
 					sprintf(picon_target, "%s%s.png", picon_folder.c_str(), picon_name.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 		}
@@ -1892,7 +1892,7 @@ int main (int argc, char *argv[]) {
 					string picon_nspace = (*i).second.nspace; stringToUpper(picon_nspace);
 					sprintf(picon_source, "%s1_0_%s_%s_%s_2_%s_0_0_0.png", picon_link.c_str(), picon_type.c_str(), picon_sid.c_str(), picon_tsid.c_str(), picon_nspace.c_str());
 					sprintf(picon_target, "%s282E_%s.png", picon_folder.c_str(), (*i).second.skyid.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 			else
@@ -1902,7 +1902,7 @@ int main (int argc, char *argv[]) {
 				{
 					sprintf(picon_source, "%s%s%s.png", picon_link.c_str(), (*i).first.c_str(), picon_name.c_str());
 					sprintf(picon_target, "%s%s.png", picon_folder.c_str(), picon_name.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 		}
@@ -2035,7 +2035,7 @@ int main (int argc, char *argv[]) {
 					string picon_nspace = (*i).second.nspace; stringToUpper(picon_nspace);
 					sprintf(picon_source, "%s1_0_%s_%s_%s_2_%s_0_0_0.png", picon_link.c_str(), picon_type.c_str(), picon_sid.c_str(), picon_tsid.c_str(), picon_nspace.c_str());
 					sprintf(picon_target, "%s282E_%s.png", picon_folder.c_str(), (*i).first.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 			else
@@ -2045,7 +2045,7 @@ int main (int argc, char *argv[]) {
 				{
 					sprintf(picon_source, "%s%s%s.png", picon_link.c_str(), (*i).second.skyid.c_str(), picon_name.c_str());
 					sprintf(picon_target, "%s%s.png", picon_folder.c_str(), picon_name.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 		}
@@ -2085,7 +2085,7 @@ int main (int argc, char *argv[]) {
 					string picon_nspace = (*i).second.nspace; stringToUpper(picon_nspace);
 					sprintf(picon_source, "%s1_0_%s_%s_%s_2_%s_0_0_0.png", picon_link.c_str(), picon_type.c_str(), picon_sid.c_str(), picon_tsid.c_str(), picon_nspace.c_str());
 					sprintf(picon_target, "%s282E_%s.png", picon_folder.c_str(), (*i).second.skyid.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 			else
@@ -2095,7 +2095,7 @@ int main (int argc, char *argv[]) {
 				{
 					sprintf(picon_source, "%s%s%s.png", picon_link.c_str(), (*i).first.c_str(), picon_name.c_str());
 					sprintf(picon_target, "%s%s.png", picon_folder.c_str(), picon_name.c_str());
-					symlink(picon_target, picon_source);
+					if (symlink(picon_target, picon_source));
 				}
 			}
 		}
