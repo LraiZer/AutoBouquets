@@ -170,7 +170,7 @@ def AutoBouquetsautostart(reason, session=None, **kwargs):
 		autoAutoBouquetsTimer.stop()
 
 
-class AutoAutoBouquetsTimer:
+class AutoAutoBouquetsTimer(object):
 
 	def __init__(self, session):
 		self.session = session
