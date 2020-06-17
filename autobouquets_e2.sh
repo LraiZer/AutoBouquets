@@ -10,7 +10,7 @@ DVB_DEMUX="0"     #
 NEW_LAMEDB="4"    #
 ###################
 
-versiondate="12 June 2020"
+versiondate="17 June 2020"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
