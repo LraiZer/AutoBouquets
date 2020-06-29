@@ -359,10 +359,13 @@ minor version increase 2.2
 2018-12-17
 update boundary range between Bouquets "Regional" and "BBC Red Button"
 
+2020-06-12
+format overflow
+void symlink return value
+
 2020-06-17
 2to3 python futurize
 pep8 code style
 
-2020-06-12
-format overflow
-void symlink return value
+2020-06-29
+update default zapback service ref.
