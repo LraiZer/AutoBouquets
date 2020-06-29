@@ -10,7 +10,7 @@ DVB_DEMUX="0"     #
 NEW_LAMEDB="4"    #
 ###################
 
-versiondate="17 June 2020"
+versiondate="29 June 2020"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -301,8 +301,8 @@ if [ "$CHECK_SCRIPT" = "1" ]; then
 	#get current service (if it has one) for conditional zapback later
 	pss=`fwget "subservices"|grep 'servicereference'|sed 's/.*>\(.*\)<.*$/\1/'`
 	if [ "$pss" = "N/A" -o "$pss" = "" -o "$new_ldb" = "true" ]; then
-	# "Sky News"
-		pss="1:0:1:1260:7EA:2:11A0000:0:0:0"
+	# "NOW 80s ;p"
+		pss="1:0:1:D12E:832:2:11A0000:0:0:0"
 		dfzap="true"
 	fi
 
