@@ -29,7 +29,7 @@ from Components.NimManager import nimmanager
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
-ab_version = "29 June 2020"
+ab_version = "22 July 2020"
 defaultservice = "1:0:1:D12E:832:2:11A0000:0:0:0:"  # "NOW 80s ;p"
 initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"  # "EPG Background Audio."
 
