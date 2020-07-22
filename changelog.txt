@@ -369,3 +369,6 @@ pep8 code style
 
 2020-06-29
 update default zapback service ref.
+
+2020-07-22
+Pick HD override

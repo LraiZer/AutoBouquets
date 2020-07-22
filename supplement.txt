@@ -99,4 +99,7 @@
 #950 - Sky Intro
 65535:1852:::::::
 
+#Replace Pick with FTA HD version
+159:1829:::::::
+
 #end
