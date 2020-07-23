@@ -372,3 +372,6 @@ update default zapback service ref.
 
 2020-07-22
 Pick HD override
+
+2020-07-23
+update valid TSID namespace

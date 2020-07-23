@@ -848,7 +848,7 @@ int main (int argc, char *argv[]) {
 		{
 			if (lamedb_version == 5)
 			{
-				dat_nit << "t:" << ((*i).first == "7e3" ? "011a2f26" : "011a0000") << ":";
+				dat_nit << "t:011a0000:";
 				dat_nit << hex << right;
 				dat_nit << setw(4) << setfill('0') << (*i).first << ":";
 				dat_nit << setw(4) << setfill('0') << (*i).second.original_network_id << ",s:";
@@ -867,7 +867,7 @@ int main (int argc, char *argv[]) {
 			}
 			else	// lamedb version 4
 			{
-				dat_nit << ((*i).first == "7e3" ? "011a2f26" : "011a0000") << ":";
+				dat_nit << "011a0000:";
 				dat_nit << hex << right;
 				dat_nit << setw(4) << setfill('0') << (*i).first << ":";
 				dat_nit << setw(4) << setfill('0') << (*i).second.original_network_id << endl << "\ts ";
@@ -975,7 +975,7 @@ int main (int argc, char *argv[]) {
 					TEST[test_id].ca       = SDT[sid].ca;
 					TEST[test_id].provider = SDT[sid].provider;
 					TEST[test_id].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
-					TEST[test_id].nspace   = ((*ii).second.tsid == "7e3" ? "11a2f26" : "11a0000");
+					TEST[test_id].nspace   = "11a0000";
 				}
 			}
 			else // detect unassigned skyid as DATA
@@ -984,7 +984,7 @@ int main (int argc, char *argv[]) {
 				DATA[(*ii).first].ca       = SDT[sid].ca;
 				DATA[(*ii).first].provider = SDT[sid].provider;
 				DATA[(*ii).first].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
-				DATA[(*ii).first].nspace   = ((*ii).second.tsid == "7e3" ? "11a2f26" : "11a0000");
+				DATA[(*ii).first].nspace   = "11a0000";
 			}
 		}
 	}
@@ -1001,7 +1001,7 @@ int main (int argc, char *argv[]) {
 			BAT1[(*i).first].ca       = SDT[sid].ca;
 			BAT1[(*i).first].provider = SDT[sid].provider;
 			BAT1[(*i).first].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
-			BAT1[(*i).first].nspace   = ((*i).second.tsid == "7e3" ? "11a2f26" : "11a0000");
+			BAT1[(*i).first].nspace   = "11a0000";
 			++i;
 		}
 		else
