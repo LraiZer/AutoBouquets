@@ -10,7 +10,7 @@ DVB_DEMUX="0"     #
 NEW_LAMEDB="4"    #
 ###################
 
-versiondate="23 July 2020"
+versiondate="30 October 2020"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -302,7 +302,7 @@ if [ "$CHECK_SCRIPT" = "1" ]; then
 	pss=`fwget "subservices"|grep 'servicereference'|sed 's/.*>\(.*\)<.*$/\1/'`
 	if [ "$pss" = "N/A" -o "$pss" = "" -o "$new_ldb" = "true" ]; then
 	# "NOW 80s ;p"
-		pss="1:0:1:D12E:832:2:11A0000:0:0:0"
+		pss="1:0:1:C482:811:2:11A0000:0:0:0"
 		dfzap="true"
 	fi
 
