@@ -378,3 +378,6 @@ update valid TSID namespace
 
 2020-10-30
 update default zapback service ref.
+
+2021-05-09
+remove redundant itv renames
