@@ -1,4 +1,4 @@
-# requires a unix compatible editor like NotePad++ 
+# requires a unix compatible editor like NotePad++
 ###################################################
 #                                                 #
 #  AutoBouquets E2 - custom service swap manager  #
@@ -11,13 +11,20 @@
 101=115
 102=802
 103=803
-104=138
+104=804
 105=805
 
 #BBC Four
 116=815
 
+118=816
+119=817
+120=818
+
 #BBC NEWS
-503=877
+503=882
+
+607=643
+608=644
 
 #end
