@@ -1039,7 +1039,7 @@ def mainscan(menuid, **kwargs):
 
 def Plugins(**kwargs):
 	plist = [PluginDescriptor(name=_("AutoBouquets E2"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_PLUGINMENU, icon="autobouquets.png", fnc=main)]
-	plist.append(PluginDescriptor(name=_("AutoBouquets Downloader"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=maindownloader))
+	plist.append(PluginDescriptor(name=_("AutoBouquets 28.2E Downloader"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=maindownloader))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=AutoBouquetsautostart))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=mainscan))
 	return plist
