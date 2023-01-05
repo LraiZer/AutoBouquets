@@ -38,26 +38,15 @@
 #ITV regional renames
 :1020:::::::ITV Border Scotland
 :6000:::::::ITV London
-:6010:::::::ITV Central South
-:6015:::::::ITV Central SW
 :6130:::::::ITV Granada
 :6142:::::::ITV Meridian East
-:6143:::::::ITV Meridian North
-:6161:::::::ITV Yorkshire East
 :6200:::::::ITV Channel Isles
 :6210:::::::STV Grampian
 :6220:::::::STV Scotland West
 :6300:::::::ITV Central
 :6371:::::::STV Scotland East
-:6381:::::::ITV Anglia West
 
 #ITV +1 regional renames
-:6012:::::::ITV +1 Wales
-:6065:::::::ITV +1 Yorkshire
-:6125:::::::ITV +1 West Country
-:6126:::::::ITV +1 Tyne Tees
-:6127:::::::ITV +1 West
-:6128:::::::ITV +1 Anglia
 :6145:::::::ITV +1 Central
 :6155:::::::ITV +1 London
 :6355:::::::ITV +1 Granada
