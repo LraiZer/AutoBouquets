@@ -384,3 +384,8 @@ remove redundant itv renames
 
 2021-08-16
 Remove deprecated register in C++17 for GCC 11
+
+2023-02-07
+use dxHoldName flag with name changed services found in supplement.txt
+use dxDontshow flag with services in Adult/Gaming and Dating bouquets
+add IEPG data 1 service to all service lists and Other bouquet as default
