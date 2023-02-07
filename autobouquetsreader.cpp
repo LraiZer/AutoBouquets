@@ -34,6 +34,9 @@ typedef enum dmx_source {
 
 #define DVB_BUFFER_SIZE 2*4096
 
+#define dxDontshow 2
+#define dxHoldName 8
+
 using namespace std;
 
 template <class T>
@@ -187,6 +190,7 @@ struct channel_t {
 	string sid;
 	string ca;
 	string nspace;
+	int flag;
 } channel;
 
 struct bq_t {
@@ -526,6 +530,26 @@ int si_parse_bat(unsigned char *data, int length) {
 					service_type = data[offset3 + 2];
 					epg_id = to_string<unsigned short>(channel_id, dec);
 
+					// service type hack
+					switch (service_type)
+					{
+						case 128:
+						case 131: /* Sky UK OpenTV EPG channel */
+						case 133:
+						case 137:
+						case 144:
+						case 145:
+						case 150:
+						case 154:
+						case 163:
+						case 164:
+						case 166:
+						case 167:
+						case 168:
+							service_type = 1;
+							break;
+					}
+
 					if ( header.variable_id == BAT_local && ( region_id == BAT_local_region || region_id == 0xff ))
 					{
 						BAT1[epg_id].skyid = to_string<unsigned short>(sky_id, dec);
@@ -710,6 +734,41 @@ void write_bouquet_names(int lower,ofstream& bq_00,ofstream& bq_fta,ofstream& bq
 	else if (lower == BQ["19"].lower) write_bouquet_name(BQ["19"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (lower == BQ["20"].lower) write_bouquet_name(BQ["20"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
 	else if (lower == BQ["99"].lower) write_bouquet_name(BQ["99"].name,bq_00,bq_fta,bq_hd,custom_sort,bq_S,bq_d,bq_n1,bq_n2);
+}
+
+void write_lamedb(map<string, channel_t>::iterator i, bool update, int lamedb_version, ofstream& lamedb_services) {
+	if ((fta == 1 && (*i).second.ca == "FTA") || fta != 1)
+	{
+		if (update)
+		{
+			unsigned int ch;
+			char *hex_str = new char[256];
+
+			hex_str[(*i).second.type.size()] = 0;
+			memcpy(hex_str, (*i).second.type.c_str(), (*i).second.type.size());
+			sscanf( hex_str, "%x", &ch );
+
+			if (lamedb_version == 5)
+			{
+				lamedb_services << "s:" << hex;
+				lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
+				lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0,\"";
+				lamedb_services << dec << (*i).second.name << "\",p:" << (*i).second.provider;
+				if ((*i).second.flag > 0) lamedb_services << ",f:" << (*i).second.flag;
+				lamedb_services << endl;
+			}
+			else	// lamedb version 4
+			{
+				lamedb_services << hex;
+				lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
+				lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0" << endl;
+				lamedb_services << dec << (*i).second.name << endl << "p:" << (*i).second.provider;
+				if ((*i).second.flag > 0) lamedb_services << ",f:" << (*i).second.flag;
+				lamedb_services << endl;
+			}
+			delete[] hex_str;
+		}
+	}
 }
 
 bool bouquet_has_service(string file_name) {
@@ -975,6 +1034,7 @@ int main (int argc, char *argv[]) {
 					TEST[test_id].provider = SDT[sid].provider;
 					TEST[test_id].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
 					TEST[test_id].nspace   = "11a0000";
+					TEST[test_id].flag     = 0;
 				}
 			}
 			else // detect unassigned skyid as DATA
@@ -984,6 +1044,7 @@ int main (int argc, char *argv[]) {
 				DATA[(*ii).first].provider = SDT[sid].provider;
 				DATA[(*ii).first].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
 				DATA[(*ii).first].nspace   = "11a0000";
+				DATA[(*ii).first].flag     = 0;
 			}
 		}
 	}
@@ -1001,6 +1062,7 @@ int main (int argc, char *argv[]) {
 			BAT1[(*i).first].provider = SDT[sid].provider;
 			BAT1[(*i).first].name     = Latin1_to_UTF8(SDT[sid].name.c_str());
 			BAT1[(*i).first].nspace   = "11a0000";
+			BAT1[(*i).first].flag     = 0;
 			++i;
 		}
 		else
@@ -1115,45 +1177,10 @@ int main (int argc, char *argv[]) {
 	string bq_dat = "Extra Services";
 	string bq_nradio = "RADIO";
 
-	unsigned int ch;
-	char *hex_str = new char[256];
-
-	string datfile;
-	datfile = "/tmp/autobouquets.csv";
-	ofstream database_csv;
-	database_csv.open (datfile.c_str());
-	database_csv << "\"POSITION\",\"EPG_ID\",\"TYPE\",\"SID\",\"TSID\",\"ENCRYPTION\",\"NAME\",\"REF\"," << ABV << endl;
-
-	datfile = "/tmp/lamedb_services.txt";
-	ofstream lamedb_services;
-	lamedb_services.open (datfile.c_str());
-
 	for( map<string, channel_t>::iterator i = BAT1.begin(); i != BAT1.end(); ++i )
 	{
 		if ((fta == 1 && (*i).second.ca == "FTA") || fta != 1)
 		{
-			if (update)
-			{
-				hex_str[(*i).second.type.size()] = 0;
-				memcpy(hex_str, (*i).second.type.c_str(), (*i).second.type.size());
-				sscanf( hex_str, "%x", &ch );
-
-				if (lamedb_version == 5)
-				{
-					lamedb_services << "s:" << hex;
-					lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
-					lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0,\"";
-					lamedb_services << dec << (*i).second.name << "\",p:" << (*i).second.provider << endl;
-				}
-				else	// lamedb version 4
-				{
-					lamedb_services << hex;
-					lamedb_services << setw(4) << setfill('0') << (*i).second.sid << ":0" << (*i).second.nspace << ":";
-					lamedb_services << setw(4) << setfill('0') << (*i).second.tsid << ":0002:" << dec << ch << ":0" << endl;
-					lamedb_services << dec << (*i).second.name << endl << "p:" << (*i).second.provider << endl;
-				}
-			}
-
 			unsigned short skyid = atoi((*i).second.skyid.c_str());
 
 			if (skyid > 100 && skyid < 1000)
@@ -1176,12 +1203,7 @@ int main (int argc, char *argv[]) {
 		}
 	}
 
-	lamedb_services.close();
-
 	BAT1.clear();
-
-	if (!update)
-		remove(datfile.c_str());
 
 	char name_file[265];
 	memset(name_file, '\0', 265);
@@ -1361,6 +1383,8 @@ int main (int argc, char *argv[]) {
 				is_complete = (is_skyid && is_epgid && is_type && is_sid && is_tsid && is_nspace && is_provider && is_ca && is_name) ? true : false;
 				is_reassign = (is_skyid && is_epgid) ? true : false;
 
+				channel.flag = is_name ? dxHoldName : 0;
+
 				string found_assign = "65535";
 				bool data_reassign = false;
 				bool test_reassign = false;
@@ -1380,7 +1404,11 @@ int main (int argc, char *argv[]) {
 						if (is_nspace)		DATA[epg_id].nspace = channel.nspace;
 						if (is_provider)	DATA[epg_id].provider = channel.provider;
 						if (is_ca)		DATA[epg_id].ca = channel.ca;
-						if (is_name)		DATA[epg_id].name = channel.name;
+						if (is_name)
+						{
+							DATA[epg_id].name = channel.name;
+							DATA[epg_id].flag = channel.flag;
+						}
 						if (is_reassign && !data_reassign)
 						{
 							string ch_skyid = channel.skyid;
@@ -1425,7 +1453,11 @@ int main (int argc, char *argv[]) {
 							if (is_nspace)		(*i).second.nspace = channel.nspace;
 							if (is_provider)	(*i).second.provider = channel.provider;
 							if (is_ca)		(*i).second.ca = channel.ca;
-							if (is_name)		(*i).second.name = channel.name;
+							if (is_name)
+							{
+								(*i).second.name = channel.name;
+								(*i).second.flag = channel.flag;
+							}
 							if (is_reassign && !tv_reassign)
 							{
 								TV[(*i).first].skyid = channel.skyid;
@@ -1457,7 +1489,11 @@ int main (int argc, char *argv[]) {
 							if (is_nspace)		(*i).second.nspace = channel.nspace;
 							if (is_provider)	(*i).second.provider = channel.provider;
 							if (is_ca)		(*i).second.ca = channel.ca;
-							if (is_name)		(*i).second.name = channel.name;
+							if (is_name)
+							{
+								(*i).second.name = channel.name;
+								(*i).second.flag = channel.flag;
+							}
 							if (is_reassign && !test_reassign)
 							{
 								TEST[(*i).first].skyid = channel.skyid;
@@ -1667,6 +1703,16 @@ int main (int argc, char *argv[]) {
 
 	bq_u1.close(); bq_u2.close(); bq_u3.close(); bq_u4.close(); bq_u5.close();
 
+	string datfile;
+	datfile = "/tmp/autobouquets.csv";
+	ofstream database_csv;
+	database_csv.open (datfile.c_str());
+	database_csv << "\"POSITION\",\"EPG_ID\",\"TYPE\",\"SID\",\"TSID\",\"ENCRYPTION\",\"NAME\",\"REF\"," << ABV << endl;
+
+	datfile = "/tmp/lamedb_services.txt";
+	ofstream lamedb_services;
+	lamedb_services.open (datfile.c_str());
+
 	count = 100;
 	unsigned short hdcount = 0;
 	string skynum = "";
@@ -1735,6 +1781,9 @@ int main (int argc, char *argv[]) {
 		}
 
 		parentalguidance = (skyid >= BQ["17"].lower && skyid <= BQ["18"].upper) ? true : false; // Adult, Gaming and Dating - combined lower to uppper bouquets range
+
+		if (parentalguidance && parentalcontrol)
+			(*i).second.flag = dxDontshow;
 
 		if (custom_sort != 1)
 		{
@@ -1838,6 +1887,8 @@ int main (int argc, char *argv[]) {
 			}
 		}
 
+		write_lamedb(i, update, lamedb_version, lamedb_services);
+
 		database_csv << dec << skyid << "," << dec << (*i).second.skyid << ",0x" << hex << (*i).second.type << ",0x" << hex << (*i).second.sid;
 		database_csv << ",0x" << hex << (*i).second.tsid << ",\"" << (*i).second.ca << "\",\"" << (*i).second.name << "\"";
 		database_csv << ",1:0:" << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
@@ -1905,6 +1956,8 @@ int main (int argc, char *argv[]) {
 				}
 			}
 		}
+
+		write_lamedb(i, update, lamedb_version, lamedb_services);
 
 		database_csv << dec << (*i).first << "," << dec << (*i).second.skyid << ",0x" << hex << (*i).second.type << ",0x" << hex << (*i).second.sid;
 		database_csv << ",0x" << hex << (*i).second.tsid << ",\"" << (*i).second.ca << "\",\"" << (*i).second.name << "\"";
@@ -2011,6 +2064,16 @@ int main (int argc, char *argv[]) {
 				bq_hd << bq_d << dec << (*i).second.name << endl;
 			}
 		}
+		else if (skyid == 1151)
+		{	// write "IEPG data 1" to 'Other' bouquet even if extra option is not enabled
+			if (custom_sort != 1)
+			{
+				bq_00 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+				bq_00 << bq_d << dec << (*i).second.name << endl;
+			}
+			bq_99 << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+			bq_99 << bq_d << dec << (*i).second.name << endl;
+		}
 		else
 		{	// write remainder of unassigned services to 'Other' bouquet if extra option is enabled
 			if (extra)
@@ -2048,6 +2111,8 @@ int main (int argc, char *argv[]) {
 				}
 			}
 		}
+
+		write_lamedb(i, update, lamedb_version, lamedb_services);
 
 		database_csv << dec << (*i).second.skyid << "," << dec << (*i).first << ",0x" << hex << (*i).second.type << ",0x" << hex << (*i).second.sid;
 		database_csv << ",0x" << hex << (*i).second.tsid << ",\"" << (*i).second.ca << "\",\"" << (*i).second.name << "\"";
@@ -2099,6 +2164,8 @@ int main (int argc, char *argv[]) {
 			}
 		}
 
+		write_lamedb(i, update, lamedb_version, lamedb_services);
+
 		database_csv << dec << (*i).first << "," << dec << (*i).second.skyid << ",0x" << hex << (*i).second.type << ",0x" << hex << (*i).second.sid;
 		database_csv << ",0x" << hex << (*i).second.tsid << ",\"" << (*i).second.ca << "\",\"" << (*i).second.name << "\"";
 		database_csv << ",1:0:" << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
@@ -2106,6 +2173,10 @@ int main (int argc, char *argv[]) {
 
 	bq_radio.close();
 	database_csv.close();
+	lamedb_services.close();
+
+	if (!update)
+		remove(datfile.c_str());
 
 	RADIO.clear();
 
