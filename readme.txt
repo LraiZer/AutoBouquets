@@ -1,5 +1,5 @@
 ------------------------------------------------
-AutoBouquets E2 for satellite 28.2E 
+AutoBouquets E2 for satellite 28.2E
 Created by LraiZer - www.ukcvs.net
 ------------------------------------------------
 
@@ -37,7 +37,9 @@ bouquets are read and generated direct from the stream.
 
 Thanks: general helping with feedback and testing...
 PaphosAL, ViX Team members, Abu Baniaz, Lincsat, anyone not mentioned.
- 
+
 www.ukcvs.net thanks you for using AutoBouquets E2
-and thanks to PaphosAL for plugin icon.   HAVE FUN!
+and thanks to PaphosAL for plugin icon.
+
+HAVE FUN!
 
