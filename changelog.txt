@@ -29,7 +29,7 @@ option to add official channel numbering with names.
 option to use channel placeholder on none PLi images.
 option to be able to create the default bouquet set.
 option to be able to create free to air only bouquets.
-option to create customized channel ordered bouquets, 
+option to create customized channel ordered bouquets,
 use example custom.txt in plugin folder to customize.
 
 AndyBlac:- OE-Alliance: https://github.com/oe-alliance/
@@ -67,7 +67,7 @@ custom.txt channel swap file has be slightly simplified.
 now just enter channels to swap with each other. 105=171
 
 01-03-2013
-fixed missing channels bug. added bouquet style options. 
+fixed missing channels bug. added bouquet style options.
 added supplement.txt file for manual service additions.
 
 15-08-2013
@@ -78,17 +78,17 @@ dvbsnoop is no longer required, all data is now being read
 from the stream by the new faster autobouquetsreader file.
 bouquets generation is now very fast at about 50 seconds.
 
-new custom_swap.txt file has even more power. you can 
+new custom_swap.txt file has even more power. you can
 now swap with channel numbers outside of range 101-999.
 this means you can also swap with testing/blank channels.
 
 supplement.txt file also has more power, you can also now
 change single data items only such as channel name or just
 change the encryption type. you can still add new channels.
- 
+
 used oe-alliance dvbscanner library as the starting point
 reference for coding the new autobouquets stream reader.
-Sources:   dvbscanner library, part of AutoBouquetsMaker  
+Sources:   dvbscanner library, part of AutoBouquetsMaker
 AndyBlac - https://github.com/oe-alliance/
 skaman - oe-alliance-plugins/tree/master/AutoBouquetsMaker
 
@@ -156,7 +156,7 @@ removed Film4 HD
 Added code to deal with unlinked bouquets. Thanks Lraizer
 Changed default service details
 Renamed Scan FTA Only and options
-Added ITV Encore HD to suppplement file 
+Added ITV Encore HD to suppplement file
 
 27-04-2015
 Some GUI rework
@@ -177,7 +177,7 @@ Post Installation file changes reverted. Some images renaming wrong file, some n
 SH4 reader will be included in folder. Please rename if you are using SH4 architecture
 
 2015-06-24
-Supplement and swap file changes owing to official reshuflle and some HD channels being viewable.  
+Supplement and swap file changes owing to official reshuflle and some HD channels being viewable.
 Default service changed again.
 Swap defaulted to off. Can then import PaphosAl's sort files without worrying about clashes.
 We have HD first as default anyway. Also avoids issues of swapping to chanenls that have moved owing to LCN changes
@@ -195,14 +195,14 @@ If you have a receiver woth a SH4 CPU eg Amiko, you still have to rename the fil
 
 2015-09-20
 Reader file updated to place Red Button Sports channels in a combined bouquet.
-Three reader files in plugin for the following CPU types: Mips, SH4 and ARM 
+Three reader files in plugin for the following CPU types: Mips, SH4 and ARM
 User can now configue and select the architecture type of receiver.
 Fixed a long standing issue where starting with non-28.2 bouquets caused an issue.
 GUI rework.
 
 2015-09-21
 Fixed mode = TV after initial run.
-Area space in GUI increased 
+Area space in GUI increased
 
 2015-10-07
 Correct SH4 reader now being used.
@@ -237,14 +237,14 @@ Five extra user bouquets added. The sample sort 3 file has made use of these.
 Sort 3 file has always been for the user to adapt to their liking.
 
 For channels that do not have a proper LCN, they are assigned 65535, you must use the "virtual number".
-The virtual number is 65535+EPG ID. So, if you wanted to add BT Sport Mosaic ( EPG ID =5030) into a bouquet, 
+The virtual number is 65535+EPG ID. So, if you wanted to add BT Sport Mosaic ( EPG ID =5030) into a bouquet,
 the virtual number to use in the sort file would be 70565 (65535+5030). Entry in sort file would be u1=70565
 
 You can now rename the bouquets when using the sort files. The section markers in the large frst bouquet will not be affected.
 To do so, you must prefix the bouquet nyumber wih a "$". E.G "$02= Localised channels"
 
 You can also rename Bouquets in the supplement file. This is independent of the sort feature
-E.g $01=Entertainment and Lifestyle 
+E.g $01=Entertainment and Lifestyle
 
 2015-12-18
 Corrected ipk package contents
@@ -389,3 +389,6 @@ Remove deprecated register in C++17 for GCC 11
 use dxHoldName flag with name changed services found in supplement.txt
 use dxDontshow flag with services in Adult/Gaming and Dating bouquets
 add IEPG data 1 service to all service lists and Other bouquet as default
+
+2023-02-23
+Updated swaps since all BBC regions should now be in HD
