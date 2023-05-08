@@ -76,6 +76,9 @@
 :1170:::::::STV East HD
 :4055:::::::STV West HD
 
+#Other renames
+:1313:::::::WildEarth HD
+
 #Correct encryption flag
 #TRT World HD
 :5237::::::FTA:
