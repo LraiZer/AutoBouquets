@@ -35,46 +35,46 @@
 #                                                 #
 ###################################################
 
-#ITV regional renames
-:1020:::::::ITV Border Scotland
-:6000:::::::ITV London
-:6130:::::::ITV Granada
-:6142:::::::ITV Meridian East
-:6200:::::::ITV Channel Isles
-:6300:::::::ITV Central
+#ITV1 regional renames
+:1020:::::::ITV1 Border Scotland
+:6000:::::::ITV1 London
+:6130:::::::ITV1 Granada
+:6142:::::::ITV1 Meridian East
+:6200:::::::ITV1 Channel Isles
+:6300:::::::ITV1 Central West
 
 :6210:::::::STV North
-:6220:::::::STV Scotland West
+:6220:::::::STV West
 :6325:::::::STV Tayside
-:6371:::::::STV Scotland East
+:6371:::::::STV East
 
-#ITV +1 regional renames
-:6145:::::::ITV +1 Central
-:6155:::::::ITV +1 London
-:6355:::::::ITV +1 Granada
-:6365:::::::ITV +1 Meridian
+#ITV1 +1 regional renames
+:6145:::::::ITV1+1 Central West
+:6155:::::::ITV1+1 London
+:6355:::::::ITV1+1 Granada
+:6365:::::::ITV1+1 Meridian East
 
-#ITV HD renames
-:1043:::::::ITV Tyne Tees HD
-:1044:::::::ITV Yorkshire West HD
-:1045:::::::ITV Anglia East HD
-:1061:::::::ITV Border England HD
-:1062:::::::ITV Westcountry SW HD
-:1063:::::::ITV Westcountry West HD
-:1208:::::::ITV Meridian Thames Valley HD
-:1209:::::::ITV Meridian South Coast HD
-:1214:::::::ITV Yorkshire East HD
-:1217:::::::ITV Anglia West HD
-:1219:::::::ITV Central East HD
-:6502:::::::ITV Meridian East HD
-:6503:::::::ITV Central West HD
-:6504:::::::ITV London HD
-:6505:::::::ITV Granada HD
+#ITV1 HD renames
+:1043:::::::ITV1 Tyne Tees HD
+:1044:::::::ITV1 Yorkshire West HD
+:1045:::::::ITV1 Anglia East HD
+:1061:::::::ITV1 Border England HD
+:1062:::::::ITV1 West Country SW HD
+:1063:::::::ITV1 West Country West HD
+:1208:::::::ITV1 Meridian Thames Valley HD
+:1209:::::::ITV1 Meridian South Coast HD
+:1214:::::::ITV1 Yorkshire East HD
+:1217:::::::ITV1 Anglia West HD
+:1219:::::::ITV1 Central East HD
+:6502:::::::ITV1 Meridian East HD
+:6503:::::::ITV1 Central West HD
+:6504:::::::ITV1 London HD
+:6505:::::::ITV1 Granada HD
 
 :1167:::::::STV Dundee HD
 :1168:::::::STV North HD
-:1170:::::::STV Scotland East HD
-:4055:::::::STV Scotland West HD
+:1170:::::::STV East HD
+:4055:::::::STV West HD
 
 #Correct encryption flag
 #TRT World HD
