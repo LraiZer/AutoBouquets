@@ -854,10 +854,10 @@ int main (int argc, char *argv[]) {
 	unsigned short any2 = 4099; // Sky Anytime - upper - test bouquet = 549
 	unsigned short ssa1 = 1471; // Sky Sports Active - lower - test bouquet = 550
 	unsigned short ssa2 = 1480; // Sky Sports Active - upper - test bouquet = 559
-	unsigned short btx1 = 5030; // BT Sports Active - lower - 1st range
-	unsigned short btx2 = 5032; // BT Sports Active - upper - 1st range
-	unsigned short btx3 = 5381; // BT Sports Active - lower - 2nd range
-	unsigned short btx4 = 5387; // BT Sports Active - upper - 2nd range
+	unsigned short tnt1 = 5030; // TNT Sports Active - lower - 1st range
+	unsigned short tnt2 = 5032; // TNT Sports Active - upper - 1st range
+	unsigned short tnt3 = 5381; // TNT Sports Active - lower - 2nd range
+	unsigned short tnt4 = 5387; // TNT Sports Active - upper - 2nd range
 
 	BQ["01"].lower = 101; BQ["01"].upper = 200; BQ["01"].name = "Entertainment and Documentaries";
 	BQ["02"].lower = 000; BQ["02"].upper = 000; BQ["02"].name = "Documentaries"; // legacy reserved
@@ -1164,7 +1164,7 @@ int main (int argc, char *argv[]) {
 	string bq_n00 = "28.2E UK Bouquets";
 	string bq_nany = "Sky Anytime";
 	string bq_nssa = "Sky Sports Active";
-	string bq_nbts = "BT Sports Active";
+	string bq_ntnt = "TNT Sports Active";
 	string bq_nfta = "Free To Air";
 	string bq_nhd = "High Definition";
 	string bq_nu1 = "User Bouquet 1";
@@ -1284,7 +1284,7 @@ int main (int argc, char *argv[]) {
 
 	ofstream bq_any ("/tmp/userbouquet.ukcvs_any.tv"); bq_any << bq_N << bq_s1 << bq_nany << endl << bq_S << endl << bq_D << bq_n1 << bq_nany << bq_n2 << endl;
 	ofstream bq_ssa ("/tmp/userbouquet.ukcvs_ssa.tv"); bq_ssa << bq_N << bq_s1 << bq_nssa << endl << bq_S << endl << bq_D << bq_n1 << bq_nssa << bq_n2 << endl;
-	ofstream bq_bts ("/tmp/userbouquet.ukcvs_bts.tv"); bq_bts << bq_N << bq_s1 << bq_nbts << endl << bq_S << endl << bq_D << bq_n1 << bq_nbts << bq_n2 << endl;
+	ofstream bq_tnt ("/tmp/userbouquet.ukcvs_tnt.tv"); bq_tnt << bq_N << bq_s1 << bq_ntnt << endl << bq_S << endl << bq_D << bq_n1 << bq_ntnt << bq_n2 << endl;
 	ofstream bq_fta ("/tmp/userbouquet.ukcvs_fta.tv"); bq_fta << bq_N << bq_s1 << bq_nfta << endl << bq_S << endl << bq_D << bq_n1 << bq_nfta << bq_n2 << endl;
 	ofstream bq_hd ("/tmp/userbouquet.ukcvs_hd.tv"); bq_hd << bq_N << bq_s1 << bq_nhd << endl << bq_S << endl << bq_D << bq_n1 << bq_nhd << bq_n2 << endl;
 
@@ -2034,12 +2034,12 @@ int main (int argc, char *argv[]) {
 				bq_hd << bq_d << dec << (*i).second.name << endl;
 			}
 		}
-		else if (( skyid >= btx1 && skyid <= btx2 ) || ( skyid >= btx3 && skyid <= btx4 ))
+		else if (( skyid >= tnt1 && skyid <= tnt2 ) || ( skyid >= tnt3 && skyid <= tnt4 ))
 		{
-			if (skyid == btx1) {
-				bq_fta << bq_S << endl << bq_d << bq_n1 << bq_nbts << bq_n2 << endl;
-				bq_hd << bq_S << endl << bq_d << bq_n1 << bq_nbts << bq_n2 << endl;
-				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_nbts << bq_n2 << endl;
+			if (skyid == tnt1) {
+				bq_fta << bq_S << endl << bq_d << bq_n1 << bq_ntnt << bq_n2 << endl;
+				bq_hd << bq_S << endl << bq_d << bq_n1 << bq_ntnt << bq_n2 << endl;
+				if (custom_sort != 1) bq_00 << bq_S << endl << bq_d << bq_n1 << bq_ntnt << bq_n2 << endl;
 			}
 
 			if (custom_sort != 1)
@@ -2048,8 +2048,8 @@ int main (int argc, char *argv[]) {
 				bq_00 << bq_d << dec << (*i).second.name << endl;
 			}
 
-			bq_bts << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
-			bq_bts << bq_d << dec << (*i).second.name << endl;
+			bq_tnt << bq_s << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
+			bq_tnt << bq_d << dec << (*i).second.name << endl;
 
 			if ( (*i).second.ca == "FTA" )
 			{
@@ -2119,7 +2119,7 @@ int main (int argc, char *argv[]) {
 		database_csv << ",1:0:" << hex << (*i).second.type << ":" << (*i).second.sid << ":" << (*i).second.tsid << bq_O << (*i).second.nspace << bq_F << endl;
 	}
 
-	bq_00.close(); bq_99.close(); bq_any.close(); bq_ssa.close(); bq_bts.close(); bq_fta.close(); bq_hd.close();
+	bq_00.close(); bq_99.close(); bq_any.close(); bq_ssa.close(); bq_tnt.close(); bq_fta.close(); bq_hd.close();
 
 	ofstream bq_radio;
 	bq_radio.open ("/tmp/userbouquet.ukcvs00.radio");
@@ -2213,7 +2213,7 @@ int main (int argc, char *argv[]) {
 
 	if (bouquet_has_service("_any")) bouquets_tv << bouquets_ntv1 << "_any" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("_ssa")) bouquets_tv << bouquets_ntv1 << "_ssa" << bouquets_ntv2 << endl;
-	if (bouquet_has_service("_bts")) bouquets_tv << bouquets_ntv1 << "_bts" << bouquets_ntv2 << endl;
+	if (bouquet_has_service("_tnt")) bouquets_tv << bouquets_ntv1 << "_tnt" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("_fta")) bouquets_tv << bouquets_ntv1 << "_fta" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("_hd")) bouquets_tv << bouquets_ntv1 << "_hd" << bouquets_ntv2 << endl;
 	if (bouquet_has_service("-user1")) bouquets_tv << bouquets_ntv1 << "-user1" << bouquets_ntv2 << endl;

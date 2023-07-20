@@ -78,6 +78,8 @@
 
 #Other renames
 :1313:::::::WildEarth HD
+:5030:::::::TNT Sport Mosaic
+:5381:::::::TNT Sport Mosaic 2
 
 #Correct encryption flag
 #TRT World HD
