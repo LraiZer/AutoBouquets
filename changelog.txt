@@ -395,3 +395,6 @@ Updated swaps since all BBC regions should now be in HD
 
 2023-05-10
 BBC Red button bouquet boundary changes
+
+2023-07-20
+BT Sports rebrand
