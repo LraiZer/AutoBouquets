@@ -66,6 +66,8 @@
 :1214:::::::ITV1 Yorkshire East HD
 :1217:::::::ITV1 Anglia West HD
 :1219:::::::ITV1 Central East HD
+:3062:::::::ITV1 Channel Isles HD
+:3063:::::::ITV1 Border Scotland HD
 :6502:::::::ITV1 Meridian East HD
 :6503:::::::ITV1 Central West HD
 :6504:::::::ITV1 London HD
@@ -74,7 +76,6 @@
 :1167:::::::STV Dundee HD
 :1168:::::::STV North HD
 :1170:::::::STV East HD
-:4055:::::::STV West HD
 
 #Other renames
 :1313:::::::WildEarth HD
