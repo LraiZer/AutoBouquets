@@ -401,3 +401,9 @@ BT Sports rebrand
 
 2023-12-11
 Supplement changes. Two new ITV HD channels
+
+2024-01-27
+Remove some closed ITV SD renames
+
+2024-04-08
+Remove some BBC SD swaps

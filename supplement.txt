@@ -36,16 +36,12 @@
 ###################################################
 
 #ITV1 regional renames
-:1020:::::::ITV1 Border Scotland
 :6000:::::::ITV1 London
 :6130:::::::ITV1 Granada
 :6142:::::::ITV1 Meridian East
-:6200:::::::ITV1 Channel Isles
 :6300:::::::ITV1 Central West
 
 :6210:::::::STV North
-:6220:::::::STV West
-:6325:::::::STV Tayside
 :6371:::::::STV East
 
 #ITV1 +1 regional renames
