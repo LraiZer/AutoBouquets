@@ -1024,6 +1024,7 @@ class AutoBouquetsDownloader(Screen):
 		self.timer.callback.append(self.close(None))
 		self.timer.start(5000, 1)
 
+
 class AutoBouquetsIptvEPG(Screen):
 	skin = """
 		<screen position="40,30" size="260,70" title="AutoBouquets IptvEPG Converter" flags="wfNoBorder" >
@@ -1064,6 +1065,7 @@ class AutoBouquetsIptvEPG(Screen):
 		self.timer.callback.append(self.close(None))
 		self.timer.start(5000, 1)
 
+
 def main(session, **kwargs):
 	session.open(AutoBouquets)
 
@@ -1095,7 +1097,7 @@ def Plugins(**kwargs):
 	plist.append(PluginDescriptor(name=_("AutoBouquets 28.2E Downloader"), description=_("28.2e stream bouquet downloader"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=maindownloader))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=AutoBouquetsautostart))
 	plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=mainscan))
-	if config.autobouquets.iptvepg.getValue() == True:
+	if config.autobouquets.iptvepg.getValue() is True:
 		plist.append(PluginDescriptor(name=_("AutoBouquets IptvEPG Converter"), description=_("Iptv to 28.2e stream EPG converter"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=iptvepgconverter, needsRestart=True))
 		plist.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=iptvepg, needsRestart=True))
 	return plist
