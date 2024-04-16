@@ -10,7 +10,7 @@ DVB_DEMUX="0"     #
 NEW_LAMEDB="4"    #
 ###################
 
-versiondate="15 Apr 2024"
+versiondate="16 Apr 2024"
 echo "Script Version: $versiondate"
 start_time=`date +%s`
 date; echo
@@ -187,12 +187,12 @@ make_lamedb(){
 echo 'eDVB services /4/
 transponders
 011a0000:07d4:0002
-	s 11778000:27500000:1:0:282:2:0
+	s 11778000:27500000:1:2:282:2:0
 /
 end
 services
-1038:011a0000:07d4:0002:2:0
-EPG Background Audio.
+105d:011a0000:07d4:0002:1:0
+IEPG data 1
 p:BSkyB
 end
 Created by AutoBouquets E2' >$ldb
@@ -202,12 +202,12 @@ edit_lamedb(){
 sed -i '/^transponders/c\
 transponders\
 011a0000:07d4:0002\
-	s 11778000:27500000:1:0:282:2:0\
+	s 11778000:27500000:1:2:282:2:0\
 \/
 /^services/c\
 services\
-1038:011a0000:07d4:0002:2:0\
-EPG Background Audio.\
+105d:011a0000:07d4:0002:1:0\
+IEPG data 1\
 p:BSkyB' $ldb
 }
 
@@ -220,7 +220,7 @@ echo 'eDVB services /5/
 #     DVBC  FEPARMS:   c:frequency:symbol_rate:inversion:modulation:fec_inner:flags:system
 # Services    : s:service_id:dvb_namespace:transport_stream_id:original_network_id:service_type:0,"service_name"[,p:provider_name][,c:cached_pid]*[,C:cached_capid]*[,f:flags]
 t:011a0000:07d4:0002,s:11778000:27500000:1:2:282:2:0
-s:1038:011a0000:07d4:0002:2:0,"EPG Background Audio.",p:BSkyB
+s:105d:011a0000:07d4:0002:1:0,"IEPG data 1",p:BSkyB
 # done. 1 channels and 1 services' >$ldb
 }
 
@@ -228,15 +228,18 @@ edit_lamedb_five(){
 ret_done=`grep '^# done.' $ldb`
 sed -i '/^# done./c\
 t:011a0000:07d4:0002,s:11778000:27500000:1:2:282:2:0\
-s:1038:011a0000:07d4:0002:2:0,"EPG Background Audio.",p:BSkyB\
+s:105d:011a0000:07d4:0002:1:0,"IEPG data 1",p:BSkyB\
 '"$ret_done" $ldb
 }
 
 valid_chk(){
 	valid="false"
 	cch=`fwget "subservices"|grep 'servicereference'|sed 's/.*>\(.*\)<.*$/\1/'`
-	echo "$cch"|grep -q ':11A0000:'
-	[ "$?" = "0" ] && valid="true"
+	echo "$cch"|grep -q 'http'
+	if [ "$?" != "0" ]; then
+		echo "$cch"|grep -q ':11A0000:'
+		[ "$?" == "0" ] && valid="true"
+	fi
 }
 
 def_zap(){
@@ -265,8 +268,8 @@ if [ "$CHECK_SCRIPT" = "1" ]; then
 		sleep 10
 	fi
 
-	#set the default fallback service to "EPG Background Audio."
-	defaultservice="1:0:2:1038:7D4:2:11A0000:0:0:0:"
+	#set the default fallback service to "IEPG data 1"
+	defaultservice="1:0:1:105d:7D4:2:11A0000:0:0:0:"
 	dfzap="false"
 
 	#check if system has a populated lamedb - if not, create one
