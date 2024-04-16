@@ -29,9 +29,9 @@ from Components.NimManager import nimmanager
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
-ab_version = "15 Apr 2024"
+ab_version = "16 Apr 2024"
 defaultservice = "1:0:1:C482:811:2:11A0000:0:0:0:"  # "NOW 80s ;p"
-initscanservice = "1:0:2:1038:7D4:2:11A0000:0:0:0:"  # "EPG Background Audio."
+initscanservice = "1:0:1:105D:7D4:2:11A0000:0:0:0:"  # "IEPG data 1"
 
 arealist = []
 arealist.append(("4097#19#4101", "Atherstone"))
@@ -642,7 +642,7 @@ class AutoBouquets(Screen):
 	def go(self):
 		self.postScanService = self.session.nav.getCurrentlyPlayingServiceReference()
 		try:
-			if self.postScanService.toString().find(':11A0000:') == -1:
+			if self.postScanService.toString().find(':11A0000:') == -1 or self.postScanService.toString().find('http') != -1:
 				ref = eServiceReference(initscanservice)
 				self.session.nav.playService(ref)
 				self.timer = eTimer()
@@ -961,7 +961,7 @@ class AutoBouquetsDownloader(Screen):
 	def goBackgroundScan(self):
 		self.postScanService = self.session.nav.getCurrentlyPlayingServiceReference()
 		try:
-			if self.postScanService.toString().find(':11A0000:') == -1:
+			if self.postScanService.toString().find(':11A0000:') == -1 or self.postScanService.toString().find('http') != -1:
 				ref = eServiceReference(initscanservice)
 				self.session.nav.playService(ref)
 				self.timer = eTimer()
