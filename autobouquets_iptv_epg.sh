@@ -14,6 +14,7 @@ CHANNEL_ID_ALIAS="
 1121=FRANCE24HD,FranceEng
 1136=SkyDocmntrsHD,SkyDocumentariesHD
 1199=SkyAnimationHD
+1224=ThatsDance,ChartShowRetro
 1289=Viaplay1HD,ViaplaySports1
 1290=Viaplay2HD,ViaplaySports2,ViaplayExtra
 1336=TNTUltimateUHD,TNTSportsUltimateUHD
