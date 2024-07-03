@@ -12,6 +12,7 @@ VERSIONDATE="16 Apr 2024"
 
 CHANNEL_ID_ALIAS="
 1121=FRANCE24HD,FranceEng
+1134=ThatsMemories,Thats60s
 1136=SkyDocmntrsHD,SkyDocumentariesHD
 1199=SkyAnimationHD
 1224=ThatsDance,ChartShowRetro
