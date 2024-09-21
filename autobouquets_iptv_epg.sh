@@ -50,7 +50,8 @@ CHANNEL_ID_ALIAS="
 5601=CartoonNetwrk,CartoonNetwork
 6504=ITV1LondonHD,ITV1HD
 7211=SkySpMEUHD,SkySpMainEvUHD
-7221=SkySpUltraHD01,SkySpUltraHD02
+7221=SkySpUltraHD01
+9002=SkySpUltraHD02
 "
 
 start_time=`date +%s`
