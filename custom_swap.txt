@@ -9,7 +9,6 @@
 
 #swap local SD with HD
 103=803
-104=804
 105=805
 
 #ITVs 2-4
