@@ -40,6 +40,7 @@ CHANNEL_ID_ALIAS="
 3617=TRUECRIMEX,TrueCrimeXtra
 3636=RacingTV,RacingUK
 3751=Gromance+1,GreatRomance+1
+3835=SkySpF1HD
 4014=SkyActionHD
 4015=SkyGreatsHD
 4016=SkyDramaHD,SkyDramaRomHD
