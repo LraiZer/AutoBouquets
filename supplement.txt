@@ -35,12 +35,7 @@
 #                                                 #
 ###################################################
 
-#ITV1 regional renames
-:6000:::::::ITV1 London
-:6130:::::::ITV1 Granada
-:6142:::::::ITV1 Meridian East
-:6300:::::::ITV1 Central West
-
+#STV regional renames
 :6210:::::::STV North
 :6371:::::::STV East
 
@@ -72,9 +67,9 @@
 :1167:::::::STV Dundee HD
 :1168:::::::STV North HD
 :1170:::::::STV East HD
+:4055:::::::STV West HD
 
 #Other renames
-:1313:::::::WildEarth HD
 :5030:::::::TNT Sport Mosaic
 :5381:::::::TNT Sport Mosaic 2
 
