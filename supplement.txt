@@ -72,6 +72,7 @@
 :1167:::::::STV Dundee HD
 :1168:::::::STV North HD
 :1170:::::::STV East HD
+:4055:::::::STV West HD
 
 #Other renames
 :1313:::::::WildEarth HD
