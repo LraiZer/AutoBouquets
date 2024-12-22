@@ -417,3 +417,6 @@ with required info taken from autobouquets.csv database reference file
 
 2024-04-16
 update default service validation check for iptv
+
+2024-12-22
+Supplement rename updates. Mainly STV/ITV.
