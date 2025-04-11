@@ -423,3 +423,4 @@ Supplement rename updates. Mainly STV/ITV.
 
 2025-04-11
 DMAX +1 encryption flag
+Delete ITV 2-4 swap since they ceased broadcasting
