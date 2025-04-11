@@ -420,3 +420,6 @@ update default service validation check for iptv
 
 2024-12-22
 Supplement rename updates. Mainly STV/ITV.
+
+2025-04-11
+DMAX +1 encryption flag

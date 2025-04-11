@@ -76,6 +76,8 @@
 #Correct encryption flag
 #TRT World HD
 :5237::::::FTA:
+#DMAX +1
+:1865::::::FTA:
 
 #Move services to the "Other" bouquet
 #398 - S1Test
