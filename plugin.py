@@ -29,7 +29,7 @@ from Components.NimManager import nimmanager
 from enigma import eComponentScan
 from Screens.ScanSetup import getInitialTransponderList
 
-ab_version = "22 Dec 2024"
+ab_version = "11 Apr 2025"
 defaultservice = "1:0:1:C482:811:2:11A0000:0:0:0:"  # "NOW 80s ;p"
 initscanservice = "1:0:1:105D:7D4:2:11A0000:0:0:0:"  # "IEPG data 1"
 
